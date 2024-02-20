@@ -1,0 +1,30 @@
+{% extends "home/oillayout.html" %}
+
+{% block content %}
+
+<!-- BOOTSTRAP FORM -->
+
+<div class="container d-flex justify-content-center mt-5" style="width: 30%;">
+    <div class="col mt-0">
+        <form action="" method="post">
+            {% csrf_token %}
+            {% if opwellobjective %}
+                <h5 class="text-center text-success">Update Well Objective </h5>   
+            {% else %}      
+                <h5 class="text-center text-success">Create Well Objective </h5>   
+            {% endif %}   
+            <table class="table" style="width=50%">
+                {{form.as_table}}
+            </table>           
+            <div class="container d-flex justify-content-center" style="width: 50%;">
+                <input type="submit" class="btn btn-primary btn-sm" value="Submit" style="margin-right: 30px; margin-top: 30px;">
+                <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'opwellobjectives:list_opwellobjective' %}'; return false;" value="Cancel">
+            </div>           
+        </form> 
+
+    </div>
+</div>
+
+<!-- END BOOTSTRAP FORM -->
+
+{% endblock %}

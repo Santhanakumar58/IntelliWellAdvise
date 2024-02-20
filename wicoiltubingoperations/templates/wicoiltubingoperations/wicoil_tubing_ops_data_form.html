@@ -1,0 +1,40 @@
+{% extends "Home/waterinjectorlayout.html" %}
+
+{% block content %}
+
+<!-- BOOTSTRAP FORM -->
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+    <strong>Message:</strong> {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" > 
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endfor %}
+
+{% url 'wicoiltubingoperations:list_wicoil_tubing_ops_data' as list_all %}
+<div class="container d-flex justify-content-center mt-5" style="width: 70%;">
+    <div class="col mt-0">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if coil_tubing_data %}
+                <h5 class="text-success">Update Coil Tubing Intervention Operation </h5> 
+            {% else %}  
+                <h5 class="text-success">Create Coil Tubing Intervention Operation</h5>    
+            {% endif %}      
+            <table class="table">
+                {{form.as_table}}
+            </table>           
+            <div class="container d-flex justify-content-center" style="width: 10%;">
+                <input type="submit" class="btn btn-primary btn-sm" value="Save" style="margin-right: 30px; margin-top: 30px;">
+                <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'wicoiltubingoperations:list_wicoil_tubing_ops_data' ctid %}'; return false;" value="Cancel">
+            </div> 
+          
+        </form> 
+
+    </div>
+</div>
+
+<!-- END BOOTSTRAP FORM -->
+
+{% endblock %}

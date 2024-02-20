@@ -1,0 +1,22 @@
+{% extends "home/waterinjectorlayout.html" %}
+{% block content %}
+
+{% url 'wileakoffTests:list_wileakoffTest' as list_all %}
+
+<div class="container d-flex justify-content-center" style="width: 50%;">
+    <div class="col text-center">
+        <h5 class="text-center">Delete Gas Producer Leakoff Test </h5>
+        <p class="text-danger">Are you sure you want to delete the Gas Producer Leakoff Test :</p>
+        <h5 class="text-center">{{ wileakoffTest.casingSize }}</h5>
+        <form action="" method="POST">
+            {% csrf_token %}                 
+            {% comment %} <input type="submit" value="Confirm">           
+            <input type="submit" value="Cancel" onclick="window.location='{% url 'wileakoffTests:list_wileakoffTest' wileakoffTest.casingSize_id %}'; return false;">{% endcomment %}
+            <input type="submit" class="btn btn-primary btn-sm" value="Confirm" style="margin-right: 30px; margin-top: 30px;">
+            <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'wileakoffTests:list_wileakoffTest' wileakoffTest.casingSize_id %}'; return false;" value="Cancel">
+            
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends "home/oillayout.html" %}
+
+{% block content %}
+{% for pumpData in pumpdatas %}
+    {% for colname in pumpData.column_set.all  %}
+        <p>{{colname}}</p>
+    {% endfor %}
+{% endfor %}>
+<div class="container d-flex" style="width: 100%;">
+    <hr>
+    <div class="col">
+        <hr>
+        <h5 class="text-center text-success"> Cement Plug Pumping Data</h5>
+        <hr>
+        <table class="table table-striped" style="font-size:0.8em;"  class="text-center" >
+            <thead style="background-color:lightgrey;">
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %}
+                    <th class="text-center" scope="col">Cement Plug</th> 
+                    <th class="text-center" scope="col">Time</th> 
+                    <th class="text-center" scope="col">Fluid </sup></th>   
+                    <th class="text-center" scope="col">Fluid Density</th> 
+                    <th class="text-center" scope="col">Pump Rate</th>                    
+                    <th class="text-center" scope="col">Pump Pressure</th> 
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for pumpData in pumpdatas %}
+                <tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}                    
+                    <td class="text-center">{{pumpData.cementplug.pk}}</td>
+                    <td class="text-center">{{pumpData.pump_Time}}</td>
+                    <td class="text-center">{{pumpData.pump_Fluid}}</td>
+                    <td class="text-center">{{pumpData.pump_Fluid_Density}}</td>
+                    <td class="text-center">{{pumpData.pump_Rate}}</td>
+                    <td class="text-center">{{pumpData.pump_Pressure}}</td>
+                    <td><a href="{% url 'cementplugs:update_cement_pumpData' pumpData.id %} ">Edit</a></td>
+                    <td><a href="{% url 'cementplugs:delete_cement_pumpData' pumpData.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}        
+            </tbody>
+        </table>   
+        <br>
+        <br> 
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'cementplugs:create_cement_pumpData' plugid %}" class="d-block btn btn-primary my-5">Add New</a>
+        </div>
+    </div>        
+</div>
+{% endblock content %}

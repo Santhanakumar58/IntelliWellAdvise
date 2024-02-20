@@ -1,0 +1,40 @@
+{% extends "home/fieldwidelayout.html" %}
+
+{% block content %}
+
+<div class="container" style="width: 70%;">
+    <div class="col">
+        <h3 class="text-center">FGI Details</h3>
+        <div class="d-flex justify-content-center">
+            <table class="table table-striped mt-5" style="width: 100%">
+                <thead>
+                    <tr>
+                        <th scope="asset">Assets Name</th>
+                        <th scope="block">Block Name</th>
+                        <th scope="oilfield">Field Name</th>
+                        <th scope="layer">Layer Name</th>
+                        <th scope="sublayer">Sublayer Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                
+                    {% for label, pk in assets.get_fields  %}
+                        <tr>
+                            <td>{{label | upper}}</td>
+                            <td>{{pk.assetname}}</td>
+                        </tr>
+                    {% endfor %}
+                        
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <br>
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'fgis:all' %}" class="d-block btn btn-primary btn-lg my-5">BACK</a>
+        </div>
+    </div>
+        
+</div>
+
+{% endblock  %}

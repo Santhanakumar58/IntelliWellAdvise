@@ -1,0 +1,47 @@
+<html lang="en">
+{% extends "Home/observerlayout.html" %}
+
+{% block content %}
+<form action="" enctype="multipart/form-data" method="POST">
+    <div class="container mt-1">   
+        <div class="row"> 
+            <h5 class="text-center text-success">Slickline Operations </h5>
+        </div>  
+        <table class="table table-bordered">
+            <thead>
+                <tr class='text-center'> 
+                    <th>Unit Name</th>                      
+                    <th>Date</th>   
+                    <th>Start Time</th> 
+                    <th>End Time</th> 
+                    <th>Op. Code</th> 
+                    <th>Job Summary</th>                                     <                  
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for data in obslickline_ops_datas %}
+                <tr class=text-center>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %} 
+                    <td>{{data.obunitname}}</td>
+                    <td>{{data.obop_Date}}</td>
+                    <td>{{data.obtime_from}}</td>   
+                    <td>{{data.obtime_to}}</td>    
+                    <td>{{data.obop_code}}</td>               
+                    <td>{{data.obop_details}}</td>   
+                    context=(ctid, data.id)                                                                   
+                    <td><a href="{% url 'obslicklineperations:update_obslickline_ops_data' data.id %}" >Edit</a></td>
+                    <td><a href="{% url 'obslicklineperations:delete_obslickline_ops_data' data.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+        </table> 
+        <div class="d-flex text-center">
+            <a href="{% url 'obslickline:list_obslickline_data' %}" class="d-block btn btn-primary btn-sm my-2" style="margin-right: 30px;">Coil Tubing</a>
+            <a href="{% url 'obslicklineperations:create_obslickline_ops_data' ctid %}" class="d-block btn btn-primary btn-sm my-2">Add New</a>
+           
+        </div>             
+    </div> 
+</form>
+{% endblock content %}
+</html>

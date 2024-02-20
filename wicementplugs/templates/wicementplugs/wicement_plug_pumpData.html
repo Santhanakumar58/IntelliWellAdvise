@@ -1,0 +1,47 @@
+{% extends "home/waterinjectorlayout.html" %}
+
+{% block content %}
+<div class="container d-flex" style="width: 100%;">
+    <hr>
+    <div class="col">
+        <hr>
+        <h5 class="text-center text-success"> Cement Plug Pumping Data</h5>
+        <hr>
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.8em;">            
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %}
+                    <th class="text-center" scope="col">Cement Plug</th> 
+                    <th class="text-center" scope="col">Time</th> 
+                    <th class="text-center" scope="col">Fluid </sup></th>   
+                    <th class="text-center" scope="col">Fluid Density</th> 
+                    <th class="text-center" scope="col">Pump Rate</th>                    
+                    <th class="text-center" scope="col">Pump Pressure</th> 
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for pumpData in gppumpdatas %}
+                <tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}                    
+                    <td class="text-center">{{pumpData.wicementplug.pk}}</td>
+                    <td class="text-center">{{pumpData.wipump_Time}}</td>
+                    <td class="text-center">{{pumpData.wipump_Fluid}}</td>
+                    <td class="text-center">{{pumpData.wipump_Fluid_Density}}</td>
+                    <td class="text-center">{{pumpData.wipump_Rate}}</td>
+                    <td class="text-center">{{pumpData.wi}}</td>
+                    <td><a href="{% url 'wicementplugs:wicement_pumpData' pumpData.id %} ">Edit</a></td>
+                    <td><a href="{% url 'wicementplugs:wicement_pumpData' pumpData.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}        
+            </tbody>
+        </table>   
+        <br>
+        <br> 
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'wicementplugs:create_wicement_pumpData' plugid %}" class="d-block btn btn-primary my-5">Add New</a>
+        </div>
+    </div>        
+</div>
+{% endblock content %}

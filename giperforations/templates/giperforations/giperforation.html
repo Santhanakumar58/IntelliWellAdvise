@@ -1,0 +1,57 @@
+<html lang="en">
+{% extends "Home/gasinjectorlayout.html" %}
+
+{% block content %}
+<form action="" enctype="multipart/form-data" method="POST">
+    <div class="container">  
+        {% include 'home/messages.html' %}  
+    </div>
+    <div class="container">   
+        <div class="row"> 
+            <h5 class="text-center">Perforations </h5>
+        </div>  
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.8em; width: 90%;">
+            {% csrf_token %}
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr class='text-center'>    
+                    <th>Survey Date</th> 
+                    <th>Top (ft)</th> 
+                    <th>Bottom (ft)</th> 
+                    <th>Condition</th>  
+                    <th>Conveyance</th>  
+                    <th>Gun Type</th> 
+                    <th>Gun Size</th> 
+                    <th>Density</th>    
+                    <th>Charges</th>                                          
+                    <th>Remarks</th>                                
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for data in perfs %}
+                <tr class=text-center>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %} 
+                    <td>{{data.gpperf_Date}}</td>
+                    <td>{{data.gpperf_Top}}</td>
+                    <td>{{data.gpperf_Bottom}}</td>                    
+                    <td>{{data.gpperf_Condition}}</td> 
+                    <td>{{data.gpconveyance_Method}}</td>   
+                    <td>{{data.gpperf_Gun_Type}}</td>        
+                    <td>{{data.gpperf_Gun_Size}}</td>  
+                    <td>{{data.gpperf_Gun_Density}}</td>  
+                    <td>{{data.gpperf_Charges}}</td> 
+                    <td>{{data.gpremarks}}</td> 
+                    <td><a href="{% url 'gpperforations:update_gpperforation' data.id %}" >Edit</a></td>
+                    <td><a href="{% url 'gpperforations:gp' data.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+        </table> 
+         
+        <div class="d-flex text-center">
+            <a href="{% url 'gpperforations:create_gpperforation' %}" class="d-block btn btn-primary btn-sm my-5">Add New</a>
+        </div>             
+    </div> 
+</form>
+{% endblock content %}
+</html>

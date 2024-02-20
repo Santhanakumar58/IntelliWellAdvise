@@ -1,0 +1,62 @@
+<html lang="en">
+{% extends "home/oillayout.html" %}
+
+{% block content %}
+{% for data in logs %}
+    {% for colname in data.column_set.all  %}
+        <p>{{colname}}</p>
+    {% endfor %}
+{% endfor %}
+<form action="" enctype="multipart/form-data" method="POST">
+    <div class="container">  
+        {% include 'home/messages.html' %}  
+    </div>
+    <div class="container main">   
+        <div class="row"> 
+            <h3 class="text-center">Existing Perforations </h3>
+        </div>  
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.8em; width: 90%;">
+            {% csrf_token %}
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr class='text-center'>    
+                    <th>Survey Date</th> 
+                    <th>Top (ft)</th> 
+                    <th>Bottom (ft)</th> 
+                    <th>Condition</th>  
+                    <th>Conveyance</th>  
+                    <th>Gun Type</th> 
+                    <th>Gun Size</th> 
+                    <th>Density</th>    
+                    <th>Charges</th>                                          
+                    <th>Remarks</th>                                
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for data in perfs %}
+                <tr class=text-center>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %} 
+                    <td>{{data.perf_Date}}</td>
+                    <td>{{data.perf_Top}}</td>
+                    <td>{{data.perf_Bottom}}</td>                    
+                    <td>{{data.perf_Condition}}</td> 
+                    <td>{{data.conveyance_Method}}</td>   
+                    <td>{{data.perf_Gun_Type}}</td>        
+                    <td>{{data.perf_Gun_Size}}</td>  
+                    <td>{{data.perf_Gun_Density}}</td>  
+                    <td>{{data.perf_Charges}}</td> 
+                    <td>{{data.remarks}}</td> 
+                    <td><a href="{% url 'perforations:update_perforation' data.id %}" >Edit</a></td>
+                    <td><a href="{% url 'perforations:delete_perforation' data.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+        </table> 
+         
+        <div class="d-flex text-center">
+            <a href="{% url 'perforations:create_perforation' %}" class="d-block btn btn-primary btn-sm my-5">Add New</a>
+        </div>             
+    </div> 
+</form>
+{% endblock content %}
+</html>

@@ -1,0 +1,71 @@
+<html lang="en">
+{% extends "Home/gaslayout.html" %}
+
+{% block content %}
+{% url 'gprespresestimation:list_gprespres' as list_all %}
+<form action="" enctype="multipart/form-data" method="POST">
+    <div class="container main mt-1">   
+        <div class="row"> 
+            <h4 class="text-center">Reservoir Pressure Estimation </h4>
+        </div>  
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.75em;">       
+            <thead style="background-color:rgb(106, 130, 238);">  
+                <tr class="text-center">  
+                    <th>Date</th>                      
+                    <th>Porosity</th>   
+                    <th>Permeability</th>  
+                    <th>Thickness</th> 
+                    <th>Wellbore</th> 
+                    <th>Ini. Res. Pre</th> 
+                    <th>Drainage</th>  
+                    <th>Compressibility</th>
+                    <th>Oil Rate</th> 
+                    <th>Oil FVF</th>   
+                    <th>Oil Viscosity</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for data in respres_datas %}
+                <tr >
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %} 
+                    <td class="text-center">{{data.gpanalysis_Date}}</td>
+                    <td class="text-center">{{data.gplayer_Porosity}}</td>
+                    <td class="text-center">{{data.gplayer_Permeability}}</td>
+                    <td class="text-center">{{data.gplayer_Thickness}}</td>                    
+                    <td class="text-center">{{data.gpwellbore_Radius}}</td>
+                    <td class="text-center">{{data.gpini_Res_Pres}}</td>
+                    <td class="text-center">{{data.gpdrainage_Radius}}</td> 
+                    <td class="text-center">{{data.gptotal_Compressibility}}</td>
+                    <td class="text-center">{{data.gpoil_Prod_Rate}}</td>
+                    <td class="text-center">{{data.gpoil_FVF}}</td>
+                    <td class="text-center">{{data.gpmu_oil}}</td>              
+                    <td><a href="{% url 'gprespresestimation:update_gprespres' data.id %} ">Edit</a></td>
+                    <td><a href="{% url 'gprespresestimation:delete_gprespres' data.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+        </table>        
+        <div class="d-flex text-center">
+            <a href="{% url 'gprespresestimation:create_gprespres' %}" class="d-block btn btn-primary btn-sm my-5">Add New</a>
+        </div>             
+    </div>  
+    <div class="container main">  
+        {% include 'home/messages.html' %}  
+        {%  if chart %}
+            <img src="data:image/png;base64, {{chart|safe}}">
+        {% endif %}   
+        <div class="row"> 
+            <h4 class="text-center">Calculated Results for the latest Data for 24 hrs </h4>
+        </div>
+        <p class="text-secondary text-left">Time                               : {{time}} hrs</p>
+        <p class="text-secondary text-left">Distance from wellbore             : {{distance}}  ft</p>
+        <p class="text-secondary text-left">Finite acting time                 : {{t_finite_acting }} hours </p>
+        <p class="text-secondary text-left">Calculation result at time {{time}} hour and radius {{distance}} ft from wellbore</p>
+        <p class="text-secondary text-left">Wellbore flowing pressure (pwf)  : {{Pwf}} psia</p>
+        <p class="text-secondary text-left">Dimensionless time               : {{td}}</p>
+        <p class="text-secondary text-left">Dimensionless pressure           : {{Pd}}</p>
+    </div>
+</form>
+{% endblock content %}
+</html>

@@ -1,0 +1,50 @@
+{% extends "home/fieldwidelayout.html" %}
+
+{% block content %}
+{% for block in block_list %}
+    {% for colname in blocks.column_set.all  %}
+        <p>{{colname}}</p>
+    {% endfor %}
+{% endfor %}
+<div class="container d-flex" style="width: 100%;">
+    <hr>
+    <div class="col">
+        <h4 class="text-center">Blocks</h4>    
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.8em;">
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %}
+                    <th class="text-center" scope="col">Asset Name</th> 
+                    <th class="text-center" scope="col">Block Name</th>                    
+                    <th class="text-center" scope="col">Block Description</th>
+                    <th class="text-center" scope="col">Area  km <sup>2</sup></th>
+                    <th class="text-center" scope="col">Year of Discovery</th>                    
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for block in block_list %}
+                <tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}                    
+                    <td class="text-center">{{ block.asset }}</td> 
+                    <td class="ml-5"><a href="{% url 'blocks:block_detail' block.id %}">{{block.blockname}}</a></td>
+                    <td class="text-justify">{{block.description}}</td>
+                    <td class="text-center">{{block.area}}</td>
+                    <td class="text-center">{{block.year}}</td> 
+                    <td><a href="{% url 'blocks:block_update' block.id %} ">Update</a></td>
+                    <td><a href="{% url 'blocks:block_delete' block.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}        
+            </tbody>
+        </table>   
+        <br>
+        <br> 
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'blocks:block_create' %}" class="d-block btn btn-primary my-5">Add New</a>
+        </div>
+    </div>
+        
+</div>
+
+{% endblock content %}

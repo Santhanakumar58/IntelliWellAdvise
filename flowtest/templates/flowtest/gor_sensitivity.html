@@ -1,0 +1,35 @@
+{% extends "home/oillayout.html" %}
+
+{% block content %}
+{% for design in designs %}
+    {% for colname in plug.column_set.all  %}
+        <p>{{colname}}</p>
+    {% endfor %}
+{% endfor %}
+
+
+<div class="container d-flex" style="width: 100%;">  
+    <hr> 
+    <div class="col">
+        <h3 class="text-center"> GOR Sensitivity</h3>
+        <hr>
+        <div class="container text-center">  
+            {% include 'home/messages.html' %}  
+            {%  if chart %}
+                <img src="data:image/png;base64, {{chart|safe}}">
+            {% endif %}   
+        </div> 
+        <hr>  
+        <div class="container text-center">  
+            {% include 'home/messages.html' %}  
+            {%  if chart1 %}
+                <img src="data:image/png;base64, {{chart1|safe}}">
+            {% endif %}   
+        </div>
+        <br> 
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'flowtest:production_home' %}" class="d-block btn btn-primary my-5">Production Home</a>
+        </div>
+    </div>        
+</div>
+{% endblock content %}

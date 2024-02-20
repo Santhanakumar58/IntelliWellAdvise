@@ -1,0 +1,25 @@
+{% extends "home/oillayout.html" %}
+
+{% block content %}
+{% include 'home/messages.html' %}  
+{% url 'multiratedrawdowntestanalysis:list_multirate_test_data' as list_all %}
+<div class="container d-flex justify-content-center mt-1" style="width: 70%;">
+    <div class="col mt-0">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h5 class="text-center text-success">Drawdown Test Analysis - Multi Rate</h5> 
+            <hr>
+            <div class="container text-center">  
+                {%  if chart %}
+                    <img src="data:image/png;base64, {{chart|safe}}">
+                {% endif %}   
+            </div>           
+            <hr>
+            <div class="container d-flex justify-content-center" style="width: 30%;">
+                <a href="{% url 'multiratedrawdowntestanalysis:list_multirate_test_data' %}" class="d-block btn btn-primary btn-sm my-2">Back to Multi-Rate Test</a>
+            </div>  
+        
+        </form> 
+    </div>
+</div>
+{% endblock  %}

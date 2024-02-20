@@ -1,0 +1,33 @@
+{% extends "Home/waterinjectorlayout.html" %}
+
+{% block content %}
+
+<!-- BOOTSTRAP FORM -->
+
+<div class="container d-flex justify-content-center">
+    <div class="col">
+        <form action="" method="post">
+            {% csrf_token %}
+            {% if vogelmodel %}
+                <h5> Update Vogel's IPR Model </h5>   
+            {% else %}  
+                <h5> Create Vogel's IPR Model </h5>  
+            {% endif %}          
+            <table class="table d-flex ">
+                {{form.as_table}}
+            </table>           
+            <div class="container d-flex justify-content-center">
+                <a href="{% url 'opinflow:list_inflow' %}" class="d-block btn btn-primary btn-sm" style="margin-right: 30px; margin-top: 30px;">Inflow</a>
+                <input type="submit" class="btn btn-primary btn-sm" value="Save" style="margin-right: 30px; margin-top: 30px;">
+                <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'opinflow:list_inflow' %}'; return false;" value="Cancel">
+            </div>           
+        </form> 
+    </div>
+    <div class="col">
+        <img src="data:image/png;base64, {{chart|safe}}">
+    </div>  
+</div>
+
+<!-- END BOOTSTRAP FORM -->
+
+{% endblock %}

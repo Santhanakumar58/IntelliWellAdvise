@@ -1,0 +1,57 @@
+<html lang="en">
+{% extends "Home/waterinjectorlayout.html" %}
+  
+{% block content %}
+{% for wigginmodel in wigginmodels %}
+    {% for colname in wigginmodel.column_set.all  %}
+        <p>{{colname}}</p>
+    {% endfor %}
+{% endfor %}
+<div class="container text-center" style="width: 100%;"> 
+    <h5 class="text-center">Wiggins Inflow Performance</h5> 
+    {%  if chart %}
+        <img src="data:image/png;base64, {{chart|safe}}">
+    {% endif %}   
+</div>
+<div class="container d-flex mt-0" style="width: 100%;">   
+    <div class="col">
+        <h5 class="text-center">Wiggins Inflow Performance Models</h5>
+        <table id="Table1" class="table table-hover mt-1">
+            <thead style="background-color:lightgray ; height: 40px;">
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %}
+                    <th class="text-center" scope="col">Analysis Date</th>
+                    <th class="text-center" scope="col">Test Rate (bbls/day/psi)</th>
+                    <th class="text-center" scope="col">Test Pressure (psi)</th>                   
+                    <th class="text-center" scope="col">Current Pressure (psi)</th>
+                    <th class="text-center" scope="col">Future Reservoir Pressure (psi)</th>
+                    <th class="text-center" scope="col">Water Cut(%$)</th>
+                    <th class="text-center" scope="col">Layer Name</th>                   
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for wigginmodel in wigginmodels %}
+                <tr style='cursor: pointer; cursor: hand;' onclick="window.location='google.com';"></tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}                    
+                    <td class="text-center">{{wigginmodel.analysis_Date}}</td>
+                    <td class="text-center">{{wigginmodel.wiggins_Test_Rate}}</td>
+                    <td class="text-center">{{wigginmodel.wiggins_Test_Pressure}}</td>
+                    <td class="text-center">{{wigginmodel.current_Reservoir_Pressure}}</td>
+                    <td class="text-center">{{wigginmodel.future_Reservoir_Pressure}}</td>
+                    <td class="text-center">{{wigginmodel.water_Cut}}</td> 
+                    <td class="text-center">{{wigginmodel.layer_Name}}</td>                    
+                    <td><a href="{% url 'opinflow:update_inflow' wigginmodel.id %} ">Edit</a></td>
+                    <td><a href="{% url 'opinflow:delete_inflow' wigginmodel.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}        
+            </tbody>
+        </table> 
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'opinflow:create_inflow' %}" class="d-block btn btn-primary my-2">Add New</a>
+        </div>
+    </div>     
+</div> 
+{% endblock content %}
+</html>

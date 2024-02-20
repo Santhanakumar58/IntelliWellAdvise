@@ -1,0 +1,150 @@
+{% extends "home/oillayout.html" %}
+
+{% block content %}
+{% for fish in fishes %}
+    {% for colname in fish.column_set.all  %}
+        <p>{{colname}}</p>
+    {% endfor %}
+{% endfor %}
+{% url 'flowtest:update_flowtest' as Update %}
+<form method="POST" enctype="multipart/form-data" action="">
+    {% csrf_token %}
+    <div class="container main" style="width:100%;" >       
+        <h3 class="text-center">Jet Pump Design</h3>        
+        <div class="row">
+            <div class="col-md-7">
+                <div class="card"> 
+                    <div class="card-header" >                
+                        <h3 class="text-center">Jet Pump Design Data</h3> 
+                    </div>               
+                    <div class="card-body">             
+                <table class="table table-bordered" style="border: 2px; border-width:2px; font-size:medium; ">               
+                    <thead style="background-color:rgb(106, 130, 238);">
+                    {{form.as_table}}
+                </table>
+                    </div> 
+                </div> 
+            </div> 
+            <div class="col-md-5"> 
+                <div class="card"> 
+                    <div class="card-header" style="font-size: 0,73em;">
+                        <h3>Calculated Parameters</h3>
+                    </div>               
+                    <div class="card-body" style="font-size:medium;">             
+                         <div class="row">
+                            <div class="col-md-8">
+                                <p>Fluid Injection Pressure(psi)</p>
+                            </div>
+                            <div class="col-md-4">
+                                {{p1}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p>Fluid Injection Rate(blpd)</p>
+                            </div>
+                            <div class="col-md-4">
+                                {{q1}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p>Intake Pressure (P3) (psi)</p>
+                            </div>
+                            <div class="col-md-4">
+                                {{pip}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p>Discharge Pressure (P2) (psi)</p>
+                            </div>
+                            <div class="col-md-4">
+                                {{p2}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p>Mid Perforation Depth (ft)</p>
+                            </div>
+                            <div class="col-md-4">
+                                {{midperf}}
+                            </div>
+                        </div>                        
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p>Tubing Id (Inch)</p>
+                            </div>
+                            <div class="col-md-4">
+                                {{tbg_Dia}}
+                            </div>
+                        </div> 
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p>Pump </p>
+                            </div>
+                            <div class="col-md-4">
+                                {{pump}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p>Total Power Required (Hp) </p>
+                            </div>
+                            <div class="col-md-4">
+                                {{horsepower}}  
+                            </div>
+                        </div>                            
+                        <div class="row">
+                            <div class="col-md-8">
+                                <p>Best Efficiency (%) </p>
+                            </div>
+                            <div class="col-md-4">
+                                {{maxeff}}
+                            </div>
+                        </div>
+                    </div> 
+                </div>                     
+            </div> 
+        </div>       
+ 
+        <h3 class="text-center">Jet Pump Design for the above data</h3>  
+        <div class="text-center">  
+            {% include 'home/messages.html' %}  
+            {%  if chart3 %}
+                <img src="data:image/png;base64, {{chart3|safe}}" >
+            {% endif %}   
+        </div>
+        <br>
+        <div class="text-center">  
+            {% include 'home/messages.html' %}  
+            {%  if chart2 %}
+                <img src="data:image/png;base64, {{chart2|safe}}" >
+            {% endif %}   
+        </div>
+        <br>
+        <div class="text-center">  
+            {% include 'home/messages.html' %}  
+            {%  if chart1 %}
+                <img src="data:image/png;base64, {{chart1|safe}}" >
+            {% endif %}   
+        </div> 
+        <br>
+        <div class="text-center">  
+            {% include 'home/messages.html' %}  
+            {%  if chart %}
+                <img src="data:image/png;base64, {{chart|safe}}" >
+            {% endif %}   
+        </div>
+        <div class="row">     
+            <div class="col-md-3 ">            
+                <a href="{% url 'jetpumpdesign:list_jetpump_design_data' %}" class="d-block btn btn-primary">ESP Design Data</a>
+            </div>
+            <div class="col-md-3 ">            
+                <a href="{% url 'flowtest:production_home' %}" class="d-block btn btn-primary">Production Home</a>
+            </div>
+        </div>
+        <br>                  
+    </div>
+</form>
+{% endblock content %}

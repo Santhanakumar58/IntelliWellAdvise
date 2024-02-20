@@ -1,0 +1,49 @@
+<html lang="en">
+{% extends "Home/gasinjectorlayout.html" %}
+
+{% block content %}
+
+<form action="" enctype="multipart/form-data" method="POST">
+    <div class="container text-center">  
+        {% include 'home/messages.html' %} 
+    </div>
+    <div class="container mt-1">   
+        <div class="row"> 
+            <h4 class="text-center">Oil Shows </h4>
+        </div>  
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.75em; width:98%;">
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr class='text-center'>    
+                    <th>Formatiom</th> 
+                    <th>Top</th> 
+                    <th>Bottom</th> 
+                    <th>Sample Type</th>  
+                    <th>Sample Description</th>  
+                    <th>Remarks</th>                                   
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for data in shows %}
+                <tr class=text-center>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %} 
+                    <td>{{data.giformation}}</td>
+                    <td>{{data.gitop_MD}}</td>
+                    <td>{{data.gibottom_MD}}</td>                    
+                    <td>{{data.gisample_Type}}</td> 
+                    <td>{{data.gisample_Description}}</td>                       
+                    <td>{{data.giremarks}}</td>                 
+                    <td><a href="{% url 'gioilshows:update_gioilshow' data.id %}" >Edit</a></td>
+                    <td><a href="{% url 'gioilshows:delete_gioilshow' data.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+        </table> 
+         
+        <div class="d-flex text-center">
+            <a href="{% url 'gioilshows:create_gioilshow' %}" class="d-block btn btn-primary btn-sm my-5">Add New</a>
+        </div>             
+    </div> 
+</form>
+{% endblock content %}
+</html>

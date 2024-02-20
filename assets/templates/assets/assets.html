@@ -1,0 +1,45 @@
+{% extends "Home/fieldwidelayout.html" %}
+
+{% block content %}
+
+<div class="container d-flex" style="width: 100%;">   
+    <div class="row">
+        <h4 class="text-center">Assets</h4>    
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.8em;">
+            {% csrf_token %}
+            <thead style="background-color:rgb(106, 130, 238);">   
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %}
+                    <th class="text-center" scope="col">Asset ID</th>     
+                    <th class="text-center" scope="col">Asset Name</th>                    
+                    <th class="text-center" scope="col">Asset Description</th>
+                    <th class="text-center" scope="col">Area  km <sup>2</sup></th>
+                    <th class="text-center" scope="col">Year of Discovery</th>
+                    <th class="text-center" scope="col">Score Out of 10 </th>
+                    <th class="text-center" scope="col">Update</th>
+                    <th class="text-center" scope="col">Delete</th>                   
+                </tr>
+            </thead>
+            <tbody>            
+                {% for asset in assets %}
+                <tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}                    
+                    <td class="text-center">{{asset.id}}</td>
+                    <td class="text-center">{{asset.assetname}}</td>
+                    <td class="text-justify">{{asset.description}}</td>
+                    <td class="text-center">{{asset.area}}</td>
+                    <td class="text-center">{{asset.year}}</td>                    
+                    <td class="text-center">{{asset.score_out_of_10 | floatformat:2}}</td>                    
+                    <td><a href="{% url 'assets:update_asset' asset.id %}" >Update</a></td>
+                    <td><a href="{% url 'assets:delete_asset' asset.id %}" >Delete</a></td>                    
+                </tr>
+            {% endfor %}        
+            </tbody>
+        </table>   
+        <br>
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'assets:create_asset' %}" class="d-block btn btn-primary my-5">Add New</a>
+        </div>
+    </div>        
+</div>
+{% endblock content %}

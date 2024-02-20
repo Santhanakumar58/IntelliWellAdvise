@@ -1,0 +1,64 @@
+{% extends "home/oillayout.html" %}
+{% block content %}
+{% for data in list_drilling_ops %}
+    {% for colname in data.column_set.all  %}
+        <p>{{colname}}</p>
+    {% endfor %}
+{% endfor %}
+
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+    <strong>Message:</strong> {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" > 
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endfor %}
+<div class="container main  d-flex" style="width: 100%;"> 
+    <div class="col">
+        <h5 class="text-center text-success">Drilling Operation Details</h5>
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.8em;">
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %}                                    
+                    <th class="text-center" scope="col">Id</th>
+                    <th class="text-center" scope="col">Date</th>
+                    <th class="text-center" scope="col">Time From </th>
+                    <th class="text-center" scope="col">Time To </th>  
+                    <th class="text-center" scope="col">Total Time (hrs)</th>  
+                    <th class="text-center" scope="col">Ops Code </th> 
+                    <th class="text-center" scope="col">Operations </th> 
+                    <th class="text-center" scope="col">Edit</th>   
+                    <th class="text-center" scope="col">Delete</th>                   
+            </thead>
+            <tbody>            
+                {% for data in drilling_opss %}
+                <tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}                    
+                    <td class="text-center">{{data.id}}</td>                    
+                    <td class="text-center">{{data.ops_Date}}</td>
+                    <td class="text-center">{{data.time_From}}</td>
+                    <td class="text-center">{{data.time_To}}</td>
+                    <td class="text-center">{{data.totalhrs}}</td>
+                    <td class="text-center">{{data.ops_Code}}</td>   
+                    <td class="text-center">{{data.ops_Summary}}</td> 
+                    <td><a href="{% url 'drillingoperations:update_drilling_ops' data.id %} ">Edit</a></td>
+                    <td><a href="{% url 'drillingoperations:delete_drilling_ops' data.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}        
+            </tbody>
+        </table>   
+        <br>
+        <br> 
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'drillingoperations:create_drilling_ops' %}" class="d-block btn btn-primary my-5">Add New</a>
+        </div>
+    </div>        
+</div>
+<div class="container text-center">  
+    {% include 'home/messages.html' %}  
+    {%  if chart %}
+        <img src="data:image/png;base64, {{chart|safe}}">
+    {% endif %}   
+</div>
+{% endblock content %}

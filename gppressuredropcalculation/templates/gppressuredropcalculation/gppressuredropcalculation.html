@@ -1,0 +1,60 @@
+{% extends "Home/gaslayout.html" %}
+{% block content %}
+<div class="container d-flex" style="width: 100%;">  
+    <hr> 
+    <div class="col">
+        <h4 class="text-center text-success"> Tubing Performance</h4>    
+        <table class="table table-striped" style="font-size:0.8em;"  class="text-center" >
+            <thead style="background-color:lightgray ; height: 40px;">
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %}
+                    <th class="text-center" scope="col">Model Date</th>     
+                    <th class="text-center" scope="col">Source Rate (stb/d)</th>                    
+                    <th class="text-center" scope="col">Source Pressure (psi)</th>
+                    <th class="text-center" scope="col">Source Temp (F)</sup></th>
+                    <th class="text-center" scope="col">Pipe Length (ft)</sup></th>
+                    <th class="text-center" scope="col">Pipe Angle (deg)</th> 
+                    <th class="text-center" scope="col">Pipe Diam (inch)</th>                    
+                    <th class="text-center" scope="col">Fluid API</th>
+                    <th class="text-center" scope="col">Fluid WC (fraction)</sup></th>
+                    <th class="text-center" scope="col">Fluid GOR (ft)</sup></th>
+                    <th class="text-center" scope="col">Gas Sp_Gr</th> 
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for drop in pdrops %}
+                <tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}                    
+                    <td class="text-center">{{drop.gpmodel_Date}}</td>
+                    <td class="text-center">{{drop.gpsource_Flowrate}}</td>
+                    <td class="text-center">{{drop.gpsource_Pressure}}</td>
+                    <td class="text-center">{{drop.gpsource_Temp}}</td>
+                    <td class="text-center">{{drop.gppipe_Length}}</td>
+                    <td class="text-center">{{drop.gppipe_Angle}}</td> 
+                    <td class="text-center">{{drop.gppipe_Diam}}</td>
+                    <td class="text-center">{{drop.gpfluid_API}}</td>
+                    <td class="text-center">{{drop.gpfluid_WaterCut}}</td>
+                    <td class="text-center">{{drop.gpfluid_GOR}}</td>
+                    <td class="text-center">{{drop.gpfluid_gas_spgr}}</td> 
+                    <td><a href="{% url 'gppressuredropcalculation:update_gppressure_drop' drop.id %} ">Update</a></td>
+                    <td><a href="{% url 'gppressuredropcalculation:delete_gppressure_drop' drop.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}        
+            </tbody>
+        </table>   
+        <br>
+        <br> 
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'pressuredropcalculation:create_gppressure_drop' %}" class="d-block btn btn-primary my-5">Add New</a>
+        </div>
+    </div>        
+</div>
+<div class="container text-center">  
+    {% include 'home/messages.html' %}  
+    {%  if chart %}
+        <img src="data:image/png;base64, {{chart|safe}}">
+    {% endif %}   
+</div>
+{% endblock content %}

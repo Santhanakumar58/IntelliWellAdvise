@@ -1,0 +1,44 @@
+{% extends "home/fieldlayout.html" %}
+
+{% block content %}
+{% if ccepvt %}
+<h5 class="text-center text-success">Update  Defferential Liberation Data </h5> 
+{% else %}  
+<h5 class="text-center text-success">Create Defferential Liberation Data</h5>    
+{% endif %} 
+<div class="container d-flex justify-content-center mt-0" style="width: 100%;">
+    <div class="col">
+        <form action="" method="post">            
+            {% csrf_token %}                       
+            <table class="table">
+                {{form.as_table}}
+            </table>           
+            <div class="container d-flex justify-content-center" style="width: 10%;">
+                <input type="submit" class="btn btn-primary btn-sm" value="Submit" style="margin-right: 30px; margin-top: 30px;">
+                <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'constantcompositionexpansion:list_ccepvt' %}'; return false;" value="Cancel">
+            </div>           
+        </form>
+    </div>
+    <div class="col mt-0">
+        <form>
+            {%  if chart1 %}
+                <img src="data:image/png;base64, {{chart1|safe}}">
+            {% endif %} 
+            {%  if chart3 %}
+            <img src="data:image/png;base64, {{chart3|safe}}">
+            {% endif %}                                              
+        </form>
+    </div>
+    <div class="col mt-0">
+        <form>           
+            {%  if chart2%}
+            <img src="data:image/png;base64, {{chart2|safe}}">
+            {% endif %}  
+            {%  if chart4 %}
+            <img src="data:image/png;base64, {{chart4|safe}}">
+            {% endif %} 
+        </form>
+    </div>
+</div>
+
+{% endblock %}

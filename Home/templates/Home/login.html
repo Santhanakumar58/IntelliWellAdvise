@@ -1,0 +1,35 @@
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h6 class="modal-title fs-5" id="loginModalLabel">
+                <i class="fas fa-key"></i> &nbsp;&nbsp; Log in </h6>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <h5 class="text-center mt-3">Restricted Access</h5>
+        <form action="/login_user" method="POST" autocomplete="off">
+            <div class="modal-body">
+                {% csrf_token %}
+                <div class="input-group mt-3 mb-3">
+                    <span class="btn input-group-text border-secondary bg-light side-label">
+                        <i class="fas fa-user-alt"></i>
+                    </span>
+                    <input type="text" class="form-control" name="username" placeholder="User Name">
+                </div>
+                <div class="input-group">
+                    <span class="btn input-group-text border-secondary bg-light side-label">
+                        <i class="fas fa-lock"></i>
+                    </span>
+                    <input type="password" class="form-control" name="password" placeholder="Password">
+                </div>
+
+            </div>
+            <div class="comtainer d-grid gap-2 mt-4 mb-4">
+                <button type="submit" class="btn btn-primary">Enter</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+               
+              </div>
+        </form>  
+      </div>
+    </div>
+</div>

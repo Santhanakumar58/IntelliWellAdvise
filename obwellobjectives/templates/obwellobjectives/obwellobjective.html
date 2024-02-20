@@ -1,0 +1,50 @@
+<html lang="en">
+{% extends "Home/observerlayout.html" %}
+
+{% block content %}
+<div class="container" >   
+    <h5 class="text-center">Observer Well Objective</h5>
+    <div class="text-center"> 
+        {%  if chart1 %}
+            <img alt="" src="data:image/png;base64, {{chart1|safe}}">
+        {% endif %}          
+    </div>
+    <div class="text-center" style="border: 2px; border-width:2px; font-size:0.75em;">  
+        {%  if chart2 %}
+            <img alt="" src="data:image/png;base64, {{chart2|safe}}">
+        {% endif %}         
+    </div>
+
+    <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.75em;">       
+        <thead style="background-color:rgb(106, 130, 238);">           
+            <tr>
+                {% comment %} <th>#</th> {% endcomment %} 
+                <th class="text-center" align="justify" scope="col">Well Name</th>                    
+                <th class="text-center" align="justify" scope="col">Objectives</th>
+                <th>Edit</th>
+                <th>Delete</th>
+                <th>Profile</th>                   
+            </tr>
+        </thead>
+        <tbody>            
+            {% for objective in obwellobjectives %}
+            <tr>
+                {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}                    
+                <td class="text-center" align = "justify">{{objective.obwellname}}</td>
+                <td align = "justify">{{objective.obobjectives}}</td>  
+                <td><a href="{% url 'obwellobjectives:update_obwellobjective' objective.id %} ">Edit</a></td>
+                <td><a href="{% url 'obwellobjectives:delete_obwellobjective' objective.id %}">Delete</a></td>
+                <td><a href="{% url 'obwellobjectivedata:list_obwellobjectivedata' objective.id %}">Profile</a></td>
+                
+            </tr>
+            {% endfor %}        
+        </tbody>
+    </table> 
+    {% if not obwellobjectives %}
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'obwellobjectives:create_obwellobjective' %}" class="d-block btn btn-primary my-5">Add New</a>
+        </div> 
+    {% endif %}     
+</div>    
+{% endblock content %}
+</html>

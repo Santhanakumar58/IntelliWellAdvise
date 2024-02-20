@@ -1,0 +1,57 @@
+<html lang="en">
+{% extends "home/fieldlayout.html" %}
+{% block title%}
+<h4>Costant Composition Expansion PVT </h4>
+{% endblock%}
+{% block content %}
+{% for pvt in blackoilpvts %}
+    {% for colname in pvt.column_set.all  %}
+        <p>{{colname}}</p>
+    {% endfor %}
+{% endfor %}
+
+
+<div class="container d-flex mt-0 justify-content-center" style="width: 100%;">  
+    <div class="row">        
+        <h5 class="text-center text-success">Fluid Composition Details</h5>        
+        <table class='table table-striped' width="100%" style="border-color:green; border: thick 4px; ;">
+            <thead>
+                <tr>  
+                    <th class='text-center'>Well Name</th>  
+                    <th class='text-center'>Layer</th>    
+                    <th class='text-center'>Sample ID</th> 
+                    <th class='text-center'>Sample Date</th> 
+                    <th class='text-center'>Laboratory </th>
+                    <th class='text-center'>Data</td>
+                    <th class='text-center'>Update</th>
+                    <th class='text-center'>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for fc in fcs %}
+                <tr >
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %} 
+                    <td class="text-center">{{fc.wellName}}</td>
+                    <td class="text-center">{{fc.subLayer}}</td>
+                    <td class="text-center">{{fc.sampleId}}</td>
+                    <td class="text-center">{{fc.date}}</td> 
+                    <td class="text-center">{{fc.lab}}</td> 
+                    <td class='text-center'><a href="{% url 'reservoirfluidcompositiondata:list_fluid_composition_data' fc.id %}">Data</a></td>
+                    <td class='text-center'><a href="{% url 'reservoirfluidcomposition:update_fluid_composition' fc.id %} ">Update</a></td>
+                    <td class='text-center'><a href="{% url 'reservoirfluidcomposition:delete_fluid_composition' fc.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+        </table> 
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'reservoirfluidcomposition:create_fluid_composition' %}" class="d-block btn btn-primary my-5">Add New</a>
+        </div> 
+    </div>         
+</div> 
+<hr> 
+<div class="d-flex justify-content-center">
+    <a href="{% url 'constantcompositionexpansion:list_ccepvt' %}" class="d-block btn btn-primary m-2">Constant Composition Expansion</a>
+    <a href="{% url 'differentialliberation:list_difflib' %}" class="d-block btn btn-primary m-2">Differential Liberation</a>
+</div> 
+<hr>   
+{% endblock content %}
+</html>

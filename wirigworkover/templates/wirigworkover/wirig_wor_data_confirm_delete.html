@@ -1,0 +1,23 @@
+{% extends "Home/waterinjectorlayout.html" %}
+{% block content %}
+
+{% url 'wirigworkover:list_rig_wiworkover_data' as list_all %}
+
+<div class="container d-flex justify-content-center mt-1" style="width: 50%;">
+    <div class="col mt-1 text-center">
+        <h5 class="text-success mb-2">Delete Rig Workover Intervention </h5>
+        <p class="text-danger">Are you sure you want to delete the Rig Workover Intervention dated :</p>
+        <h5 class="my-2">{{rig_workover_data.end_Date }}</h5>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {% comment %} 
+            <input type="submit" value="Confirm">           
+            <input type="submit" value="Cancel" onclick="window.location='{{list_all}}'; return false;" >
+            {% endcomment %}
+            <input type="submit" class="btn btn-primary btn-sm" value="Confirm" style="margin-right: 30px; margin-top: 30px;">
+            <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{{list_all}}'; return false;" value="Cancel">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

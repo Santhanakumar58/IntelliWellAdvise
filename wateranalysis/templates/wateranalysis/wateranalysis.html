@@ -1,0 +1,85 @@
+<html lang="en">
+{% extends "home/fieldlayout.html" %}
+
+{% block content %}
+{% for pvt in wadatas %}
+    {% for colname in pvt.column_set.all  %}
+        <p>{{colname}}</p>
+    {% endfor %}
+{% endfor %}
+<div class="container d-flex" style="width: 100%;" align="center">   
+    {%  if chart %}
+        <img alt="" src="data:image/png;base64, {{chart|safe}}">
+    {% endif %}
+</div>
+
+<div class="container d-flex" style="width: 100%;" align="center">   
+    {%  if chart2 %}
+        <img alt="" src="data:image/png;base64, {{chart2|safe}}">
+    {% endif %}
+</div>
+<div class="container d-flex mt-0 justify-content-center" style="width: 100%;">   
+    <div class="row">        
+        <h5 class="text-center text-success"> Water Analysis Data</h5>        
+        <table class='table table-striped' width="100%" style="border-color:green; border: thick 4px; ;">
+            <thead>
+                <tr>  
+                    <th class='text-center'>ID</th> 
+                    <th class='text-center'>Well</th>  
+                    <th class='text-center'>Date</th>    
+                    <th class='text-center'>Sample ID</th> 
+                    <th class='text-center'>Sample Point</th> 
+                    <th class='text-center'>Lab</th> 
+                    <th class='text-center'>Sodium</th> 
+                    <th class='text-center'>Calcium</th> 
+                    <th class='text-center'>Magnesium</th> 
+                    <th class='text-center'>Pottasium</th> 
+                    <th class='text-center'>Ferric</th> 
+                    <th class='text-center'>Bicarbonate</th> 
+                    <th class='text-center'>Carbonate</th> 
+                    <th class='text-center'>Sulphate</th> 
+                    <th class='text-center'>Chloride</th> 
+                    <th class='text-center'>Nitrate</th> 
+                    <th class='text-center'>TDS</th> 
+                    <th class='text-center'>Temperature</th> 
+                    <th class='text-center'>Ph</th> 
+                    <th class='text-center'>Update</th>
+                    <th class='text-center'>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for pvt in wadatas %}
+                <tr >
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %} 
+                    <td class="text-center">{{pvt.fgid}}</td>
+                    <td class="text-center">{{pvt.wellname}}</td>
+                    <td class="text-center">{{pvt.date}}</td>
+                    <td class="text-center">{{pvt.sampleId}}</td> 
+                    <td class="text-center">{{pvt.samplepoint}}</td> 
+                    <td class="text-center">{{pvt.lab}}</td>
+                    <td class="text-center">{{pvt.sodium}}</td>
+                    <td class="text-center">{{pvt.calcium}}</td>
+                    <td class="text-center">{{pvt.magnesium}}</td> 
+                    <td class="text-center">{{pvt.pottasium}}</td> 
+                    <td class="text-center">{{pvt.ferric}}</td>
+                    <td class="text-center">{{pvt.bicarbonate}}</td>
+                    <td class="text-center">{{pvt.carbonate}}</td>
+                    <td class="text-center">{{pvt.sulphate}}</td> 
+                    <td class="text-center">{{pvt.chloride}}</td> 
+                    <td class="text-center">{{pvt.nitrate}}</td> 
+                    <td class="text-center">{{pvt.tds}}</td> 
+                    <td class="text-center">{{pvt.temperature}}</td>
+                    <td class="text-center">{{pvt.ph}}</td>
+                    <td class='text-center'><a href="{% url 'wateranalysis:update_wateranalysis' pvt.id %} ">Update</a></td>
+                    <td class='text-center'><a href="{% url 'wateranalysis:delete_wateranalysis' pvt.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+        </table> 
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'wateranalysis:list_wateranalysis' %}" class="d-block btn btn-primary my-5 mr-5">Back to CCE Details</a>
+            <a href="{% url 'wateranalysis:create_wateranalysis' %}" class="d-block btn btn-primary m-5">Add New</a>
+        </div> 
+    </div>         
+</div>    
+{% endblock content %}
+</html>

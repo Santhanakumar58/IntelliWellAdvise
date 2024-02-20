@@ -1,0 +1,215 @@
+*{
+  padding:0;
+  margin:0;
+  font-size: 30px;
+  font-family: sans-serif;
+}
+
+:root{
+  --lightGreen:lightgreen;
+  }
+
+
+body{
+  overflow:scroll;
+}
+
+.h1{
+  font-size: 200%;
+  transition: 1s;
+  word-spacing: 0.5em;
+  letter-spacing: 0.2em;
+  color: blue;
+  font-style: normal;
+  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+.h3{
+  font-size: 200%;
+  transition: 1s;
+  word-spacing: 0.5em;
+  letter-spacing: 0.2em;
+  color: blue;
+  font-style: normal;
+  font-family:cursive;
+}
+
+.h5{
+  font-size: 200%;
+  transition: 1s;
+  word-spacing: 0.5em;
+  letter-spacing: 0.2em;
+  color: rgb(139, 34, 78);
+  font-style: normal;
+  font-weight: bolder;
+  font-family:cursive;
+}
+
+h1:hover{
+  font-size:200%;
+  color: blue;
+}
+
+.banner{
+  background-image:url('https://images.unsplash.com/photo-1551481921-cd2a3c855805?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80');
+  height: 140px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+nav{
+  background: #000;
+}
+
+nav ul li{
+  display: inline-block;
+  padding: 0px 20px 5px 40px;
+  
+}
+
+nav ul li a{
+  font-size: 60%;
+  text-decoration: none;
+  color: white;
+  transition: 0.5s;
+}
+
+nav ul li a:hover{
+  color: lightblue;
+}
+
+.container{
+  max-width:900px;
+  padding-left:5px;
+  padding-right:10px;
+  margin:0 auto;
+  padding:50px;
+}
+
+.container h2, .container p{
+  display:flex;
+  flex-direction: row ;
+ 
+}
+
+.flex-container{
+  display: flex;
+  flex-direction: row ;
+  padding: 0
+}
+
+div.sec1 h4{
+  text-align: center;
+  font-size: medium;
+  padding: 6px;
+  font-style: italic;
+}
+
+div.sec2 h4{
+  text-align: center;
+  font-size: medium;
+  padding: 6px;
+  font-style: italic;
+}
+
+div.sec3 h4{
+  text-align: center;
+  padding: 6px;
+  font-size: medium;
+  font-style: italic;
+}
+
+div.sec1 h5{  
+  font-size: Large;
+  justify-content: right; 
+  padding: 5px; 
+}
+div.sec3 h5{
+  justify-content: end; 
+  padding: 5px; 
+  font-size: Large;
+}
+
+div .sec1 p, .sec2 p, .sec3 p{
+  display: flex;
+  color: blue;
+  justify-content: center;
+  padding: 5px;
+}
+
+div.sec1{
+  flex:1;
+  background: rgb(197, 193, 193);
+  text-align: center;
+  padding: 3;
+}
+
+div.sec2{
+  flex:2;
+  background: rgb(135, 133, 133);
+  text-align: center;
+  padding: 3;
+}
+div.sec3{
+  flex:1; 
+  background: rgb(197, 193, 193);
+  text-align: center;
+  padding: 3;
+}
+/*Keyframe playground
+p{
+  width: 100px;
+  height: 100px;
+  position :relative;
+  -webkit-animation: mymove 5s infinite; /* Safari 4.0 - 8.0 
+  animation: mymove 0.5s infinite;
+  } */
+/* Safari 4.0 - 8.0 
+@-webkit-keyframes mymove {
+  from {font-size: 50%;}
+  to {font-size: 52%;}
+}
+*/
+/* Standard syntax
+@keyframes mymove {
+  from {font-size: 50%;}
+  to {font-size: 52%;}
+}
+*/
+.styled-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+}
+
+.styled-table tbody tr.active-row {
+  font-weight: bold;
+  color: #009879;
+}

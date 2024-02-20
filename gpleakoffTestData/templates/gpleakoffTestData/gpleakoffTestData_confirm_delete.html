@@ -1,0 +1,19 @@
+{% extends "home/gaslayout.html" %}
+{% block content %}
+<div class="container d-flex justify-content-center" style="width: 50%;">
+    <div class="col text-center">
+        <h5 class="text-center">Delete Leakoff Test Data </h5>
+        <p class="text-danger">Are you sure you want to delete the leakoff Test Data :</p>
+        <h5 class="text-center">{{ gpleakoffTestData.gpcasingSize }}</h5>
+        <form action="" method="POST">
+            {% csrf_token %}                 
+            {% comment %} <input type="submit" value="Confirm">           
+            <input type="submit" value="Cancel" onclick="window.location='{% url 'gpleakoffTestData:list_gpleakoffTestData' gpleakoffTestData.gpleakoffTest_id %}'; return false;">{% endcomment %}
+            <input type="submit" class="btn btn-primary btn-sm" value="Confirm" style="margin-right: 30px; margin-top: 30px;">
+            <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'gpleakoffTestData:list_gpleakoffTestData' gpleakoffTestData.gpleakoffTest_id %}'; return false;" value="Cancel">
+            
+        </form>
+    </div>
+</div>
+
+{% endblock %}

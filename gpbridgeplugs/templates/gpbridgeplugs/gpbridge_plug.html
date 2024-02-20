@@ -1,0 +1,58 @@
+{% extends "home/gaslayout.html" %}
+
+{% block content %}
+
+<div class="container d-flex" style="width: 100%;">
+    <hr>
+    <div class="col">
+        <hr>
+        <h5 class="text-center text-success"> Bridge Plugs / Cement Retainer</h5>
+        <hr>
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.75em;">       
+            <thead style="background-color:rgb(106, 130, 238);"> 
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %}
+                    <th class="text-center" scope="col">Plug Date</th>     
+                    <th class="text-center" scope="col">Plug Type</th>                    
+                    <th class="text-center" scope="col">Plug Depth</th>
+                    <th class="text-center" scope="col">Casing Size(In)</th>
+                    <th class="text-center" scope="col">Plug OD(In)</th>
+                    <th class="text-center" scope="col">Setting Range(ppf)</th>
+                    <th class="text-center" scope="col">Setting Mechanism</th>
+                    <th class="text-center" scope="col">Make</th>
+                    <th class="text-center" scope="col">Model</th>
+                    <th class="text-center" scope="col">Pressure Rating(psi)</th>
+                    <th class="text-center" scope="col">Temp Rating(deg F)</th>
+                    <th class="text-center" scope="col">Problems</th> 
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for plug in gpplugs %}
+                <tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}                    
+                    <td class="text-center">{{plug.gpplug_Date}}</td>
+                    <td class="text-center">{{plug.gpplug_type}}</td>
+                    <td class="text-center">{{plug.gpplug_Depth}}</td>
+                    <td class="text-center">{{plug.gpcasing_Size}}</td>
+                    <td class="text-center">{{plug.gpplug_OD}}</td>
+                    <td class="text-center">{{plug.gpsetting_range_ppf}}</td>  
+                    <td class="text-center">{{plug.gpsetting_mechanism}}</td>
+                    <td class="text-center">{{plug.gpplug_Make}}</td>
+                    <td class="text-center">{{plug.gpplug_Model}}</td>
+                    <td class="text-center">{{plug.gpPressure_rating}}</td>
+                    <td class="text-center">{{plug.gpTemperature_rating}}</td>
+                    <td class="text-center">{{plug.gpplug_setting_Problems}}</td>
+                    <td><a href="{% url 'gpbridgeplugs:update_gpbridgeplug' plug.id %} ">Edit</a></td>
+                    <td><a href="{% url 'gpbridgeplugs:delete_gpbridgeplug' plug.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}        
+            </tbody>
+        </table>   
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'gpbridgeplugs:create_gpbridgeplug' %}" class="d-block btn btn-primary my-5">Add New</a>
+        </div>
+    </div>        
+</div>
+{% endblock content %}

@@ -1,0 +1,75 @@
+{% extends "home/fieldwidelayout.html" %}
+
+{% block content %}
+<div class="container mt-5" style="width: 100%;">
+    <div class="col">
+        <h5 class="text-center">Layer Details</h5>
+        <div class="d-flex justify-content-center">
+            <table class="table table-striped mt-0" style="width: 100%">
+                <thead>
+                    <tr>
+                        <th class="text-center" scope="layername">Layer Name</th>
+                        <th class="text-center" scope="description">Description</th>
+                        <th class="text-center" scope="area">Area (sq.km)</th>
+                        <th class="text-center" scope="year">Established in </th>
+                        <th class="text-center" scope="volumetric_data">volumetric_data</th>
+                    </tr>
+                </thead>
+                <tbody> 
+                        <tr>                          
+                            <td class="text-center">{{layer.layername}}</td>
+                            <td class="text-center">{{layer.description}}</td>
+                            <td class="text-center">{{layer.area}}</td>
+                            <td class="text-center">{{layer.year}}</td>   
+                            <td class="text-center">{{layer.volumetric_data}}</td> 
+                        </tr>  
+                </tbody>
+            </table>
+        </div>  
+        <h5 class="text-center">Oil in Place ( Millions STB)</h5>
+        <div class="d-flex justify-content-center">
+            <table class="table table-striped mt-0" style="width: 100%">
+                <thead>
+                    <tr>                       
+                        <th class="text-center" scope="description">Trapezoidal Method</th>
+                        <th class="text-center" scope="area">Pyramidal Method</th>
+                        <th class="text-center" scope="year">Simpson 1/3 Method </th>                      
+                    </tr>
+                </thead>
+                <tbody> 
+                        <tr>                          
+                            <td class="text-center">{{oip_trapezo}}</td>
+                            <td class="text-center">{{oip_pyramidal}}</td>
+                            <td class="text-center">{{oip_simpson}}</td>                            
+                        </tr>  
+                </tbody>
+            </table>
+        </div>      
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'layers:all' %}" class="d-block btn btn-primary btn-sm my-2">BACK</a>
+        </div>
+    </div>
+    <hr>
+    <div class="container text-center">  
+        {% include 'home/messages.html' %}  
+        {%  if chart %}
+            <img src="data:image/png;base64, {{chart|safe}}">
+        {% endif %}   
+    </div>    
+    <hr>
+    <div class="container text-center">  
+        {% include 'home/messages.html' %}  
+        {%  if chart1 %}
+            <img src="data:image/png;base64, {{chart1|safe}}">
+        {% endif %}   
+    </div>
+
+    <div class="container text-center">  
+        {% include 'home/messages.html' %}  
+        {%  if chart2 %}
+            <img src="data:image/png;base64, {{chart2|safe}}">
+        {% endif %}   
+    </div>
+</div>
+
+{% endblock  %}

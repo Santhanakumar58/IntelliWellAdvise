@@ -1,0 +1,54 @@
+<html lang="en">
+{% extends "Home/gasinjectorlayout.html" %}
+
+{% block content %}
+<form action="" enctype="multipart/form-data" method="POST">
+    <div class="container">  
+        {% include 'home/messages.html' %}  
+        <div class="container">   
+            <div class="row"> 
+                <h5 class="text-center" > Completion Equipment </h5>
+            </div>  
+            <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.8em;">
+                <thead style="background-color:rgb(106, 130, 238);">
+                    <tr class="text-center"> 
+                        <th>Equipment</th>                      
+                        <th>OD</th>   
+                        <th>ID</th> 
+                        <th>MD</th> 
+                        <th>TVD</th> 
+                        <th>Angle</th>                                                     
+                        <th>Update</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>            
+                    {% for data in completion_datas %}
+                    <tr class=text-center>
+                        {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %} 
+                        <td>{{data.giequipment}}</td>
+                        <td>{{data.giequip_Od}}</td>
+                        <td>{{data.giequip_Id}}</td>   
+                        <td>{{data.giequip_Md}}</td>    
+                        <td>{{data.giequip_Tvd}}</td>               
+                        <td>{{data.giequip_Angle}}</td>                                  
+                        <td><a href="{% url 'giwellcompletion:update_gicompletion_data' data.id %}" >Update</a></td>
+                        <td><a href="{% url 'giwellcompletion:delete_gicompletion_data' data.id %}">Delete</a></td>
+                    </tr>
+                {% endfor %}   
+            </table> 
+            <div class="d-flex text-center">           
+                <a href="{% url 'giwellcompletion:create_gicompletion_data' %}" class="d-block btn btn-primary btn-sm my-2">Add New</a>
+               
+            </div>             
+        </div>
+        <div class ="container main">
+            {%  if chart2 %}
+                <img src="data:image/png;base64, {{chart2|safe}}">
+            {% endif %} 
+        </div>          
+    </div>
+ 
+</form>
+{% endblock content %}
+</html>

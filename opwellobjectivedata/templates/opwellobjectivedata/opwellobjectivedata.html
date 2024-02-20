@@ -1,0 +1,59 @@
+<html lang="en">
+{% extends "home/oillayout.html" %}
+
+{% block content %}
+    <div class="container main"> 
+        <div class="row"> 
+            <div style="width:25%">  
+                <a href="{% url 'opwellobjectivedata:Import_Excel_pandas' objid %}" class="d-block btn btn-primary my-1">Upload Excel Data</a>
+            </div>              
+        </div> 
+        <div class="row">        
+            <h5 class="text-center text-success"> Well Objective Profile Data </h5>        
+            <table class='table table-striped' width="100%" style="border-color:green; border: thick 4px; ;">
+            <thead>
+                <tr> 
+                    <th class='date'>Date</th>                  
+                    <th class='liquidrate'>Liquid Rate</th>
+                    <th class='watercut'>Water Cut %</th>
+                    <th class='gasoilratio'>Gas Oil Ratio (scf/bbl) </th>
+                    <th class='oilrate'>Oil Rate (bbls/d)</th>
+                    <th class='gasrate'>Gas Rate (sfc/d)</th>
+                    <th class='waterrate'>Water Rate (sfc/d)</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for objectivedata in opwellobjectivedata %}
+                <tr >
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}                    
+                    <td class="text-center">{{objectivedata.date}}</td>
+                    <td class="text-center">{{objectivedata.liquidrate}}</td> 
+                    <td class="text-center">{{objectivedata.watercut}}</td>
+                    <td class="text-center">{{objectivedata.gasoilratio}}</td>                  
+                    <td class="text-center">{{ objectivedata.oilrate }}</td>  
+                    <td class="text-center">{{objectivedata.gasrate}}</td>
+                    <td class="text-center">{{objectivedata.waterate}}</td> 
+                    <td><a href="{% url 'opwellobjectivedata:update_opwellobjectivedata' objectivedata.id %} ">Update</a></td>
+                    <td><a href="{% url 'opwellobjectivedata:delete_opwellobjectivedata' objectivedata.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+            </table> 
+        </div>       
+        <div class="row">
+            <div class="d-flex justify-content-center">
+            <a href="{% url 'opwellobjectives:list_opwellobjective' %}" class="d-block btn btn-primary m-2 ">Back to Well Objective</a>
+            <a href="{% url 'opwellobjectivedata:create_opwellobjectivedata' objid %}" class="d-block btn btn-primary m-2">Add New</a>
+            </div> 
+        </div>
+    </div>         
+    </div>   
+    <div class="row"> 
+        {%  if chart %}
+            <img alt="" src="data:image/png;base64, {{chart|safe}}">
+        {% endif %}         
+    </div>
+
+{% endblock  %}
+</html>

@@ -1,0 +1,50 @@
+<html lang="en">
+{% extends "home/oillayout.html" %}
+
+{% block content %}
+<div class="container main d-flex mt-0" style="width: 100%;">   
+    <div class="row">        
+        <h4 class="text-center"> Gradient Surveys </h4>        
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.75em;">       
+            <thead style="background-color:rgb(106, 130, 238);">    
+                <tr>                      
+                    <th class='date'>Survey Date</th>   
+                    <th class=''>Survey TYpe</th>
+                    <th class='gasrate'>Shut-in Period (hours)</th>
+                    <th class='waterrate'>THP (psi)</th>
+                    <th class='liquidrate'>TH Temp. (def<sup>o</sup>F</th>
+                    <th class='watercut'>Liquid Rate (Bbls/day)</th>
+                    <th class='watercut'>Water Cut %</th>
+                    <th class='gasoilratio'>Gas Oil Ratio (scf/bbl) </th>
+                    <th>Data</th>
+                    <th>Upload Data</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for gradientsurvey in gradientsurveys %}
+                <tr >
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %} 
+                    <td class="text-center">{{gradientsurvey.survey_Date}}</td>
+                    <td class="text-center">{{gradientsurvey.survey_Type}}</td> 
+                    <td class="text-center">{{gradientsurvey.shutin_Period}}</td>
+                    <td class="text-center">{{gradientsurvey.tubinghead_Pressure}}</td>  
+                    <td class="text-center">{{gradientsurvey.tubinghead_Temperature}}</td>                 
+                    <td class="text-center">{{gradientsurvey.liquid_Rate }}</td>  
+                    <td class="text-center">{{gradientsurvey.water_Cut}}</td>
+                    <td class="text-center">{{gradientsurvey.gas_Oil_Ratio}}</td> 
+                    <td><a href="{% url 'opgradientsurveydata:list_gradientsurveydata' gradientsurvey.id %} ">Data</a></td>
+                    <td><a href="{% url 'opgradientsurveydata:excel_upload' gradientsurvey.id %} ">Upload Data</a></td>
+                    <td><a href="{% url 'opgradientsurveys:update_gradientsurvey' gradientsurvey.id %} ">Edit</a></td>
+                    <td><a href="{% url 'opgradientsurveys:delete_gradientsurvey' gradientsurvey.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+        </table> 
+        <div class="d-flex text-center">
+            <a href="{% url 'opgradientsurveys:create_gradientsurvey' %}" class="d-block btn btn-primary btn-sm my-5">Add New</a>
+        </div> 
+    </div>         
+</div>    
+{% endblock content %}
+</html>

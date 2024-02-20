@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
+    <title>
+      {% block title %}
+        <h4>Fieldwide Layout</h4>
+      {% endblock %}
+    </title>
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+    crossorigin="anonymous"
+  />
+  <!-- BOX ICONS CSS-->
+
+    {% load static %}
+    <link rel="stylesheet" content-Type="text/css" href="{% static 'Home/css/site.css' %}"/> 
+    <link rel="stylesheet" content-Type="text/css" href="{% static 'Home/css/sidenav.css' %}"/> 
+  
+<body style="font-family:Tahoma;"> 
+      <!-- Side-Nav -->
+      <div class="side-navbar active-nav d-flex justify-content-between flex-wrap flex-column" id="sidebar">
+        <ul class="nav flex-column text-white w-100">
+          <a href="#" class="nav-link h5 text-white my-2">
+           Oil Producer</a>
+          <button href="#" class="nav-link" style="color: whitesmoke;">
+            <i class="bx bxs-dashboard"></i>
+            <span class="mx-2">Well List</span>
+          </button>
+          <li href="#" class="nav-link" style="color: whitesmoke;">
+            <i class="bx bx-user-check"></i>
+            <span class="mx-2">Well Objective</span>
+          </li>
+          <button  href="#" class="nav-link" style="color: whitesmoke;" >
+            <i class="bx bx-conversation"></i>
+            <span class="mx-2">Geology</span>
+          </button>
+          <li href="#" class="nav-link">
+            <i class="bx bx-conversation" style="color: whitesmoke;"> 
+            <span class="mx-2">Drilling</span>
+          </li>
+           <button class="dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Assets 
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                  <li><a class="dropdown-item" href="{% url 'assets:list_assets' %}">Assets</a></li>
+                  <li><a class="dropdown-item" href="{% url 'blocks:all' %}">Blocks</a></li>
+                  <li><a class="dropdown-item" href="{% url 'oilfields:all' %}">Fields</a></li>
+                  <li><a class="dropdown-item" href="{% url 'layers:all' %}">Layer</a></li>
+                  <li><a class="dropdown-item" href="{% url 'sublayers:all' %}">Sublayer</a></li>
+                  <li class="dropdown dropend"></li>
+                </ul>
+            </button>
+            <div class="dropdown button-hover">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  Dropdown button
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+            </div>
+        </ul>
+  
+        <span href="#" class="nav-link h4 w-100 mb-5">
+          <a href=""><i class="bx bxl-instagram-alt text-white"></i></a>
+          <a href=""><i class="bx bxl-twitter px-2 text-white"></i></a>
+          <a href=""><i class="bx bxl-facebook text-white"></i></a>
+        </span>
+      </div>
+  
+      <!-- Main Wrapper -->
+      <div class="p-1 my-container active-cont">   
+        <!-- Top Nav -->
+        <nav class="navbar top-navbar navbar-light bg-light px-5 ">
+          <a class="btn border-0" id="menu-btn"><i></i></a> 
+          <nav class="navbar navbar-expand-lg navbar-light bg-light" >
+            <div class="container-fluid" >
+              <a class="navbar-brand" href="{% url 'index' %}">
+                <img src="/Home/static/home/images/WALOGO.jpg" alt="" width="30" height="30" class="d-inline-block align-text-top">
+              </a>
+              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="btn-group navbar-collapse " id="navbarNavDropdown" >
+                <ul class="navbar-nav"> 
+                  <li><a class="dropdown-item" href="{% url 'index' %}">Home</a></li>
+                  <li><a class="dropdown-item" href="{% url 'about' %}">About</a></li>
+                  <li><a class="dropdown-item" href="{% url 'contact' %}">Contact</a></li>
+                  <li><a class="dropdown-item" href="{% url 'signup' %}">Sign Up</a></li>
+                  <li><a class="dropdown-item" href="{% url 'signin' %}">Sign In</a></li>
+                  {% if user.is_authenticated %}
+                  <li><a class="dropdown-item" href="{% url 'signout' %}">Sign out</a></li>
+                  <li class="dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Assets 
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      <li><a class="dropdown-item" href="{% url 'assets:list_assets' %}">Assets</a></li>
+                      <li><a class="dropdown-item" href="{% url 'blocks:all' %}">Blocks</a></li>
+                      <li><a class="dropdown-item" href="{% url 'oilfields:all' %}">Fields</a></li>
+                      <li><a class="dropdown-item" href="{% url 'layers:all' %}">Layer</a></li>
+                      <li><a class="dropdown-item" href="{% url 'sublayers:all' %}">Sublayer</a></li>
+                      <li class="dropdown dropend"></li>
+                    </ul>
+                  </li>
+                  <li class="dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Fieldwide Data
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      <li><a class="dropdown-item" href="{% url 'fgis:all' %}">FGIs</a></li>
+                      <li><a class="dropdown-item" href="{% url 'selectedfgi:list_selectedfgi' %}">Selected FGI</a></li>
+                      <li class="dropdown dropend">
+                        <a class="dropdown-item dropdown-toggle" href="#" id="multilevelDropdownMenu1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">PVT</a>
+                        <ul class="dropdown-menu" aria-labelledby="multilevelDropdownMenu2">
+                          <li><a class="dropdown-item" href="{% url 'blackoilpvt:list_blackoilpvt' %}">Simple PVT</a></li>
+                          <li><a class="dropdown-item" href="#">Detailed PVT</a></li>                 
+                          <li class="dropdown dropend"></li>
+                        </ul>
+                      </li>
+                      <li><a class="dropdown-item" href="#">Core Analysis</a></li>
+                      <li><a class="dropdown-item" href="#">Maps</a></li>
+                      <li><a class="dropdown-item" href="#">Well Design</a></li>
+                      <li><a class="dropdown-item" href="#">Production</a></li>
+                    </ul>
+                  </li>           
+                  <li class="dropdown">
+                    <a class="nav-link  dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                      Well Modules
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">                  
+                      <li class="dropdown dropend">
+                        <a class="dropdown-item dropdown-toggle" href="#" id="multilevelDropdownMenu1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Oil Producer</a>
+                        <ul class="dropdown-menu" aria-labelledby="multilevelDropdownMenu1">
+                          <li><a class="dropdown-item" href="{% url 'oilproducers:list_oilproducer' %}">Well List</a></li>
+                          <li><a class="dropdown-item" href="{% url 'opwellobjectives:list_opwellobjective' %}">Well objective</a></li>
+                          <li><a class="dropdown-item" href="#">Geology</a></li>
+                          <li><a class="dropdown-item" href="#">Drilling</a></li>                      
+                          <li><a class="dropdown-item" href="#">Another action</a></li>
+                          <li><a class="dropdown-item" href="#">Something else here</a></li>    
+                            <li class="dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                      Assets 
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                      <li><a class="dropdown-item" href="{% url 'assets:list_assets' %}">Assets</a></li>
+                      <li><a class="dropdown-item" href="{% url 'blocks:all' %}">Blocks</a></li>
+                      <li><a class="dropdown-item" href="{% url 'oilfields:all' %}">Fields</a></li>
+                      <li><a class="dropdown-item" href="{% url 'layers:all' %}">Layer</a></li>
+                      <li><a class="dropdown-item" href="{% url 'sublayers:all' %}">Sublayer</a></li>
+                      <li class="dropdown dropend"></li>
+                    </ul>
+                  </li>              
+                        </ul>
+                      </li>              
+                      <li class="dropdown dropend">
+                        <a class="dropdown-item dropdown-toggle" href="#" id="multilevelDropdownMenu1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Gas Producer</a>
+                        <ul class="dropdown-menu" aria-labelledby="multilevelDropdownMenu2">
+                          <li><a class="dropdown-item" href="{% url 'opwellobjectives:list_opwellobjective' %}">Well Objectives</a></li>
+                          <li><a class="dropdown-item" href="#">Geology</a></li>
+                          <li><a class="dropdown-item" href="#">Drilling</a></li>
+                          <li class="dropdown dropend"></li>
+                        </ul>
+                      </li>
+                      <li class="dropdown dropend"></li>
+                      <li class="dropdown dropend">
+                        <a class="dropdown-item dropdown-toggle" href="#" id="multilevelDropdownMenu1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Water Injector</a>
+                        <ul class="dropdown-menu" aria-labelledby="multilevelDropdownMenu2">
+                          <li><a class="dropdown-item" href="#">Well Objectives</a></li>
+                          <li><a class="dropdown-item" href="#">Geology</a></li>
+                          <li><a class="dropdown-item" href="#">Drilling</a></li>
+                          <li class="dropdown dropend"></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="#" tabindex="-1" >Log Out</a>            
+                  </li>
+                {% else %}
+                  <li class="nav-item">
+                    <a href="#" class="nav-link"tabindex="-2">Sign up</a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="#" class="nav-link" tabindex="-3">Log in</a>
+                  </li>
+                {% endif %}        
+                </ul>                 
+              </div>
+            </div>
+          </nav> 
+        </nav>
+        <!--End Top Nav -->
+        <div class="body-content" style="font-size:1em;font-family:Tahoma; color: black;">
+          {% block Content%}
+          <p class="px-3">Responsive navigation sidebar built using <a class="text-dark" href="https://getbootstrap.com/">Bootstrap 5</a>.</p>
+          <h3>Home Page</h3> 
+          <p class="text-center">Responsive navigation sidebar built using </p>
+          {% endblock %}
+          {% block js %}
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+            <script src="{% static '/Home/js/jquery-3.6.0.min.js' %}"> </script>
+            <script src="{% static '/Home/js/jquery-ui-1.13.1/jquery-ui.min.js' %}"> </script>
+          {% endblock %}  
+        </div> 
+    
+      </div>
+      
+   
+    <!-- custom js --> 
+    <script> 
+      var myDropdown = document.getElementsByClassName('dropdown-toggle')
+        for (i=0; i<myDropdown.length; i++) {
+            myDropdown[i].addEventListener('click', function () {
+                var el = this.nextElementSibling;
+                el.style.display = el.style.display == 'block' ? 'none' : 'block';         
+            });
+        }
+        var menu_btn = document.querySelector("#menu-btn");
+        var sidebar = document.querySelector("#sidebar");
+        var container = document.querySelector(".my-container");
+        menu_btn.addEventListener("click", () => {
+          sidebar.classList.toggle("active-nav");
+          container.classList.toggle("active-cont");
+        });     
+      
+    </script>
+
+</body>
+
+</html>

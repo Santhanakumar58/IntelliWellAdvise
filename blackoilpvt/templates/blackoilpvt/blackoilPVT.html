@@ -1,0 +1,65 @@
+<html lang="en">
+{% extends "home/fieldlayout.html" %}
+
+{% block content %}
+{% for pvt in blackoilpvts %}
+    {% for colname in pvt.column_set.all  %}
+        <p>{{colname}}</p>
+    {% endfor %}
+{% endfor %}
+<h4 class="text-center"> Black Oil PVT </h4> 
+
+<div class="container d-flex" style="width: 100%;">   
+    {%  if chart %}
+        <img alt="" src="data:image/png;base64, {{chart|safe}}">
+    {% endif %}
+</div>
+<div class="container">   
+    <div class="row">       
+        <h4 class="text-center"> Black Oil PVT Data </h4> 
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.8em;">
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr>  
+                    <th class='wellName'>Well Name</th>  
+                    <th class='sublayerName'>Layer</th>    
+                    <th class='date'>Sample ID</th> 
+                    <th class='sampleid'>Sample Date</th>                       
+                    <th class='reservoirpressure'>Pressure (psi)</th>
+                    <th class='reservoirtemperature'>Temperature (deg<sup>o</sup>F)</th>
+                    <th class='apigravity'>Oil API gravity </th>
+                    <th class='gasgravity'>Gas Sp.Gravity</th>
+                    <th class='solutiongor'>Soln GOR (sfc/bbl)</th>
+                    <th class='pbCorrelation'>Bubble Point Correlation</th>
+                    <th class='viscosityCorrelation'>Viscosity Correlation</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for pvt in blackoilpvts %}
+                <tr >
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %} 
+                    <td class="text-center">{{pvt.wellName}}</td>
+                    <td class="text-center">{{pvt.subLayer}}</td>
+                    <td class="text-center">{{pvt.sampleId}}</td>
+                    <td class="text-center">{{pvt.date}}</td> 
+                    <td class="text-center">{{pvt.reservoirPressure}}</td>
+                    <td class="text-center">{{pvt.reservoirTemperature}}</td> 
+                    <td class="text-center">{{pvt.oilAPIgravity}}</td>
+                    <td class="text-center">{{pvt.gasGravity}}</td> 
+                    <td class="text-center">{{pvt.solutionGOR}}</td>
+                    <td class="text-center">{{pvt.pbCorrelation}}</td> 
+                    <td class="text-center">{{pvt.viscosityCorrelation}}</td> 
+                    <td><a href="{% url 'blackoilpvt:update_blackoilpvt' pvt.id %}" >Update</a></td>
+                    <td><a href="{% url 'blackoilpvt:delete_blackoilpvt' pvt.id %}">Delete</a></td>
+                </tr>
+                {% endfor %}   
+            <tbody> 
+        </table> 
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'blackoilpvt:create_blackoilpvt' %}" class="d-block btn btn-primary my-5">Add New</a>
+        </div> 
+    </div>         
+</div>    
+{% endblock content %}
+</html>

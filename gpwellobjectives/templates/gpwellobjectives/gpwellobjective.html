@@ -1,0 +1,49 @@
+<html lang="en">
+{% extends "Home/gaslayout.html" %}
+
+{% block content %}
+<div class="container main" >   
+    <h4 class="text-center">Gas Producer Well Objective</h4>
+    <table class="table table-striped table-bordered" style="border: 2px; border-width:2px;">       
+        <thead >           
+            <tr>
+                {% comment %} <th>#</th> {% endcomment %} 
+                <th class="text-center" align="justify" scope="col">Well Name</th>                    
+                <th class="text-center" align="justify" scope="col">Objectives</th>
+                <th>Edit</th>
+                <th>Delete</th>
+                <th>Profile</th>                   
+            </tr>
+        </thead>
+        <tbody>            
+            {% for objective in gpwellobjectives %}
+            <tr>
+                {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}                    
+                <td class="text-center" align = "justify">{{objective.gpwellname}}</td>
+                <td align = "justify">{{objective.gpobjectives}}</td>  
+                <td><a href="{% url 'gpwellobjectives:update_gpwellobjective' objective.id %} ">Edit</a></td>
+                <td><a href="{% url 'gpwellobjectives:delete_gpwellobjective' objective.id %}">Delete</a></td>
+                <td><a href="{% url 'gpwellobjectivedata:list_gpwellobjectivedata' objective.id %}">Profile</a></td>
+                
+            </tr>
+            {% endfor %}        
+        </tbody>
+    </table> 
+    {% if not opwellobjectives %}
+        <div class="d-flex justify-content-center" style="width: 10%;">
+            <a href="{% url 'gpwellobjectives:create_gpwellobjective' %}" class="d-block btn btn-primary my-5">Add New</a>
+        </div> 
+    {% endif %}     
+</div>  
+<div class="text-center"> 
+    {%  if chart1 %}
+        <img alt="" src="data:image/png;base64, {{chart1|safe}}">
+    {% endif %}          
+</div>
+<div class="text-center">  
+    {%  if chart2 %}
+        <img alt="" src="data:image/png;base64, {{chart2|safe}}">
+    {% endif %}         
+</div>  
+{% endblock content %}
+</html>

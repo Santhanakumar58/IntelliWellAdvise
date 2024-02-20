@@ -1,0 +1,50 @@
+{% extends "Home/waterinjectorlayout.html" %}
+
+{% block content %}
+<div class="container">  
+    <h5 class="text-center">Drilling Well Data</h3>
+    <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.75em; width:98%;">
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %}                     
+                    <th class="text-center" scope="col">Date</th>                    
+                    <th class="text-center" scope="col">RKB-WH</th>
+                    <th class="text-center" scope="col">RKB-GL (ft)</th>
+                    <th class="text-center" scope="col">GL-MSL (ft)</th>   
+                    <th class="text-center" scope="col">RKB-MSL</th>   
+                    <th class="text-center" scope="col">WH-MSL</th>   
+                    <th class="text-center" scope="col">Lattitude</th>   
+                    <th class="text-center" scope="col">Longitude</th> 
+                    <th class="text-center" scope="col">MD</th>   
+                    <th class="text-center" scope="col">TVD</th>   
+                    <th class="text-center" scope="col">AFE</th>    
+                    <th class="text-center" scope="col">Update</th>   
+                    <th class="text-center" scope="col">Delete</th>                 
+            </thead>
+            <tbody>            
+                {% for data in widrillingwelldatas %}
+                <tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %} 
+                    <td class="text-center">{{data.wisurvey_Date}}</td>
+                    <td class="text-center">{{data.wirkb_to_WH}}</td>
+                    <td class="text-center">{{data.wirkb_to_GL}}</td>
+                    <td class="text-center">{{data.wigl_to_MSL}}</td>                    
+                    <td class="text-center">{{data.wirkb_to_MSL}}</td>   
+                    <td class="text-center">{{data.wiwh_to_MSL}}</td>
+                    <td class="text-center">{{data.wilattitude}}</td>
+                    <td class="text-center">{{data.wilongitude}}</td>
+                    <td class="text-center">{{data.witotal_Measured_Depth}}</td>                    
+                    <td class="text-center">{{data.witotal_True_Vertical_Depth}}</td>    
+                    <td class="text-center">{{data.wiafe_No}}</td>                 
+                    <td><a href="{% url 'widrillingwelldata:update_widrillingwelldata' data.id %} ">Edit</a></td>
+                    <td><a href="{% url 'widrillingwelldata:delete_widrillingwelldata' data.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}        
+            </tbody>
+    </table>   
+    <div class="d-flex justify-content-center" style="width: 20%;">
+            <a href="{% url 'widrillingwelldata:create_widrillingwelldata' %}" class="d-block btn btn-primary my-5">Add New</a>
+    </div>
+        
+</div>
+{% endblock content %}

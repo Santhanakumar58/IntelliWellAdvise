@@ -1,0 +1,46 @@
+<html lang="en">
+{% extends "home/oillayout.html" %}
+
+{% block content %}
+<form action="" enctype="multipart/form-data" method="POST">
+    <div class="container mt-0">  
+        {% include 'home/messages.html' %}   
+        <div class="row"> 
+            <h4 class="text-center">Pressure Buildup Analysis </h4>
+        </div>  
+        <div class="row">  
+            {%  if chart %}
+                <img src="data:image/png;base64, {{chart|safe}}">
+            {% endif %}   
+        </div>
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.8em; width: 90%;">            
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr>                      
+                    <th class='text-center'>Survey Date</th> 
+                    <th class='text-center'>Thick (ft)</th>
+                    <th class='text-center'>Porosity (%)</th>
+                    <th class='text-center'>Total Compress (psi<sup>o</sup>-1)</th>                 
+                    <th class='text-center'>Wellbore (ft)</th>                    
+                    <th class='text-center'>PVT Well </th>
+                    <th class='text-center'>Data File</th>  
+                </tr>
+            </thead>
+            <tbody>
+                <tr >                   
+                    <td class="text-center">{{buildup.survey_Date}}</td>                    
+                    <td class="text-center">{{buildup.layer_Thickness}}</td>
+                    <td class="text-center">{{buildup.layer_Porosity}}</td>  
+                    <td class="text-center">{{buildup.total_Compressibility}}</td>  
+                    <td class="text-center">{{buildup.wellbore_Radius}}</td> 
+                    <td class="text-center">{{buildup.pvt_Well}}</td> 
+                    <td class="text-center">{{buildup.dataFile}}</td> 
+                </tr>
+           
+        </table> 
+        <div class="d-flex text-center">
+            <a href="{% url 'pressurebuildupanalysis:create_buildup_test_data' %}" class="d-block btn btn-primary btn-sm my-5">Add New</a>
+        </div>             
+    </div> 
+</form>
+{% endblock content %}
+</html>

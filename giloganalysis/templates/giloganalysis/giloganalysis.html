@@ -1,0 +1,56 @@
+{% extends "Home/gasinjectorlayout.html" %}
+
+{% block content %}
+{% for log in logs %}
+    {% for colname in log.column_set.all  %}
+        <p>{{colname}}</p>
+    {% endfor %}
+{% endfor %}
+
+<div class="container d-flex" style="width: 100%;">
+    <div class="col">
+        <h4 class="text-center">Log Analysis</h4>
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.8em;">           
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %}                    
+                    <th class=''>Recorded Date</th>
+                    <th class=''>Casing Size</th>
+                    <th class=''>Analyst</th>
+                    <th class=''>Interpretation</th>
+                    <th class=''>Log image</th>
+                    <th class=''>File Type</th>
+                    <th class=''>File Name</th>
+                    <th>Log Data</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for log in logs %}
+                <tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}                      
+                    <td class="text-center">{{log.girecorded_date }}</td> 
+                    <td class="text-center">{{log.gicasingSize}}</td>
+                    <td class="text-center">{{log.gianalyst}}</td>                    
+                    <td class="text-center">{{log.giinterpretation}}</td> 
+                    <td class="text-center">{{log.gilogImage}}</td>     
+                    <td class="text-center">{{log.gifile_type}}</td>    
+                    <td class="text-center">{{log.gifile_Name}}</td>              
+                    {% if cementbondlog %}   
+                        <td><a href="#">CBL Data</a></td>                     
+                        <td><a href="{% url 'giloganalysis:update_giloganalysis' log.id %} ">Edit</a></td>
+                        <td><a href="{% url 'giloganalysis:delete_giloganalysis' log.id %}">Delete</a></td>        
+                    {% endif %}
+                </tr>
+            {% endfor %}        
+            </tbody>
+        </table> 
+        <br> 
+        <div class="d-flex justify-content-center">           
+            <a href="{% url 'giloganalysis:create_giloganalysis' %}" class="d-block btn btn-primary my-1">Add New</a>
+        </div>
+    </div>        
+</div>
+
+{% endblock content %}

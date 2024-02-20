@@ -1,0 +1,88 @@
+.h4 {
+  font-size: 16px;
+  color:#02b8dd;
+  font-weight: bold;
+  text-transform: capitalize;
+  margin-bottom: 20px;
+  font-family: cursive;
+}
+
+.h3 {
+  font-size: 18px;
+  color:red;
+  font-weight: bold;
+  text-transform: capitalize;
+  margin-bottom: 5px;
+  font-family: cursive;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    min-height: 100vh;    
+    background-color: #fff;
+  }
+  
+  .side-navbar {
+    width: 150px;
+    height: 100%;
+    position: fixed;
+    margin-left: -300px;
+    background-color: #4b4276;
+    transition: 0.5s;
+  }
+  
+  .nav-link:active,
+  .nav-link:focus,
+  .nav-link:hover {
+    background-color: #4b4276;
+  }
+  
+  .my-container {
+    transition: 0.4s;   
+  }
+  
+  .active-nav {
+    margin-left: 0;
+  }
+  
+  /* for main section */
+  .active-cont {
+    margin-left:10px;
+  }
+  
+  #menu-btn {
+    background-color: #100901;
+    color: #fff;
+    margin-left: -12px;
+  }
+  
+  .my-container input {
+    border-radius: 0.5rem;
+    padding: 2px 12px;
+  }
+  
+  /*  -- added items  */
+.h5 {
+    font-size: 24px;
+    color:#02b8dd;
+    font-weight: bold;
+    text-transform: capitalize;
+    margin-bottom: 20px;
+}
+  
+ /*  -- end of added items  */
+
+
+
+ .div span.only-show-on-hover {
+   visibility: hidden;
+   float: right;
+ }
+ .div:hover span.only-show-on-hover {
+   visibility: visible;
+ }

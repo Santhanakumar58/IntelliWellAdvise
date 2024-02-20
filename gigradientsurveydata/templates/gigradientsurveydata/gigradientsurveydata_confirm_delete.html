@@ -1,0 +1,24 @@
+{% extends "Home/gasinjectorlayout.html" %}
+{% block content %}
+
+{% url 'gigradientsurveydata:list_gigradientsurveydata' as list_all %}
+
+<div class="container d-flex justify-content-center mt-5" style="width: 50%;">
+    <div class="col mt-5 text-center">
+        <h4 class="mb-5">Delete Gradient Surveys</h4>
+        <p class="h5 text-danger">Are you sure you want to delete the survey data at :</p>
+        <h5 class="my-5">{{ gradientsurveydata.gauge_Depth}}</h5>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {% comment %} 
+            <input type="submit" value="Confirm">           
+            <input type="submit" value="Cancel" onclick="window.location='{% url 'gigradientsurveydata:list_gigradientsurveydata' id %}'; return false;" >
+            {% endcomment %}
+            <a href="{% url 'gigradientsurveydata:list_gigradientsurveydata' id %}" class="d-block btn btn-primary btn-sm" style="margin-right: 30px; margin-tgi: 30px;">Gradient Surveys</a>
+            <input type="submit" class="btn btn-primary btn-sm" value="Confirm" style="margin-right: 30px; margin-top: 30px;">
+            <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'gigradientsurveydata:list_gradientsurveydata' gradientsurveydata.gradientsurvey_id %}'; return false;" value="Cancel">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

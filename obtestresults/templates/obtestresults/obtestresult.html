@@ -1,0 +1,59 @@
+<html lang="en">
+{% extends "Home/observerlayout.html" %}
+
+{% block content %}
+<form action="" enctype="multipart/form-data" method="POST">
+    <div class="container text-center">  
+        {% include 'home/messages.html' %}  
+    </div>
+    <div class="container mt-1">   
+        <div class="row"> 
+            <h4 class="text-center">Test Results </h4>
+        </div>  
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.8em;">
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr class='text-center'>    
+                    <th>Formatiom</th> 
+                    <th>Top</th> 
+                    <th>Bottom</th> 
+                    <th>Test Duration</th>  
+                    <th>Choke Size (1/64 Inch)  </th>  
+                    <th>THP (psi)</th> 
+                    <th>BHP(psi)</th> 
+                    <th>Liquid Rate (BLPD)</th>  
+                    <th>Oil Rate (BOPD)  </th>  
+                    <th>Gas Rate (SCFD)</th>                         
+                    <th>Water Cut (%)</th>                                
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for data in results %}
+                <tr class=text-center>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %} 
+                    <td>{{data.obformation}}</td>
+                    <td>{{data.obtop_MD}}</td>
+                    <td>{{data.obbottom_MD}}</td>                    
+                    <td>{{data.obtest_Duration}}</td> 
+                    <td>{{data.obchoke_Size}}</td>   
+                    <td>{{data.obthp}}</td>        
+                    <td>{{data.obbhp}}</td>  
+                    <td>{{data.obliquid_Rate}}</td>  
+                    <td>{{data.oboil_Rate}}</td>        
+                    <td>{{data.obgas_Rate}}</td>  
+                    <td>{{data.obwater_Cut}}</td>  
+                    <td>{{data.obremarks}}</td>                 
+                    <td><a href="{% url 'obtestresults:update_obtestresult' data.id %}" >Edit</a></td>
+                    <td><a href="{% url 'obtestresults:delete_obtestresult' data.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+        </table> 
+         
+        <div class="d-flex text-center">
+            <a href="{% url 'obtestresults:create_obtestresult' %}" class="d-block btn btn-primary btn-sm my-5">Add New</a>
+        </div>             
+    </div> 
+</form>
+{% endblock content %}
+</html>

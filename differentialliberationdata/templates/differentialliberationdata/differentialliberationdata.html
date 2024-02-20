@@ -1,0 +1,74 @@
+<html lang="en">
+{% extends "home/fieldlayout.html" %}
+
+{% block content %}
+{% for pvt in differentialliberationdata %}
+    {% for colname in pvt.column_set.all  %}
+        <p>{{colname}}</p>
+    {% endfor %}
+{% endfor %}
+
+<form method="POST" enctype="multipart/form-data" action="upload">
+    {% csrf_token %}
+    <div class="container"> 
+        <div class="row"> 
+            <div style="width:50% ;">  
+                <input type="file" id="myfile" name="myfile" class="form-control" accept=".xlsx" style="font-size:medium" /> 
+            </div> 
+            <div style="width:50% ;">   
+                <input type="submit" name="upload" value="upload" class="btn btn-success" style="font-size:medium" />
+            </div> 
+        </div> 
+    </div>  
+    <hr> 
+</form>
+<div class="container d-flex" style="width: 100%;" align="center">   
+    {%  if chart %}
+        <img alt="" src="data:image/png;base64, {{chart|safe}}">
+    {% endif %}
+</div>
+<div class="container d-flex mt-0 justify-content-center" style="width: 100%;">   
+    <div class="row">        
+        <h5 class="text-center text-success"> Defferential Liberation Data</h5>        
+        <table class='table table-striped' width="100%" style="border-color:green; border: thick 4px; ;">
+            <thead>
+                <tr>  
+                    <th class='text-center'>ID</th> 
+                    <th class='text-center'>Pressure</th>  
+                    <th class='text-center'>Solution GOR</th>  
+                    <th class='text-center'>Relative Volume</th>    
+                    <th class='text-center'>Relative Total Volume</th> 
+                    <th class='text-center'>Oil Density</th> 
+                    <th class='text-center'>Deviation Factor</th>    
+                    <th class='text-center'>Gas FVF</th> 
+                    <th class='text-center'>Incremental Gas Gravity</th> 
+                    <th class='text-center'>Update</th>
+                    <th class='text-center'>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for pvt in difflibdatas %}
+                <tr >
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %} 
+                    <td class="text-center">{{pvt.differentialliberation}}</td>
+                    <td class="text-center">{{pvt.pressure}}</td>
+                    <td class="text-center">{{pvt.solution_gor}}</td>
+                    <td class="text-center">{{pvt.relative_oil_volume}}</td>
+                    <td class="text-center">{{pvt.relative_total_volume}}</td> 
+                    <td class="text-center">{{pvt.oil_density}}</td> 
+                    <td class="text-center">{{pvt.deviation_factor}}</td>
+                    <td class="text-center">{{pvt.gas_fvf}}</td> 
+                    <td class="text-center">{{pvt.incremental_gas_gravity}}</td> 
+                    <td class='text-center'><a href="{% url 'differentialliberationdata:update_difflibdata' pvt.id %} ">Update</a></td>
+                    <td class='text-center'><a href="{% url 'differentialliberationdata:delete_difflibdata' pvt.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+        </table> 
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'differentialliberation:list_difflib' %}" class="d-block btn btn-primary my-5 mr-5">Back to Differential Liberation Details</a>
+            <a href="{% url 'differentialliberationdata:create_difflibdata' ccepvt %}" class="d-block btn btn-primary m-5">Add New</a>
+        </div> 
+    </div>         
+</div>    
+{% endblock content %}
+</html>

@@ -1,0 +1,15 @@
+{% extends "home/fieldlayout.html" %}
+{% block content %} 
+<div class="container d-flex justify-content-center mt-5" style="width: 50%;">
+    <div class="col mt-5 text-center">
+        <h5 class="mb-5">Delete Reservoir Fluid Composition Details</h5>
+        <p class="h5 text-danger">Are you sure you want to delete the Reservoir Fluid Composition of the well :</p>
+        <h5 class="my-5">{{ fc.wellName }}</h5>
+        <form action="" method="POST">
+            {% csrf_token %}        
+            <input type="submit" class="btn btn-primary btn-sm" value="Confirm" style="margin-right: 30px; margin-top: 30px;">
+            <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'reservoirfluidcomposition:list_fluid_composition' %}'; return false;" value="Cancel">
+        </form>
+    </div>
+</div>
+{% endblock %}

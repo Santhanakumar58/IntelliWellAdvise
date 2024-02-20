@@ -1,0 +1,178 @@
+{% extends "home/oillayout.html" %}
+
+{% block content %}
+
+<!-- BOOTSTRAP FORM -->
+{% url 'espdesign:list_esp_design_data' as list_all %}
+<div class="container d-flex justify-content-center main" >
+    <div class="col">
+        <form action="" method="post">
+            {% csrf_token %}
+            
+            <div class="row">
+                <div class="col-md-7">
+                    <div class="card"> 
+                        <div class="card-header" >
+                    {% if espdata %}
+                        <h3 class="text-center">Update ESP Design Data </h3> 
+                    {% else %}  
+                        <h3 class="text-center">Create ESP Design Data</h3>    
+                    {% endif %}   
+                        </div>               
+                        <div class="card-body">             
+                    <table class="table table-bordered" style="border: 2px; border-width:2px; font-size:medium; ">               
+                        <thead style="background-color:rgb(106, 130, 238);">
+                        {{form.as_table}}
+                    </table>
+                        </div> 
+                    </div> 
+                </div> 
+                <div class="col-md-5"> 
+                    <div class="card"> 
+                        <div class="card-header" style="font-size: 0,73em;">
+                            <h3>Calculated Parameters</h3>
+                        </div>               
+                        <div class="card-body" style="font-size:medium;">             
+                             <div class="row">
+                                <div class="col-md-8">
+                                    <p>Total Mass Flowrate (lbs/d)</p>
+                                </div>
+                                <div class="col-md-4">
+                                    {{espdata.total_mass_flowrate}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <p>Composite Specific Gravity</p>
+                                </div>
+                                <div class="col-md-4">
+                                    {{espdata.composite_spgr}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <p>Pump Intake Pressure (psi)</p>
+                                </div>
+                                <div class="col-md-4">
+                                    {{espdata.pip}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <p>Pump Discharge Pressure (psi)</p>
+                                </div>
+                                <div class="col-md-4">
+                                    {{espdata.discharge_pres}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <p>Mid Perforation Depth (ft)</p>
+                                </div>
+                                <div class="col-md-4">
+                                    {{espdata.mid_perf_depth}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <p>Tubing Length (ft)</p>
+                                </div>
+                                <div class="col-md-4">
+                                    {{espdata.tbg_length}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <p>Tubing Id (Inch)</p>
+                                </div>
+                                <div class="col-md-4">
+                                    {{espdata.tbg_id}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <p>Wellhead Pressure Head (ft)</p>
+                                </div>
+                                <div class="col-md-4">
+                                    {{espdata.thp_head}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <p>Vertical lift Head (ft)</p>
+                                </div>
+                                <div class="col-md-4">
+                                    {{espdata.vertical_lift_head}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <p>Frictional Pressure Head (ft)</p>
+                                </div>
+                                <div class="col-md-4">
+                                    {{espdata.friction_head}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <p>Net Lift Head (ft)</p>
+                                </div>
+                                <div class="col-md-4">
+                                    {{espdata.tdh}}
+                                </div>
+                            </div>                            
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <p>No of Stages</p>
+                                </div>
+                                <div class="col-md-4">
+                                    {{espdata.no_of_stages}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <p>Power for Vertical Lift(Hp) </p>
+                                </div>
+                                <div class="col-md-4">
+                                    {{espdata.required_Power}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <p>Additional Power for Seal (Hp) </p>
+                                </div>
+                                <div class="col-md-4">
+                                    {{espdata.required_seal_hp}}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <p>Total Power Required (Hp) </p>
+                                </div>
+                                <div class="col-md-4">
+                                    {{espdata.total_power_required}}  
+                                </div>
+                            </div>                            
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <p>Best Efficiency (%) </p>
+                                </div>
+                                <div class="col-md-4">
+                                    {{espdata.best_efficiency}}
+                                </div>
+                            </div>
+                        </div> 
+                    </div>                     
+                </div> 
+            </div>            
+            <div class="container d-flex justify-content-center" style="width: 10%;">
+                <input type="submit" class="btn btn-primary btn-sm" value="Submit" style="margin-right: 30px; margin-top: 30px;">  
+                <input type="submit" class="btn btn-primary btn-sm" style="margin-top: 30px;margin-right: 30px;" onclick="window.location='{{list_all}}'; return false;" value="Back to ESP Design Data">              
+                <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{{list_all}}'; return false;" value="cancel">
+            </div>            
+        </form> 
+    </div>
+</div>
+<!-- END BOOTSTRAP FORM -->
+
+{% endblock %}

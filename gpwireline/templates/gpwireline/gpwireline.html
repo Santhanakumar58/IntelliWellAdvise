@@ -1,0 +1,53 @@
+<html lang="en">
+{% extends "Home/gaslayout.html" %}
+
+{% block content %}
+
+<form action="" enctype="multipart/form-data" method="POST">
+    <div class="container main mt-1">   
+        <div class="row"> 
+            <h4 class="text-center">Wireline Interventions </h4>
+        </div>  
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0..75em; width: 90%;">           
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr class="text-center">  
+                    <th>Unit Name</th>                      
+                    <th>Start Date</th>   
+                    <th>End Date</th> 
+                    <th>Job Summary</th>  
+                    <th>Operations</th>  
+                    <th>Details</th>                                    
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for data in gpwireline_datas %}
+                <tr class="text-center">
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %} 
+                    <td>{{data.gpunitname}}</td>
+                    <td>{{data.gpstart_Date}}</td>
+                    <td>{{data.gpend_Date}}</td>
+                    <td>{{data.gpjobsummary}}</td>  
+                    <td><a href="{% url 'gpwirelineoperations:list_gpwireline_ops_data' data.id %} ">Operations</a></td>   
+                    <td><a href="{% url 'gpwireline:detail_gpwireline_data' data.id %} ">Details</a></td>                 
+                    <td><a href="{% url 'gpwireline:update_gpwireline_data' data.id %} ">Edit</a></td>
+                    <td><a href="{% url 'gpwireline:delete_gpwireline_data' data.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+        </table> 
+        <h5 class="text-center" style="color: darkred;">Average Liquid gain = {{avgliqgain}} </h5>  
+        <h5 class="text-center" style="color: green;">Average Oil gain = {{avgoilgain}} </h5> 
+        <div class="d-flex text-center">
+            <a href="{% url 'gpwireline:create_gpwireline_data' %}" class="d-block btn btn-primary btn-sm my-5">Add New</a>
+        </div>             
+    </div> 
+    <div class="container main text-center">  
+        {% include 'home/messages.html' %}  
+        {%  if chart %}
+            <img src="data:image/png;base64, {{chart|safe}}">
+        {% endif %}   
+    </div>
+</form>
+{% endblock content %}
+</html>

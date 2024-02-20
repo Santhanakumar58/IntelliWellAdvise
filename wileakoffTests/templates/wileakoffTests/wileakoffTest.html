@@ -1,0 +1,52 @@
+{% extends "home/waterinjectorlayout.html" %}
+
+{% block content %}
+<div class="container d-flex" style="width: 100%;">
+    <hr>
+    <div class="col">
+        <h5 class="text-center">Leakoff Tests </h5>
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.8em;">            
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %}                                                         
+                    <th class='casingSize'>ID</th>
+                    <th class='casingSize'>Casing Size</th>
+                    <th class='analyst'>Analyst</th>
+                    <th class='recordedData'>Test Date</th>
+                    <th class='mudWeight'>Mudweight (ppg)</th>
+                    <th class='opnhole'>Openhole (ft)</th> 
+                    <th>Test Data</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for test in wileakoffTests %}
+                <tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}                     
+                    <td class="text-center">{{test.id}}</td>
+                    <td class="text-center">{{test.wicasingSize}}</td>
+                    <td class="text-center">{{test.wianalyst}}</td>                    
+                    <td class="text-center">{{test.wirecorded_Date }}</td> 
+                    <td class="text-center">{{test.wimudWeight}}</td>
+                    <td class="text-center">{{test.wiopenholeLength}}</td>  
+                    console.log(test)                   
+                    {% if test %}
+                        <td><a href="{% url 'wileakoffTestData:list_wileakoffTestData' test.id %}">Test Data</a></td>                        
+                        <td><a href="{% url 'wileakoffTests:update_wileakoffTest' test.id %} ">Update</a></td>
+                        <td><a href="{% url 'wileakoffTests:delete_wileakoffTest' test.id %}">Delete</a></td>                       
+                    {% endif %}
+                </tr>
+            {% endfor %}        
+            </tbody>
+        </table> 
+        <br>         
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'casings:list_casings' %}" class="d-block btn btn-primary my-1 mx-5">Back to Casings</a>                      
+            <a href="{% url 'wileakoffTests:create_wileakoffTest' id %}" class="d-block btn btn-primary my-1">Add New</a>
+        </div>
+        
+    </div>        
+</div>
+
+{% endblock content %}

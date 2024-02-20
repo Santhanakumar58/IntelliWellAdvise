@@ -1,0 +1,41 @@
+{% extends "Home/gaslayout.html" %}
+
+{% block content %}
+
+<!-- BOOTSTRAP FORM -->
+
+<div class="row container justify-content-center main" >
+    <div class="row">
+        <form action="" method="post">
+            {% csrf_token %}
+            {% if pimodel %}
+                <h4 class="text-center"> Update Productivity Index Model </h4>                 
+            {% else %}  
+                <h4 class="text-center"> Create Productivity Index Model </h4>  
+            {% endif %}
+            <hr>
+            <div class="row">                
+                <div class="col-md-6">
+                    <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.75em;">               
+                        <thead style="background-color:rgb(106, 130, 238);">
+                        {{form.as_table}}
+                    </table>   
+                </div>
+                <div class="col-md-6">
+                    <div class="main" > 
+                        <img src="data:image/png;base64, {{chart|safe}}">
+                    </div>    
+                </div>
+            </div>                    
+            <div class="container d-flex justify-content-center">
+                <a href="{% url 'opinflow:list_inflow' %}" class="btn btn-primary btn-sm" style="margin-right: 30px; margin-top: 30px;">Inflow</a>
+                <input type="submit" class="btn btn-primary btn-sm" value="Save" style="margin-right: 30px; margin-top: 30px;">
+                <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;"onclick="window.location='{% url 'opinflow:list_inflow' %}'; return false;" value="Cancel">
+            </div>                  
+        </form> 
+    </div>
+    
+</div>
+<!-- END BOOTSTRAP FORM -->
+
+{% endblock %}

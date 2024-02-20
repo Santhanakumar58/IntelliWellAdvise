@@ -1,0 +1,67 @@
+{% extends "home/waterinjectorlayout.html" %}
+
+{% block content %}
+<div class="container">  
+    <div class="col">      
+        <h5 class="text-center">Casings</h5>       
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.75em; width: 98%;">
+            {% csrf_token %}
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %} 
+                    <th class='casingType'>Casing Type</th>                                    
+                    <th class='casingSize'>Casing Size</th>
+                    <th class='casingWeight'>Casing Weight</th>
+                    <th class='casingGrade'>Casing Grade</th>
+                    <th class='casingID'>Casing ID (inch)</th>
+                    <th class='shoeDepth'>Shoe Depth (ft)</th> 
+                    <th class='floatCollar'>Float Collar (ft)</th>
+                    <th class='hangerDepth'>Hanger Depth (ft)</th>  
+                    <th class='cementTop'>Cement Top (ft)</th>                     
+                    <th>Update</th>
+                    <th>Delete</th>
+                    <th>LOT</th>
+                    <th>CBL</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for casing in wicasings %}
+                <tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}  
+                    <td class="text-center">{{casing.wicasingType }}</td> 
+                    <td class="text-center">{{casing.wicasingSize}}</td>
+                    <td class="text-center">{{casing.wicasingWeight}}</td>                    
+                    <td class="text-center">{{casing.wicasingGrade }}</td> 
+                    <td class="text-center">{{casing.wicasingID}}</td>
+                    <td class="text-center">{{casing.wishoedepth}}</td> 
+                    <td class="text-center">{{casing.wifloatCollar}}</td>
+                    <td class="text-center">{{casing.wihangerDepth}}</td>
+                    <td class="text-center">{{casing.wi}}</td>  
+                    {% if casing %}
+                        <td><a href="{% url 'wicasings:update_wicasing' casing.id %} ">Update</a></td>
+                        <td><a href="{% url 'wicasings:delete_wicasing' casing.id %}">Delete</a></td>
+                        <td><a href="{% url 'wileakoffTests:list_wileakoffTest' casing.wicasingSize_id %}">LOT</a></td>                        
+                        <td><a href="{% url 'wicementbondlogs:list_wicementbondlog' casing.wicasingSize_id %}">CBL</a></td>
+                       
+                    {% endif %}
+                </tr>
+            {% endfor %}        
+            </tbody>
+        </table> 
+        <br> 
+        <div class="d-flex justify-content-center" style="width: 20%;">
+            <a href="{% url 'wicasings:create_wicasing' %}" class="d-block btn btn-primary my-1">Add New</a>
+        </div>
+    </div>        
+</div>
+<hr>
+<h5 class="text-center">Gas Producer Casing Diagram </h5>
+<div class="row">
+    <div class="col text-center">
+        {%  if chart2 %}
+            <img src="data:image/png;base64, {{chart2|safe}}">
+        {% endif %}
+    </div>
+</div>
+
+{% endblock content %}

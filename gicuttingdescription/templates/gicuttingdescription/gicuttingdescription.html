@@ -1,0 +1,62 @@
+<html lang="en">
+{% extends "Home/gasinjectorlayout.html" %}
+
+{% block content %}
+<form action="" enctype="multipart/form-data" method="POST">
+    <div class="container text-center">  
+        {% include 'home/messages.html' %}  
+        {%  if chart %}
+            <img src="data:image/png;base64, {{chart|safe}}">
+        {% endif %}   
+    </div>
+    <div class="container mt-1">   
+        <div class="row"> 
+            <h4 class="text-center">Cuttings Description </h4>
+        </div>  
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.75em; width: 98%;">
+            {% csrf_token %}
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr class='text-center'>  
+                    <th>Hole Size</th>                      
+                    <th>Top</th>   
+                    <th>Bottom</th> 
+                    <th>Litho-1</th> 
+                    <th>Composition-1</th>  
+                    <th>Litho-2</th> 
+                    <th>Composition-2</th>  
+                    <th>Litho-3</th> 
+                    <th>Composition-3</th>  
+                    <th>Description</th>     
+                    <th>Remarks</th>                                   
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for data in cuttings %}
+                <tr class=text-center>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %} 
+                    <td>{{data.gihole_size}}</td>
+                    <td>{{data.gitop_depth}}</td>
+                    <td>{{data.gibottom_Depth}}</td>                    
+                    <td>{{data.gilitho_1}}</td>  
+                    <td>{{data.gilitho1_Composition}}</td>        
+                    <td>{{data.gilitho_2}}</td>  
+                    <td>{{data.gilitho2_Composition}}</td>   
+                    <td>{{data.gilitho_3}}</td>  
+                    <td>{{data.gilitho3_Composition}}</td>     
+                    <td>{{data.gidescription}}</td>  
+                    <td>{{data.giremarks}}</td>                 
+                    <td><a href="{% url 'gicuttingdescription:update_cutting' data.id %}" >Edit</a></td>
+                    <td><a href="{% url 'gicuttingdescription:delete_cutting' data.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+        </table> 
+         
+        <div class="d-flex text-center">
+            <a href="{% url 'gicuttingdescription:create_gicutting' %}" class="d-block btn btn-primary btn-sm my-5">Add New</a>
+        </div>             
+    </div> 
+</form>
+{% endblock content %}
+</html>

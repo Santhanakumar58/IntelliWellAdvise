@@ -1,0 +1,51 @@
+<html lang="en">
+{% extends "Home/waterinjectorlayout.html" %}
+
+{% block content %}
+
+<div class="container d-flex mt-0" style="width: 100%;">   
+    <div class="row">        
+        <h4 class="text-center"> Gradient Surveys </h4>        
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.75em; width:98%;">
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr>                      
+                    <th class='date'>Survey Date</th>   
+                    <th class=''>Survey TYpe</th>
+                    <th class='gasrate'>Shut-in Period (hours)</th>
+                    <th class='waterrate'>THP (psi)</th>
+                    <th class='liquidrate'>TH Temp. (def<sup>o</sup>F</th>
+                    <th class='watercut'>Liquid Rate (Bbls/day)</th>
+                    <th class='watercut'>Water Cut %</th>
+                    <th class='gasoilratio'>Gas Oil Ratio (scf/bbl) </th>
+                    <th>Data</th>
+                    <th>Upload Data</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for gradientsurvey in gradientsurveys %}
+                <tr >
+                    {% comment %} <th scwie="row">{{forlowi.counter}}</th> {% endcomment %} 
+                    <td class="text-center">{{gradientsurvey.wisurvey_Date}}</td>
+                    <td class="text-center">{{gradientsurvey.wisurvey_Type}}</td> 
+                    <td class="text-center">{{gradientsurvey.wishutin_Period}}</td>
+                    <td class="text-center">{{gradientsurvey.witubinghead_Pressure}}</td>  
+                    <td class="text-center">{{gradientsurvey.witubinghead_Temperature}}</td>                 
+                    <td class="text-center">{{gradientsurvey.wiliquid_Rate }}</td>  
+                    <td class="text-center">{{gradientsurvey.wiwater_Cut}}</td>
+                    <td class="text-center">{{gradientsurvey.wigas_Oil_Ratio}}</td> 
+                    <td><a href="{% url 'wigradientsurveydata:list_wigradientsurveydata' gradientsurvey.id %} ">Data</a></td>
+                    <td><a href="{% url 'wigradientsurveydata:excel_upload' gradientsurvey.id %} ">Upload Data</a></td>
+                    <td><a href="{% url 'wigradientsurveys:update_wigradientsurvey' gradientsurvey.id %} ">Edit</a></td>
+                    <td><a href="{% url 'wigradientsurveys:delete_wigradientsurvey' gradientsurvey.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+        </table> 
+        <div class="d-flex text-center">
+            <a href="{% url 'wigradientsurveys:create_wigradientsurvey' %}" class="d-block btn btn-primary btn-sm my-5">Add New</a>
+        </div> 
+    </div>         
+</div>    
+{% endblock content %}
+</html>

@@ -1,0 +1,57 @@
+<html lang="en">
+{% extends "Home/waterinjectorlayout.html" %}
+
+{% block content %}
+{% for data in wirigless_ops_datas %}
+    {% for colname in data.column_set.all  %}
+        <p>{{colname}}</p>
+    {% endfor %}
+{% endfor %}
+<form action="" enctype="multipart/form-data" method="POST">
+    <div class="container text-center">  
+        {% include 'home/messages.html' %}  
+        {%  if chart %}
+            <img src="data:image/png;base64, {{chart|safe}}">
+        {% endif %}   
+    </div>
+    <div class="container mt-1">   
+        <div class="row"> 
+            <h5 class="text-center text-success">Rigless Operations </h5>
+        </div>  
+        <table class="table table-bordered">
+            <thead>
+                <tr class='text-center'> 
+                    <th>Unit Name</th>                      
+                    <th>Date</th>   
+                    <th>Start Time</th> 
+                    <th>End Time</th> 
+                    <th>Op. Code</th> 
+                    <th>Job Summary</th>                                     <                  
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for data in wirigless_ops_datas %}
+                <tr class=text-center>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %} 
+                    <td>{{data.wiunitname}}</td>
+                    <td>{{data.wiop_Date}}</td>
+                    <td>{{data.witime_from}}</td>   
+                    <td>{{data.witime_to}}</td>    
+                    <td>{{data.wiop_code}}</td>               
+                    <td>{{data.wiop_details}}</td>                               
+                    <td><a href="{% url 'wiriglessoperations:update_wirigless_ops_data' data.id %}" >Edit</a></td>
+                    <td><a href="{% url 'wiriglessoperations:delete_wirigless_ops_data' data.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+        </table> 
+        <div class="d-flex text-center">
+            <a href="{% url 'wirigless:list_wirigless_data' %}" class="d-block btn btn-primary btn-sm my-2" style="margin-right: 30px;">Rigless Interventions</a>
+            <a href="{% url 'wiriglessoperations:create_wirigless_ops_data' ctid %}" class="d-block btn btn-primary btn-sm my-2">Add New</a>
+           
+        </div>             
+    </div> 
+</form>
+{% endblock content %}
+</html>

@@ -1,0 +1,33 @@
+{% extends "Home/observerlayout.html" %}
+
+{% block content %}
+
+<!-- BOOTSTRAP FORM -->
+{% url 'obcementplugs:list_obcement_pumpData' as list_all %}?plugid =plugid
+<div class="container d-flex justify-content-center" style="width: 75%;">
+    <div class="col">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if obpumpdata %}
+            <hr>
+            <h5 class="text-center text-success">Update Cement Pumping Data </h5> 
+            {% else %}  
+            <h5 class="text-center text-success">Create Cement Pumping Data</h5>    
+            {% endif %}   
+            <hr>          
+            <table class="table table-striped" style="font-size:0.8em;"  class="text-center" >
+                {{form.as_table}}              
+            </table>
+            <div class="container d-flex justify-content-center" style="width: 10%;">
+                <input type="submit" class="btn btn-primary btn-sm" value="Submit" style="margin-right: 30px; margin-top: 30px;" > 
+                <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'obcementplugs:list_cement_gppumpData' id  %}'; return true;" value="Cancel">  
+                <a href="{% url 'obcementplugs:list_obcement_pumpData' id %}" class="btn btn-sm" style="margin-top: 30px;">Cancel</a>           
+            </div>            
+        </form> 
+
+    </div>
+</div>
+
+<!-- END BOOTSTRAP FORM -->
+
+{% endblock %}

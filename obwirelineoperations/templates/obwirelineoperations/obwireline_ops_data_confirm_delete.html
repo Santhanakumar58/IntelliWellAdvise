@@ -1,0 +1,22 @@
+{% extends "Home/observerlayout.html" %}
+{% block content %}
+
+{% url 'riglessoperations:list_rigless_ops_datas' as list_all %}
+<div class="container d-flex justify-content-center mt-2" style="width: 50%;">
+    <div class="col mt-2 text-center">
+        <h4 class="mb-2">Delete Wireline Intervention Operation</h4>
+        <p class="h5 text-danger">Are you sure you want to delete the Wireline Intervention Operation:</p>
+        <h5 class="my-2">{{obwireline_ops_data.op_details}}</h5>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {% comment %} 
+            <input type="submit" value="Confirm">           
+            <input type="submit" value="Cancel" onclick="window.location='{% url 'obwirelineoperations:list_obwireline_ops_datas' ctid %}'; return false;" >
+            {% endcomment %}
+            <input type="submit" class="btn btn-primary btn-sm" value="Confirm" style="margin-right: 30px; margin-top: 30px;">
+            <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'obwirelineoperations:list_obwireline_ops_datas'  id %}'; return false;" value="Cancel">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

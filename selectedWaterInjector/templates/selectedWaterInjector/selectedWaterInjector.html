@@ -1,0 +1,62 @@
+{% extends "home/waterinjectorlayout.html" %}
+
+{% block content %}
+{% for op in selectedWaterInjectors %}
+    {% for colname in op.column_set.all  %}
+        <p>{{colname}}</p>
+    {% endfor %}
+{% endfor %}
+
+
+<div class="container d-flex" style="width: 100%;">
+    <hr>
+    <div class="col">
+        <h5 class="text-center">Selected Water Injector</h5>
+        <table id="selectedfgitable" class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.75em;">
+            <thead style="background-color:rgb(106, 130, 238);">          
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %}
+                    <th class='id'>Well ID</th> 
+                    <th class='fgid'>FG ID</th>
+                    <th class='unitid'>Unit ID</th>                   
+                    <th class='wellname'>Well Name</th>
+                    <th class='completiontype'>Completion</th>
+                    <th class='deviationtype'>Deviation</th>                   
+                    <th class='inflowtype'>Inflow</th>
+                    <th class='station'>Station</th>  
+                    <th class='header'>Header</th>  
+                </tr>
+            </thead>
+            <tbody>            
+                {% for op in selectedWaterInjectors %}
+                <tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}  
+                    <td class="text-center">{{op.wellid }}</td> 
+                    <td class="text-center">{{op.fgid}}</td>
+                    <td class="text-center">{{op.unit}}</td>                    
+                    <td class="text-center">{{op.wellname }}</td> 
+                    <td class="text-center">{{op.completion}}</td>
+                    <td class="text-center">{{op.deviation}}</td>                     
+                    <td class="text-center">{{op.inflow}}</td> 
+                    <td class="text-center">{{op.station}}</td>
+                    <td class="text-center">{{op.header}}</td> 
+                    {% comment %}
+                    <td><a href="{% url 'selectedWaterInjector:update_selectedWaterInjector' op.id %} ">Update</a></td>
+                    <td><a href="{% url 'selectedWaterInjector:delete_selectedWaterInjector' op.id %}">Delete</a></td>
+                    {% endcomment %}
+                </tr>
+            {% endfor %}        
+            </tbody>
+        </table>   
+        <br>
+        <br> 
+        {% comment %}
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'selectedWaterInjector:create_selectedWaterInjector' %}" class="d-block btn btn-primary my-5">Add New</a>
+        </div>
+        {% endcomment %}
+    </div>
+        
+</div>
+
+{% endblock content %}

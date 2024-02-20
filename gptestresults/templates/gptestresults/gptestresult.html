@@ -1,0 +1,59 @@
+<html lang="en">
+{% extends "Home/gaslayout.html" %}
+
+{% block content %}
+<form action="" enctype="multipart/form-data" method="POST">
+    <div class="container main text-center">  
+        {% include 'home/messages.html' %}  
+    </div>
+    <div class="container main mt-1">   
+        <div class="row"> 
+            <h4 class="text-center">Test Results </h4>
+        </div>  
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.8em;">
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr class='text-center'>    
+                    <th>Formatiom</th> 
+                    <th>Top</th> 
+                    <th>Bottom</th> 
+                    <th>Test Duration</th>  
+                    <th>Choke Size (1/64 Inch)  </th>  
+                    <th>THP (psi)</th> 
+                    <th>BHP(psi)</th> 
+                    <th>Liquid Rate (BLPD)</th>  
+                    <th>Oil Rate (BOPD)  </th>  
+                    <th>Gas Rate (SCFD)</th>                         
+                    <th>Water Cut (%)</th>                                
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for data in results %}
+                <tr class=text-center>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %} 
+                    <td>{{data.gpformation}}</td>
+                    <td>{{data.gptop_MD}}</td>
+                    <td>{{data.gpbottom_MD}}</td>                    
+                    <td>{{data.gptest_Duration}}</td> 
+                    <td>{{data.gpchoke_Size}}</td>   
+                    <td>{{data.gpthp}}</td>        
+                    <td>{{data.gpbhp}}</td>  
+                    <td>{{data.gpliquid_Rate}}</td>  
+                    <td>{{data.gpoil_Rate}}</td>        
+                    <td>{{data.gpgas_Rate}}</td>  
+                    <td>{{data.gpwater_Cut}}</td>  
+                    <td>{{data.gpremarks}}</td>                 
+                    <td><a href="{% url 'gptestresults:update_gptestresult' data.id %}" >Edit</a></td>
+                    <td><a href="{% url 'gptestresults:delete_gptestresult' data.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+        </table> 
+         
+        <div class="d-flex text-center">
+            <a href="{% url 'gptestresults:create_gptestresult' %}" class="d-block btn btn-primary btn-sm my-5">Add New</a>
+        </div>             
+    </div> 
+</form>
+{% endblock content %}
+</html>

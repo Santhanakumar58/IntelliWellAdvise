@@ -1,0 +1,104 @@
+{% extends "Home/gaslayout.html" %}
+
+{% block content %}
+
+<div class="container main mt-0" style="width:100%;">
+    <div class="col">
+        <h4 class="text-center text-success">Performance of Rig Workover Dated {{gprig_workover_data.end_Date}}</h4>
+        <div class="d-flex justify-content-center">
+            <table class="table">
+                <thead>
+                    <tr>           
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Liquid Rate (Bbls/day)
+                        </th>
+                        <th>
+                            Oil Rate (Bbls/day)
+                        </th>
+                        <th>
+                            Gas Rate (scf/day)
+                        </th>
+                        <th>
+                            Water Cut (%)
+                        </th>
+                        <th>
+                            GOR (Scf/Bbl)
+                        </th> 
+                    </tr>
+                </thead>
+                <tbody>  
+                        <tr>         
+                            <td>Before Workover </td>
+                            <td class="text-center">{{gprig_workover_data.pre_wor_liquid}}</td>   
+                            <td class="text-center">{{preoil}}</td>   
+                            <td class="text-center">{{pregas}}</td>                
+                            <td class="text-center">{{gprig_workover_data.pre_wor_WC }}</td>  
+                            <td class="text-center">{{gprig_workover_data.pre_wor_GOR}}</td>
+                        </tr>
+                        <tr>                
+                            <td>Expected</td>
+                            <td class="text-center">{{gprig_workover_data.expected_liquid}}</td> 
+                            <td class="text-center">{{expoil}}</td>   
+                            <td class="text-center">{{expgas}}</td>   
+                            <td class="text-center">{{gprig_workover_data.expected_WC}}</td>
+                            <td class="text-center">{{gprig_workover_data.expected_GOR}}</td>        
+                        </tr>
+                        <tr>              
+                            <td>After Workover</td>
+                            <td class="text-center">{{gprig_workover_data.post_wor_liquid}}</td>   
+                            <td class="text-center">{{postoil}}</td>   
+                            <td class="text-center">{{postgas}}</td>                  
+                            <td class="text-center">{{gprig_workover_data.post_wor_WC }}</td>  
+                            <td class="text-center">{{gprig_workover_data.post_wor_GOR}}</td>
+                        </tr>  
+                        <tr style="font-weight: bolder;">
+                            <td >Gains </td>  
+                            {% if status %}                       
+                                <td class="text-center text-success">{{liquidgain}}</td> 
+                            {% else %} 
+                                <td class="text-center text-danger">{{liquidgain}}</td> 
+                            {% endif   %} 
+
+                            {% if status3 %}                       
+                                <td class="text-center text-success">{{oilgain}}</td> 
+                            {% else %} 
+                                <td class="text-center text-danger">{{oilgain}}</td> 
+                            {% endif   %}                             
+                            {% if status4 %}                       
+                                <td class="text-center text-success">{{gasgain}}</td> 
+                            {% else %} 
+                                <td class="text-center text-danger">{{gasgain}}</td> 
+                            {% endif   %} 
+                            {% if status1 %}                       
+                                <td class="text-center text-success">{{watergain}}</td> 
+                            {% else %} 
+                                <td class="text-center text-danger">{{watergain}}</td> 
+                            {% endif   %} 
+
+                            {% if status2 %}                       
+                                <td class="text-center text-success">{{gorgain}}</td> 
+                            {% else %} 
+                                <td class="text-center text-danger">{{gorgain}}</td> 
+                            {% endif   %}                             
+                        </tr>                               
+                </tbody>
+            </table>
+        </div>
+        <br>    
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'gprigworkover1:list_gprig_workover_data' %}" class="btn btn-primary btn-sm my-3">Back</a>
+        </div>
+    </div>
+        
+</div>
+<div class="container main text-center">  
+    {% include 'home/messages.html' %}  
+    {%  if chart %}
+        <img src="data:image/png;base64, {{chart|safe}}">
+    {% endif %}   
+</div>
+
+{% endblock  %}

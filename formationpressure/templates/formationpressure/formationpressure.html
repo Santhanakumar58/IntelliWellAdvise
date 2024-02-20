@@ -1,0 +1,61 @@
+<html lang="en">
+{% extends "home/oillayout.html" %}
+
+{% block content %}
+{% for data in pressures %}
+    {% for colname in data.column_set.all  %}
+        <p>{{colname}}</p>
+    {% endfor %}
+{% endfor %}
+<form action="" enctype="multipart/form-data" method="POST">
+    <div class="container text-center">  
+        {% include 'home/messages.html' %} 
+    </div>
+    <div class="container main mt-1">   
+        <div class="row"> 
+            <h4 class="text-center">Formation Pressures </h4>
+        </div>  
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px;" >
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr class='text-center'>  
+                    <th>Hole Size</th>                      
+                    <th>Group</th>   
+                    <th>Formatiom</th> 
+                    <th>Member</th> 
+                    <th>Measured Depth (ft)</th> 
+                    <th>Pressure (psi)</th>  
+                    <th>Porosity (%) </th>                    
+                    <th>Permeability (mD)</th>  
+                    <th>Temperature  (deg F)</th> 
+                    <th>Remarks</th>                                   
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for data in pressures %}
+                <tr class=text-center>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %} 
+                    <td>{{data.hole_size}}</td>
+                    <td>{{data.stat_Group}}</td>
+                    <td>{{data.stat_Formation}}</td>                    
+                    <td>{{data.stat_Member}}</td> 
+                    <td>{{data.measured_Depth}}</td>   
+                    <td>{{data.pressure}}</td>        
+                    <td>{{data.porosity}}</td>  
+                    <td>{{data.permeability}}</td>  
+                    <td>{{data.temperature}}</td>  
+                    <td>{{data.remarks}}</td>                 
+                    <td><a href="{% url 'formationpressure:update_formation_Pressure' data.id %}" >Edit</a></td>
+                    <td><a href="{% url 'formationpressure:delete_formation_Pressure' data.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+        </table> 
+         
+        <div class="d-flex text-center">
+            <a href="{% url 'formationpressure:create_formation_Pressure' %}" class="d-block btn btn-primary btn-sm my-5">Add New</a>
+        </div>             
+    </div> 
+</form>
+{% endblock content %}
+</html>

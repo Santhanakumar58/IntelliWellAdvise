@@ -1,0 +1,53 @@
+<html lang="en">
+{% extends "home/oillayout.html" %}
+
+{% block content %}
+{% for gradientsurveydata in gradientsurveydatas %}
+    {% for colname in gradientsurveydata.column_set.all  %}
+        <p>{{colname}}</p>
+    {% endfor %}
+{% endfor %}
+<div class="container text-center">  
+    {% include 'home/messages.html' %}  
+    {%  if chart %}
+        <img src="data:image/png;base64, {{chart|safe}}">
+    {% endif %}   
+</div>
+<div class="container d-flex mt-0" style="width: 100%;">   
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %} 
+    <div class="row">        
+        <h5 class="text-center"> Gradient Survey Data</h5>        
+        <table class='table-paginate' width="100%" style="border-color:green; border: thick 4px; ;">
+            <thead>
+                <tr>  
+                    <th class='id'>Survey Id</th>                       
+                    <th class='date'>Measured Depth</th>   
+                    <th class=''>Gauge Pressure (psi)</th>                   
+                    <th class='liquidrate'>Gauge Temp. (deg. <sup>o</sup>F)</th>  
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for gradientsurveydata in gradientsurveydatas %}
+                <tr >
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %} 
+                    <td class="">{{gradientsurveydata.gradientsurvey_id}}</td>
+                    <td class="">{{gradientsurveydata.gauge_Depth}}</td>
+                    <td class="">{{gradientsurveydata.gauge_Pressure}}</td> 
+                    <td class="">{{gradientsurveydata.gauge_Temperature}}</td>
+                    <td><a href="{% url 'opgradientsurveydata:update_gradientsurveydata' gradientsurveydata.id %} ">Edit</a></td>
+                    <td><a href="{% url 'opgradientsurveydata:delete_gradientsurveydata' gradientsurveydata.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+        </table> 
+        <div class="d-flex text-center">
+            <a href="{% url 'opgradientsurveys:list_gradientsurvey' %}" class="d-block btn btn-primary btn-sm my-2" style="margin-right: 30px;">Gradient Surveys</a>
+            <a href="{% url 'opgradientsurveydata:create_gradientsurveydata' id %}" class="d-block btn btn-primary btn-sm my-2">Add New</a>
+        </div> 
+    </div>       
+</div> 
+    
+{% endblock content %}
+</html>

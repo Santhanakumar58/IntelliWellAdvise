@@ -1,0 +1,54 @@
+<html lang="en">
+{% extends "Home/gasinjectorlayout.html" %}
+
+{% block content %}
+{% url 'girigless:list_girigless_data' as list_all %}
+<form action="" enctype="multipart/form-data" method="POST">
+    <div class="container mt-1">   
+        <div class="row"> 
+            <h4 class="text-center">Rigless Interventions </h4>
+        </div>  
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.75em; ">           
+            <thead>
+                <tr class="text-center">  
+                    <th>Unit Name</th>                      
+                    <th>Start Date</th>   
+                    <th>End Date</th>  
+                    <th>Job Summary</th>
+                    <th>Operations</th> 
+                    <th>Details</th>                 
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for data in girigless_datas %}
+                <tr >
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %} 
+                    <td class="text-center">{{data.giunitname}}</td>
+                    <td class="text-center">{{data.gistart_Date}}</td>
+                    <td class="text-center">{{data.giend_Date}}</td>
+                    <td class="text-center">{{data.gijobsummary}}</td>  
+                    <td><a href="{% url 'giriglessoperations:list_girigless_ops_data' data.id %} ">Operations</a></td>       
+                    <td><a href="{% url 'girigless:detail_girigless_data' data.id %} ">Details</a></td>            
+                    <td><a href="{% url 'girigless:update_girigless_data' data.id %} ">Edit</a></td>
+                    <td><a href="{% url 'girigless:delete_girigless_data' data.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+        </table> 
+        <h5 class="text-center" style="color: darkred;">Average Liquid gain = {{avgliqgain}} </h5>  
+        <h5 class="text-center" style="color: green;">Average Oil gain = {{avgoilgain}} </h5> 
+        <div class="d-flex text-center">
+            <a href="{% url 'girigless:create_girigless_data' %}" class="d-block btn btn-primary btn-sm my-5">Add New</a>
+        </div> 
+        <div class="text-center">  
+            {% include 'home/messages.html' %}  
+            {%  if chart %}
+                <img src="data:image/png;base64, {{chart|safe}}">
+            {% endif %}   
+        </div>            
+    </div> 
+
+</form>
+{% endblock content %}
+</html>

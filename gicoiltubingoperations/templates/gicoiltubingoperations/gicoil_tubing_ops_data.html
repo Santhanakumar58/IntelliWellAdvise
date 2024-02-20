@@ -1,0 +1,70 @@
+<html lang="en">
+{% extends "Home/gasinjectorlayout.html" %}
+
+{% block content %}
+{% for data in gicoil_tubing_ops_datas %}
+    {% for colname in data.column_set.all  %}
+        <p>{{colname}}</p>
+    {% endfor %}
+{% endfor %}
+
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+    <strong>Message:</strong> {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" > 
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endfor %}
+<form action="" enctype="multipart/form-data" method="POST">
+    <div class="container text-center">  
+        {% include 'home/messages.html' %}  
+        {%  if chart %}
+            <img src="data:image/png;base64, {{chart|safe}}">
+        {% endif %}   
+    </div>
+    <div class="container mt-1">   s
+        <div class="row"> 
+            <h5 class="text-center text-success">Coil Tubing Operations </h5>
+        </div>  
+        <table class="table table-bordered">
+            <thead>
+                <tr class='text-center'> 
+                    <th>CT Name</th>                      
+                    <th>Date</th>   
+                    <th>Start Time</th> 
+                    <th>End Time</th> 
+                    <th>Op. Code</th> 
+                    <th>Job Summary</th>                                     <                  
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for data in gicoil_tubing_ops_datas %}
+                <tr class=text-center>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %} 
+                    <td>{{data.gictname}}</td>
+                    <td>{{data.giop_Date}}</td>
+                    <td>{{data.gitime_from}}</td>   
+                    <td>{{data.gitime_to}}</td>    
+                    <td>{{data.giop_code}}</td>               
+                    <td>{{data.giop_details}}</td>   
+                    context=(ctid, data.id)                                                                   
+                    <td><a href="{% url 'gicoiltubingoperations:update_gicoil_tubing_ops_data' data.id %}" >Edit</a></td>
+                    <td><a href="{% url 'gicoiltubingoperations:delete_gicoil_tubing_ops_data' data.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+        </table> 
+        <div class="d-flex text-center">
+            <a href="{% url 'gicoiltubing:list_gicoil_tubing_data' %}" class="d-block btn btn-primary btn-sm my-2" style="margin-right: 30px;">Coil Tubing</a>
+            <a href="{% url 'gicoiltubingoperations:create_gicoil_tubing_ops_data' ctid %}" class="d-block btn btn-primary btn-sm my-2">Add New</a>
+           
+        </div>             
+    </div> 
+</form>
+{% endblock content %}
+<script>
+    alert('{{ message }}');
+</script>
+</html>

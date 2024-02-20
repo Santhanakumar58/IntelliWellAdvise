@@ -1,0 +1,90 @@
+{% extends "home/gaslayout.html" %}
+
+{% block content %}
+
+<div class="container d-flex" style="width: 100%;">
+    <hr>
+    <div class="col">
+        <h5 class="text-center text-success">Drilling Summary</h5>
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.8em;">
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %}   
+                    <th class="text-center" scope="col">Id</th>                                 
+                    <th class="text-center" scope="col">Start</th>
+                    <th class="text-center" scope="col">End </th>
+                    <th class="text-center" scope="col">Liquid Rate (bbls/d)</th>  
+                    <th class="text-center" scope="col">Water Cut (%) </th>  
+                    <th class="text-center" scope="col">GOR (scf/bbl) </th>  
+                    <th class="text-center" scope="col">Oil Rate (bbls/d)</th>   
+                    <th class="text-center" scope="col">Gas Rate (Mscf/d) </th>                       
+                    <th class="text-center" scope="col">Edit</th>   
+                    <th class="text-center" scope="col">Delete</th>                   
+            </thead>
+            <tbody>            
+                {% for data in d_summaries %}
+                <tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}                    
+                    <td class="text-center">{{data.gpid}}</td>
+                    <td class="text-center">{{data.gpstart_Date}}</td>
+                    <td class="text-center">{{data.gpend_Date}}</td>
+                    <td class="text-center">{{data.gpliquid_Rate}}</td>
+                    <td class="text-center">{{data.gpwater_Cut}}</td>   
+                    <td class="text-center">{{data.gpgas_Oil_Ratio}}</td>  
+                    <td class="text-center">{{data.gpoil_Rate}}</td>                                    
+                    <td class="text-center">{{data.gpgas_Rate}}</td>                                     
+                    <td><a href="{% url 'gpdrillingsummaary:update_gpdrillingsummary' data.id %} ">Edit</a></td>
+                    <td><a href="{% url 'gpdrillingsummaary:delete_gpdrillingsummary' data.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}        
+            </tbody>
+        </table>   
+       
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.8em;">
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %} 
+                    <th class="text-center" scope="col">Summary</th> 
+            </thead>
+            <tbody>            
+                {% for data in d_summaries %}
+                <tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}  
+                    <td class="text-center">{{data.gpdrilling_Summary}}</td> 
+                </tr>
+            {% endfor %}        
+            </tbody>
+        </table> 
+        {% if not gpdrillingwelldata %}
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'gpdrillingsummary:create_gpdrillingsummary' %}" class="d-block btn btn-primary my-5">Add New</a>
+        </div>  
+        {% endif %}
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.8em;">
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %} 
+                    <th class="text-center" scope="col">Cement Plugs</th> 
+                    <th class="text-center" scope="col">Retainers/Bridge Plugs</th> 
+                    <th class="text-center" scope="col">Drilling Problems</th>   
+                    <th class="text-center" scope="col">Plan Vs Actual</th> 
+                    <th class="text-center" scope="col">Drilling Operations</th>                   
+            </thead>
+            <tbody>            
+                {% for data in d_summaries %}
+                <tr class="text-center">
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %} 
+                    <td><a href="{% url 'cementplugs:list_cement_plug' %} ">Cement Plugs</a></td>
+                    <td><a href="{% url 'gpdrillingproblems:list_gpdrilling_problem' data.id %} ">Retainers/Bridge plugs</a></td>
+                    <td><a href="{% url 'gpdrillingproblems:list_gpdrilling_problem' data.id %} ">Drilling Problems</a></td>
+                    <td><a href="{% url 'gpdrillingplanvsactual:list_gpdrilling_plan' %} ">Plan Vs Actual</a></td>
+                    <td><a href="{% url 'gpdrillingoperations:list_gpdrilling_ops' data.id %}">Drilling Operations</a></td>
+                </tr>
+            {% endfor %}        
+            </tbody>
+        </table> 
+        <br>
+        <br>      
+    </div>        
+</div>
+{% endblock content %}

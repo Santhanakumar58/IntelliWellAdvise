@@ -1,0 +1,103 @@
+{% extends "Home/gaslayout.html" %}
+
+{% block content %}
+<div class="container text-center">  
+    {% include 'home/messages.html' %}  
+    {%  if chart %}
+        <img src="data:image/png;base64, {{chart|safe}}">
+    {% endif %}   
+</div>
+<div class="container mt-0" style="width:100%;">
+    <div class="col">
+        <h5 class="text-center text-success">Performance of Coil Tubing Intervention dated {{coil_tubing_data.end_Date}}</h5>
+        <div class="d-flex justify-content-center">
+            <table class="table">
+                <thead>
+                    <tr>           
+                        <th>
+                            Description
+                        </th>
+                        <th>
+                            Liquid Rate (Bbls/day)
+                        </th>
+                        <th>
+                            Oil Rate (Bbls/day)
+                        </th>
+                        <th>
+                            Gas Rate (scf/day)
+                        </th>
+                        <th>
+                            Water Cut (%)
+                        </th>
+                        <th>
+                            GOR (Scf/Bbl)
+                        </th> 
+                    </tr>
+                </thead>
+                <tbody>  
+                        <tr>         
+                            <td>Before WOR </td>
+                            <td class="text-center">{{coil_tubing_data.pre_ct_liquid}}</td>   
+                            <td class="text-center">{{preoil}}</td>   
+                            <td class="text-center">{{pregas}}</td>                
+                            <td class="text-center">{{coil_tubing_data.pre_ct_WC }}</td>  
+                            <td class="text-center">{{coil_tubing_data.pre_ct_GOR}}</td>
+                        </tr>
+                        <tr>                
+                            <td>Expected</td>
+                            <td class="text-center">{{coil_tubing_data.expected_liquid}}</td> 
+                            <td class="text-center">{{expoil}}</td>   
+                            <td class="text-center">{{expgas}}</td>   
+                            <td class="text-center">{{coil_tubing_data.expected_WC}}</td>
+                            <td class="text-center">{{coil_tubing_data.expected_GOR}}</td>        
+                        </tr>
+                        <tr>              
+                            <td>Actual After</td>
+                            <td class="text-center">{{coil_tubing_data.post_ct_liquid}}</td>   
+                            <td class="text-center">{{postoil}}</td>   
+                            <td class="text-center">{{postgas}}</td>                  
+                            <td class="text-center">{{coil_tubing_data.post_ct_WC }}</td>  
+                            <td class="text-center">{{coil_tubing_data.post_ct_GOR}}</td>
+                        </tr>  
+                        <tr style="font-weight: bolder;">
+                            <td >Gains </td>  
+                            {% if status %}                       
+                                <td class="text-center text-success">{{liquidgain}}</td> 
+                            {% else %} 
+                                <td class="text-center text-danger">{{liquidgain}}</td> 
+                            {% endif   %} 
+
+                            {% if status3 %}                       
+                                <td class="text-center text-success">{{oilgain}}</td> 
+                            {% else %} 
+                                <td class="text-center text-danger">{{oilgain}}</td> 
+                            {% endif   %}                             
+                            {% if status4 %}                       
+                                <td class="text-center text-success">{{gasgain}}</td> 
+                            {% else %} 
+                                <td class="text-center text-danger">{{gasgain}}</td> 
+                            {% endif   %} 
+                            {% if status1 %}                       
+                                <td class="text-center text-success">{{watergain}}</td> 
+                            {% else %} 
+                                <td class="text-center text-danger">{{watergain}}</td> 
+                            {% endif   %} 
+
+                            {% if status2 %}                       
+                                <td class="text-center text-success">{{gorgain}}</td> 
+                            {% else %} 
+                                <td class="text-center text-danger">{{gorgain}}</td> 
+                            {% endif   %}                             
+                        </tr>                               
+                </tbody>
+            </table>
+        </div>
+        <br>    
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'gpcoiltubing:list_gpcoil_tubing_data' %}" class="btn btn-primary btn-sm my-3">Back</a>
+        </div>
+    </div>
+        
+</div>
+
+{% endblock  %}

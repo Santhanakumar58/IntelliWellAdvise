@@ -1,0 +1,53 @@
+<html lang="en">
+{% extends "Home/waterinjectorlayout.html" %}
+
+{% block content %}
+{% url 'wirigless:list_wirigless_data' as list_all %}
+<form action="" enctype="multipart/form-data" method="POST">
+    <div class="container main mt-1">   
+        <div class="row"> 
+            <h4 class="text-center">Rigless Interventions </h4>
+        </div>  
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.75em;">       
+            <thead style="background-color:rgb(106, 130, 238);">  
+                <tr class="text-center">  
+                    <th>Unit Name</th>                      
+                    <th>Start Date</th>   
+                    <th>End Date</th>  
+                    <th>Job Summary</th>
+                    <th>Operations</th> 
+                    <th>Details</th>                 
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for data in wirigless_datas %}
+                <tr >
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %} 
+                    <td class="text-center">{{data.wiunitname}}</td>
+                    <td class="text-center">{{data.wistart_Date}}</td>
+                    <td class="text-center">{{data.wiend_Date}}</td>
+                    <td class="text-center">{{data.wijobsummary}}</td>  
+                    <td><a href="{% url 'wiriglessoperations:list_wirigless_ops_data' data.id %} ">Operations</a></td>       
+                    <td><a href="{% url 'wirigless:detail_wirigless_data' data.id %} ">Details</a></td>            
+                    <td><a href="{% url 'wirigless:update_wirigless_data' data.id %} ">Edit</a></td>
+                    <td><a href="{% url 'wirigless:delete_wirigless_data' data.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+        </table> 
+        <h5 class="text-center" style="color: darkred;">Average Liquid gain = {{avgliqgain}} </h5>  
+        <h5 class="text-center" style="color: green;">Average Oil gain = {{avgoilgain}} </h5> 
+        <div class="d-flex text-center">
+            <a href="{% url 'wirigless:create_wirigless_data' %}" class="d-block btn btn-primary btn-sm my-5">Add New</a>
+        </div>             
+    </div> 
+    <div class="container main text-center">  
+        {% include 'home/messages.html' %}  
+        {%  if chart %}
+            <img src="data:image/png;base64, {{chart|safe}}">
+        {% endif %}   
+    </div>
+</form>
+{% endblock content %}
+</html>

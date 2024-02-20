@@ -1,0 +1,35 @@
+{% extends "home/gaslayout.html" %}
+
+{% block content %}
+
+<!-- BOOTSTRAP FORM -->
+
+<div class="container d-flex main justify-content-center" style="width: 98%;">
+    <div class="col">
+        <form action="" method="post">
+            {% csrf_token %}
+            {% if gpdrillingwelldata %}
+                <h3 class="text-center">Update Drilling  Well Data </h3>   
+            {% else %}      
+                <h3 class="text-center">Create Drilling Well Data </h3>   
+            {% endif %}    
+            <div class="col-md-2"></div> 
+            <div class="col-md-6 main">             
+                <table class="table table-striped table-bordered  main" style="border: 2px; border-width:2px; font-size:0.8em;">
+                    <thead style="background-color:rgb(106, 130, 238);">            
+                    {{form.as_table}}
+                </table>
+            <div class="col-md-2"></div> 
+            <div class="container d-flex justify-content-center main" style="width: 10%;">
+                <input type="submit" class="btn btn-primary btn-sm" value="Submit" style="margin-right: 30px; margin-top: 30px;">
+                <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;"onclick="window.location='{% url 'gpdrillingwelldata:list_gpdrillingwelldata' %}'; return false;" value="Cancel">
+            </div> 
+           
+        </form> 
+
+    </div>
+</div>
+
+<!-- END BOOTSTRAP FORM -->
+
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "Home/observerlayout.html" %}
+
+{% block content %}
+
+<!-- BOOTSTRAP FORM -->
+
+<div class="container  d-flex justify-content-center mt-0" style="width: 90%;">
+    <div class="col">
+        <form action="" method="post">
+            {% csrf_token %}
+            {% if darcymodel %}
+                <h4> Update Darcy IPR Model </h4>   
+            {% else %}  
+                <h4> Create Darcy IPR Model </h4>  
+            {% endif %}          
+            <table class="table">
+                {{form.as_table}}
+            </table>           
+            <div class="container d-flex justify-content-center" style="width: 10%;">
+                <a href="{% url 'opinflow:list_inflow' %}" class="d-block btn btn-primary btn-sm" style="margin-right: 30px; margin-top: 30px;">Inflow</a>
+                <input type="submit" class="btn btn-primary btn-sm" value="Save" style="margin-right: 30px; margin-top: 30px;">                
+                <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'opinflow:list_inflow' %}'; return false;" value="Cancel">
+            </div> 
+          
+        </form> 
+
+    </div>
+    <div class="col" >  
+        {%  if chart %}
+            <img src="data:image/png;base64, {{chart|safe}}">
+        {% endif %}   
+    </div>
+</div>
+
+<!-- END BOOTSTRAP FORM -->
+
+{% endblock %}

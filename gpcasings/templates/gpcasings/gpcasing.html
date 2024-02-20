@@ -1,0 +1,67 @@
+{% extends "home/gaslayout.html" %}
+
+{% block content %}
+<div class="container main">  
+    <div class="col">      
+        <h3 class="text-center">Gas Producer Casings</h3>       
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.75em; width: 98%;">
+            {% csrf_token %}
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %} 
+                    <th class='casingType'>Casing Type</th>                                    
+                    <th class='casingSize'>Casing Size</th>
+                    <th class='casingWeight'>Casing Weight</th>
+                    <th class='casingGrade'>Casing Grade</th>
+                    <th class='casingID'>Casing ID (inch)</th>
+                    <th class='shoeDepth'>Shoe Depth (ft)</th> 
+                    <th class='floatCollar'>Float Collar (ft)</th>
+                    <th class='hangerDepth'>Hanger Depth (ft)</th>  
+                    <th class='cementTop'>Cement Top (ft)</th>                     
+                    <th>Update</th>
+                    <th>Delete</th>
+                    <th>LOT</th>
+                    <th>CBL</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for casing in gpcasings %}
+                <tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}  
+                    <td class="text-center">{{casing.gpcasingType }}</td> 
+                    <td class="text-center">{{casing.gpcasingSize}}</td>
+                    <td class="text-center">{{casing.gpcasingWeight}}</td>                    
+                    <td class="text-center">{{casing.gpcasingGrade }}</td> 
+                    <td class="text-center">{{casing.gpcasingID}}</td>
+                    <td class="text-center">{{casing.gpshoedepth}}</td> 
+                    <td class="text-center">{{casing.gpfloatCollar}}</td>
+                    <td class="text-center">{{casing.gphangerDepth}}</td>
+                    <td class="text-center">{{casing.gpcementTop}}</td>  
+                    {% if casing %}
+                        <td><a href="{% url 'gpcasings:update_gpcasing' casing.id %} ">Update</a></td>
+                        <td><a href="{% url 'gpcasings:delete_gpcasing' casing.id %}">Delete</a></td>
+                        <td><a href="{% url 'gpleakoffTests:list_gpleakoffTest' casing.casingSize_id %}">LOT</a></td>                        
+                        <td><a href="{% url 'gpcementbondlogs:list_gpcementbondlog' casing.casingSize_id %}">CBL</a></td>
+                       
+                    {% endif %}
+                </tr>
+            {% endfor %}        
+            </tbody>
+        </table> 
+        <br> 
+        <div class="d-flex justify-content-center" style="width: 20%;">
+            <a href="{% url 'gpcasings:create_gpcasing' %}" class="d-block btn btn-primary my-1">Add New</a>
+        </div>
+    </div>        
+</div>
+<hr>
+<h3 class="text-center">Gas Producer Casing Diagram </h3>
+<div class="row">
+    <div class="col text-center">
+        {%  if chart2 %}
+            <img src="data:image/png;base64, {{chart2|safe}}">
+        {% endif %}
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,50 @@
+<html lang="en">
+{% extends "Home/observerlayout.html" %}
+  
+{% block content %}
+ 
+<div class="container d-flex text-center" style="width: 100%;">  
+    <div class="row text-center">
+        <h4 class="text-center"> Observer Inflow Performance Data </h4>
+        <table class="table table-striped table-bordered " style="border: 2px; border-width:2px; font-size:0.75em;">               
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %}
+                    <th class="text-center" scope="col">Date</th>
+                    <th class="text-center" scope="col">Prod.Index (bbls/day/psi)</th>
+                    <th class="text-center" scope="col">Res. Pressure (psi)</th>
+                    <th class="text-center" scope="col">Layer Name</th>
+                    <th class="text-center" scope="col">PVT Well</th>                   
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for pimodel in pimodels %}
+                <tr style='cursor: pointer; cursor: hand;' onclick="window.location='google.com';"></tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}                    
+                    <td class="text-center">{{pimodel.obanalysis_Date}}</td>
+                    <td class="text-center">{{pimodel.obproductivity_index}}</td>
+                    <td class="text-center">{{pimodel.obreservoir_Pressure}}</td>
+                    <td class="text-center">{{pimodel.oblayer_Name}}</td>  
+                    <td class="text-center">{{pimodel.obpvt_Well}}</td>                                       
+                    <td><a href="{% url 'obinflow:update_obinflow' pimodel.id %} ">Edit</a></td>
+                    <td><a href="{% url 'obinflow:delete_obinflow' pimodel.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}        
+            </tbody>
+        </table> 
+        <div class="d-flex text-center">
+            <a href="{% url 'obinflow:create_obinflow' %}" class="btn btn-primary btn-sm">Add New</a>
+        </div>
+    </div> 
+    
+</div> 
+<h4 class="text-center">Productivity Index Model Inflow Performance</h4>
+<div class="container text-center" style="width: 100%;">  
+    {%  if chart %}
+        <img src="data:image/png;base64, {{chart|safe}}">
+    {% endif %}   
+</div>
+{% endblock content %}
+</html>

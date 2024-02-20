@@ -1,0 +1,60 @@
+<html lang="en">
+{% extends "Home/gaslayout.html" %}
+
+{% block content %}
+<form action="" enctype="multipart/form-data" method="POST">
+    <div class="container text-center">  
+        {% include 'home/messages.html' %}   
+    </div>
+    <div class="container main mt-1">   
+        <div class="row"> 
+            <h4 class="text-center">Gas Shows </h4>
+        </div>  
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.75em; width:98%;">
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr class='text-center'>    
+                    <th>Formatiom</th> 
+                    <th>Top</th> 
+                    <th>Bottom</th> 
+                    <th>Total Gas(ppm)</th>  
+                    <th>Methane</th>                    
+                    <th>Ethane</th>   
+                    <th>Propane</th>                    
+                    <th>i_Butane</th> 
+                    <th>n_Butane</th>                    
+                    <th>i_Pentane</th>   
+                    <th>n_Pentane</th>                                  
+                    <th>Remarks</th>                                   
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for data in formationtops %}
+                <tr class=text-center>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %} 
+                    <td>{{data.gpformation}}</td>
+                    <td>{{data.gptop_MD}}</td>
+                    <td>{{data.gpbottom_MD}}</td>                    
+                    <td>{{data.gptotal_gas}}</td> 
+                    <td>{{data.gpmethane}}</td>   
+                    <td>{{data.gpethane}}</td>        
+                    <td>{{data.gppropane}}</td>  
+                    <td>{{data.gpiso_Butane}}</td>  
+                    <td>{{data.gpneo_Butane}}</td>        
+                    <td>{{data.gpiso_Pentane}}</td>  
+                    <td>{{data.gpneo_Pentane}}</td>  
+                    <td>{{data.gpremarks}}</td>                 
+                    <td><a href="{% url 'gpgasshows:update_gpgasshow' data.id %}" >Edit</a></td>
+                    <td><a href="{% url 'gpgasshows:delete_formationtops' data.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+        </table> 
+         
+        <div class="d-flex text-center">
+            <a href="{% url 'gpgasshows:create_gpgasshow' %}" class="d-block btn btn-primary btn-sm my-5">Add New</a>
+        </div>             
+    </div> 
+</form>
+{% endblock content %}
+</html>

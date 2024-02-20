@@ -1,0 +1,43 @@
+{% extends "Home/waterinjectorlayout.html" %}
+
+{% block content %}
+<div class="container d-flex" style="width: 100%;">
+    <hr>
+    <div class="col">
+        <h5 class="text-center text-success"> Fish Details</h5>
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.8em;">            
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %}
+                    <th class="text-center" scope="col">Fish Date</th>     
+                    <th class="text-center" scope="col">Top</th>                    
+                    <th class="text-center" scope="col">Bottom</th>
+                    <th class="text-center" scope="col">Nature</sup></th>
+                    <th class="text-center" scope="col">Description</th>                   
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for wifish in wifishes %}
+                <tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}                    
+                    <td class="text-center">{{wifish.wifish_Date}}</td>
+                    <td class="ml-5">{{wifish.wifish_Top}}</td>
+                    <td class="text-center">{{wifish.wifish_Bottom}}</td>
+                    <td class="text-center">{{wifish.wifish_Nature}}</td>
+                    <td class="text-center">{{wifish.wifish_Description}}</td> 
+                    <td><a href="{% url 'wifish:update_wifish' wifish.id %} ">Edit</a></td>
+                    <td><a href="{% url 'wifish:delete_wifish' wifish.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}        
+            </tbody>
+        </table>   
+        <br>
+        <br> 
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'wifish:create_wifish' %}" class="d-block btn btn-primary my-5">Add New</a>
+        </div>
+    </div>        
+</div>
+{% endblock content %}

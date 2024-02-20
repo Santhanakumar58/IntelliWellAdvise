@@ -1,0 +1,51 @@
+{% extends "Home/gasinjectorlayout.html" %}
+
+{% block content %}
+<div class="container d-flex" style="width: 100%;">
+    <hr>
+    <div class="col">
+        <h5 class="text-center">Leakoff Tests </h5>
+        <table  class="table table-hoover">
+            <thead style="background-color:lightgray ; height: 40px;">
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %}                                                         
+                    <th class='casingSize'>ID</th>
+                    <th class='casingSize'>Casing Size</th>
+                    <th class='analyst'>Analyst</th>
+                    <th class='recordedData'>Test Date</th>
+                    <th class='mudWeight'>Mudweight (ppg)</th>
+                    <th class='opnhole'>Openhole (ft)</th> 
+                    <th>Test Data</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for test in gileakoffTests %}
+                <tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}                     
+                    <td class="text-center">{{test.id}}</td>
+                    <td class="text-center">{{test.gicasingSize}}</td>
+                    <td class="text-center">{{test.gianalyst}}</td>                    
+                    <td class="text-center">{{test.girecorded_Date }}</td> 
+                    <td class="text-center">{{test.gimudWeight}}</td>
+                    <td class="text-center">{{test.giopenholeLength}}</td>                                        
+                    {% if test %}
+                        <td><a href="{% url 'gileakoffTestData:list_gileakoffTestData' test.id %}">Test Data</a></td>                        
+                        <td><a href="{% url 'gileakoffTests:update_gileakoffTest' test.id %} ">Update</a></td>
+                        <td><a href="{% url 'gileakoffTests:delete_gileakoffTest' test.id %}">Delete</a></td>                       
+                    {% endif %}
+                </tr>
+            {% endfor %}        
+            </tbody>
+        </table> 
+        <br>         
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'casings:list_casings' %}" class="d-block btn btn-primary my-1 mx-5">Back to Casings</a>                      
+            <a href="{% url 'gileakoffTests:create_gileakoffTest' id %}" class="d-block btn btn-primary my-1">Add New</a>
+        </div>
+        
+    </div>        
+</div>
+
+{% endblock content %}

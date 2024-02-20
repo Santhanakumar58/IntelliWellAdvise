@@ -1,0 +1,17 @@
+{% extends "Home/homelayout.html" %}
+{% block title %}
+Contact us
+{% endblock %}
+{% block content %}
+<h4 class="text-left">Contact us</h4>
+<form role="form" action="" method="post">
+    <div style="padding:20 ;">
+        <p>We would love to hear from you. Please provide us your details we will comeback to you shortly.</p>
+        {% csrf_token %}
+        <div class="col">
+            {{ form.as_p }}
+        </div>
+    </div>
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}

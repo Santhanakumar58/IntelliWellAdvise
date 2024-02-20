@@ -1,0 +1,69 @@
+<html lang="en">
+{% extends "Home/gaslayout.html" %}
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+{% block content %}
+
+<form method="POST" enctype="multipart/form-data" action="uploadwellobjectivedata">
+    {% csrf_token %}
+    <div class="container main"> 
+        <div class="row"> 
+            <div style="width:25%">  
+                <a href="{% url 'gpwellobjectivedata:Import_Excel_pandas' objid %}" class="d-block btn btn-primary my-1">Upload Excel Data</a>
+            </div>              
+        </div> 
+        <div class="row">        
+            <h5 class="text-center text-success"> Gas Producer Well Objective Profile </h5>        
+            <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.8em;">
+                <thead style="background-color:rgb(106, 130, 238);">
+                <tr> 
+                    <th class='date'>Date</th>                  
+                    <th class='liquidrate'>Gas Rate (mmscfd)</th>
+                    <th class='cgr'>CGR (bbl/mmscf) </th>
+                    <th class='watercut'>Water cut (%) </th>
+                    <th class='oilrate'>Liquid Rate (bbls/d)</th>
+                    <th class='waterrate'>Water Rate (bbls/d)</th>
+                    <th class='waterrate'>Condensate Rate (bbls/d)</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for objectivedata in gpwellobjectivedata %}
+                <tr >
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}                    
+                    <td class="text-center">{{objectivedata.date}}</td>
+                    <td class="text-center">{{objectivedata.gasrate_mmscfd}}</td> 
+                    <td class="text-center">{{objectivedata.cgr_barrels_per_mmscf}}</td>
+                    <td class="text-center">{{objectivedata.watercut_percentage}}</td>                  
+                    <td class="text-center">{{objectivedata.liquidrate }}</td>  
+                    <td class="text-center">{{objectivedata.waterate}}</td>
+                    <td class="text-center">{{objectivedata.condensaterate}}</td> 
+                    <td><a href="{% url 'gpwellobjectivedata:update_gpwellobjectivedata' objectivedata.id %} ">Update</a></td>
+                    <td><a href="{% url 'gpwellobjectivedata:delete_gpwellobjectivedata' objectivedata.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+            </table> 
+        </div>       
+        <div class="row">
+            <div class="d-flex justify-content-center">
+            <a href="{% url 'gpwellobjectives:list_gpwellobjective' %}" class="d-block btn btn-primary m-2 ">Back to Gas Producer Well Objective</a>
+            <a href="{% url 'gpwellobjectivedata:create_gpwellobjectivedata' objid %}" class="d-block btn btn-primary m-2">Add New</a>
+            </div> 
+        </div>
+    </div>         
+    </div>   
+    <div class="text-center" style=width: 90%;> 
+        {%  if chart1 %}
+            <img alt="" src="data:image/png;base64, {{chart1|safe}}">
+        {% endif %}         
+    </div>
+    <div class="text-center" style=width: 90%;> 
+        {%  if chart2 %}
+            <img alt="" src="data:image/png;base64, {{chart2|safe}}">
+        {% endif %}         
+    </div>
+</form> 
+{% endblock  %}
+</html>

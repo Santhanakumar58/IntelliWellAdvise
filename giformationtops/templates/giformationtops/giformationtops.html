@@ -1,0 +1,57 @@
+<html lang="en">
+{% extends "Home/gasinjectorlayout.html" %}
+
+{% block content %}
+<form action="" enctype="multipart/form-data" method="POST">
+    <div class="container text-center">  
+        {% include 'home/messages.html' %}  
+        {%  if chart %}
+            <img src="data:image/png;base64, {{chart|safe}}">
+        {% endif %}   
+    </div>
+    <div class="container mt-1">   
+        <div class="row"> 
+            <h4 class="text-center">Formation Tops </h4>
+        </div>  
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.75em; width:98%;">
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr class='text-center'>  
+                    <th>Hole Size</th>                      
+                    <th>Group</th>   
+                    <th>Formatiom</th> 
+                    <th>Member</th> 
+                    <th>Prog. Top</th> 
+                    <th>Prog. Thickness</th>  
+                    <th>Actual Top</th>                    
+                    <th>Actual Thick</th>                                      
+                    <th>Remarks</th>                                   
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for data in giformationtops %}
+                <tr class=text-center>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %} 
+                    <td>{{data.gihole_size}}</td>
+                    <td>{{data.gistat_Group}}</td>
+                    <td>{{data.gistat_Formation}}</td>                    
+                    <td>{{data.gistat_Member}}</td> 
+                    <td>{{data.giprognosis_Top}}</td>   
+                    <td>{{data.giprognosis_Thickness}}</td>        
+                    <td>{{data.giactual_Top}}</td>  
+                    <td>{{data.giactual_Thickness}}</td>  
+                    <td>{{data.giremarks}}</td>                 
+                    <td><a href="{% url 'giformationtops:update_giformationtops' data.id %}" >Edit</a></td>
+                    <td><a href="{% url 'giformationtops:delete_giformationtops' data.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+        </table> 
+         
+        <div class="d-flex text-center">
+            <a href="{% url 'giformationtops:create_giformationtops' %}" class="d-block btn btn-primary btn-sm my-5">Add New</a>
+        </div>             
+    </div> 
+</form>
+{% endblock content %}
+</html>

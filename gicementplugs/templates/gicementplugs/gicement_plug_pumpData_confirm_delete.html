@@ -1,0 +1,24 @@
+{% extends "Home/gasinjectorlayout.html" %}
+{% block content %}
+
+{% url 'cementplugs/pumpdata:list_gicement_pumpData' as list_all %}?plugid =plugid
+
+<div class="container d-flex justify-content-center mt-5" style="width: 50%;">
+    <div class="col text-center">
+        <hr>
+        <h5 class="text-center text-success">Delete Cement Pumping  Data</Datag></h5>
+        <hr>
+        <p class="h5 text-danger">Are you sure you want to delete the Gas Producer Pumping Data at time:</p>
+        <h5 class="text-center">{{ gppumpdata.gppump_Time }}</h5>
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% comment %} <input type="submit" value="Confirm">           
+            <input type="submit" value="Cancel" onclick="window.location='{% url 'cementplugs:list_cement_pumpData'  plugid %}'; return false;"">{% endcomment %}
+            <input type="submit" class="btn btn-primary btn-sm" value="Confirm" style="margin-right: 30px; margin-top: 30px;">
+            <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'gicementplugs:list_gicement_pumpData' id %}'; return true;" value="Cancel">
+           
+        </form>
+    </div>
+</div>
+
+{% endblock %}

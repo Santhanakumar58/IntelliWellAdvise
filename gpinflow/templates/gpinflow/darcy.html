@@ -1,0 +1,55 @@
+<html lang="en">
+{% extends "Home/gaslayout.html" %}
+  
+{% block content %}
+<div class="container d-flex mt-0" style="width: 100%;">   
+    <div class="col">
+        <h4 class="text-center">Darcy Inflow Performance Model</h4>
+        <table class="table table-striped table-bordered " style="border: 2px; border-width:2px; font-size:0.75em;">               
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %}
+                    <th class="text-center" scope="col">Analysis Date</th>
+                    <th class="text-center" scope="col">Permeability (mD)</th>
+                    <th class="text-center" scope="col">Thickness (ft)</th>  
+                    <th class="text-center" scope="col">Drainage Radius (ft)</th>
+                    <th class="text-center" scope="col">Wellbore Radius (ft)</th>                
+                    <th class="text-center" scope="col">Skin</th>
+                    <th class="text-center" scope="col">Reservoir Pressure (psi)</th>                    <
+                    <th class="text-center" scope="col">Layer Name</th>
+                    <th class="text-center" scope="col">PVT Well</th>                   
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for darcymodel in darcymodels %}
+                <tr style='cursor: pointer; cursor: hand;' onclick="window.location='google.com';"></tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}                    
+                    <td class="text-center">{{darcymodel.analysis_Date}}</td>
+                    <td class="text-center">{{darcymodel.layer_Permeability}}</td>
+                    <td class="text-center">{{darcymodel.layer_Thickness}}</td>                    
+                    <td class="text-center">{{darcymodel.drainage_Radius}}</td>
+                    <td class="text-center">{{darcymodel.wellbore_Radius}}</td> 
+                    <td class="text-center">{{darcymodel.layer_Skin}}</td> 
+                    <td class="text-center">{{darcymodel.current_Reservoir_Pressure}}</td>                   
+                    <td class="text-center">{{darcymodel.layer_Name}}</td>    
+                    <td class="text-center">{{darcymodel.pvt_Well}}</td>                 
+                    <td><a href="{% url 'opinflow:update_inflow' darcymodel.id %} ">Edit</a></td>
+                    <td><a href="{% url 'opinflow:delete_inflow' darcymodel.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}        
+            </tbody>
+        </table> 
+        <div class="d-flex text-center">
+            <a href="{% url 'opinflow:create_inflow' %}" class="d-block btn btn-primary btn-sm my-2">Add New</a>
+        </div>
+    </div>     
+</div> 
+<div class="container d-flex mt-0" style="width: 100%;">  
+    {%  if chart %}
+        <img src="data:image/png;base64, {{chart|safe}}">
+    {% endif %}   
+</div>
+{% endblock content %}
+</html>

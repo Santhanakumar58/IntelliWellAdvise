@@ -1,0 +1,40 @@
+{% extends "home/oillayout.html" %}
+
+{% block content %}
+
+<div class="container" style="width: 70%;">
+    <div class="col">
+        <h5 class="text-center">Selected Well Details</h5>
+        <div class="d-flex justify-content-center">
+            <table class="table table-striped" style="width: 100%">
+                <thead>
+                    <tr>
+                        <th scope="selectedassetname">Asset Name</th>
+                        <th scope="selectedblockname">Block Name</th>
+                        <th scope="selectedfieldname">Field Name</th>
+                        <th scope="selectedlayername">Layer Name</th>
+                        <th scope="selectedsublayername">Sublayer Name</th>                        
+                    </tr>
+                </thead>
+                <tbody>
+                
+                    {% for label, id in selectedOilProducer.get_fields  %}
+                        <tr>
+                            <td>{{label | upper}}</td>
+                            <td>{{pk.selectedOilProducer}}</td>
+                        </tr>
+                    {% endfor %}
+                        
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <br>
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'selectedOilProducer:list_selectedOilProducer' %}" class="d-block btn btn-primary btn-lg my-5">BACK</a>
+        </div>
+    </div>
+        
+</div>
+
+{% endblock  %}

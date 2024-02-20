@@ -1,0 +1,29 @@
+{% extends "Home/gasinjectorlayout.html" %}
+
+{% block content %}
+
+<!-- BOOTSTRAP FORM -->
+{% url 'gislickline:list_gislickline_data' as list_all %}
+<div class="container d-flex justify-content-center mt-5" style="width: 75%;">
+    <div class="col mt-0">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if stimulation_data %}
+                <h4 class="text-success">Update Slickline Intervention </h4> 
+            {% else %}  
+                <h4 class="text-success">Create Slickline Intervention</h4>    
+            {% endif %}      
+            <table class="table">
+                {{form.as_table}}
+            </table>           
+            <div class="container d-flex justify-content-center" style="width: 10%;">
+                <input type="submit" class="btn btn-primary btn-sm" value="Save" style="margin-right: 30px; margin-top: 30px;">
+                <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{{list_all}}'; return false;" value="Cancel">
+            </div>           
+        </form> 
+    </div>
+</div>
+
+<!-- END BOOTSTRAP FORM -->
+
+{% endblock %}

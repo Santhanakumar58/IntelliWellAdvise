@@ -1,0 +1,33 @@
+{% extends "Home/gaslayout.html" %}
+
+{% block content %}
+
+<!-- BOOTSTRAP FORM -->
+
+<div class="container d-flex justify-content-center mt-0" style="width: 100%;">
+    <div class="col mt-0">
+        <form action="" method="post">
+            {% csrf_token %}
+            {% if standingmodel %}
+                <h2> Update Standings IPR Model </h2>   
+            {% else %}  
+                <h2> Create Standings IPR Model </h2>  
+            {% endif %}           
+            <table class="table">
+                {{form.as_table}}
+            </table>           
+            <div class="container d-flex justify-content-center" style="width: 10%;">
+                <a href="{% url 'opinflow:list_inflow' %}" class="d-block btn btn-primary btn-sm" style="margin-right: 30px; margin-top: 30px;">Inflow</a>
+                <input type="submit" class="btn btn-primary btn-sm" value="Save" style="margin-right: 30px; margin-top: 30px;">
+                <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'opinflow:list_inflow' %}'; return false;" value="Cancel">
+            </div>           
+        </form> 
+    </div>
+    <div class="col" > 
+        <img src="data:image/png;base64, {{chart|safe}}">
+    </div>  
+</div>
+
+<!-- END BOOTSTRAP FORM -->
+
+{% endblock %}

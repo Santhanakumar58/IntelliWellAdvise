@@ -1,0 +1,52 @@
+<html lang="en">
+{% extends "home/oillayout.html" %}
+
+{% block content %}
+{% for data in stim_ops_datas %}
+    {% for colname in data.column_set.all  %}
+        <p>{{colname}}</p>
+    {% endfor %}
+{% endfor %}
+<form action="" enctype="multipart/form-data" method="POST">
+    <div class="container mt-1">   
+        <div class="row"> 
+            <h5 class="text-center text-success">Stimulation Operations </h5>
+        </div>  
+        <table class="table table-bordered">
+            <thead>
+                <tr class='text-center'> 
+                    <th>Unit Name</th>                      
+                    <th>Date</th>   
+                    <th>Start Time</th> 
+                    <th>End Time</th> 
+                    <th>Op. Code</th> 
+                    <th>Job Summary</th>                                     <                  
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for data in stim_ops_datas %}
+                <tr class=text-center>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %} 
+                    <td>{{data.unitname}}</td>
+                    <td>{{data.op_Date}}</td>
+                    <td>{{data.time_from}}</td>   
+                    <td>{{data.time_to}}</td>    
+                    <td>{{data.op_code}}</td>               
+                    <td>{{data.op_details}}</td>   
+                    context=(ctid, data.id)                                                                   
+                    <td><a href="{% url 'stimulationoperations:update_stim_ops_data' data.id %}" >Edit</a></td>
+                    <td><a href="{% url 'stimulationoperations:delete_stim_ops_data' data.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+        </table> 
+        <div class="d-flex text-center">
+            <a href="{% url 'stimulation:list_stimulation_data' %}" class="d-block btn btn-primary btn-sm my-2" style="margin-right: 30px;">Stimulations</a>
+            <a href="{% url 'stimulationoperations:create_stim_ops_data' ctid %}" class="d-block btn btn-primary btn-sm my-2">Add New</a>
+           
+        </div>             
+    </div> 
+</form>
+{% endblock content %}
+</html>

@@ -1,0 +1,23 @@
+{% extends "home/oillayout.html" %}
+{% block content %}
+
+{% url 'opwellobjectives:list_opwellobjective' as list_all %}
+
+<div class="container d-flex justify-content-center mt-5" style="width: 50%;">
+    <div class="col mt-5 text-center">
+        <h5 class="mb-5">Delete Well opwellobjectives</h5>
+        <p class="h5 text-danger">Are you sure you want to delete the well objective of the well:</p>
+        <h5 class="my-5">{{ opwellobjective.opwellname }}</h5>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {% comment %} 
+            <input type="submit" value="Confirm">           
+            <input type="submit" value="Cancel" onclick="window.location='{% url 'opwellobjectives:list_opwellobjective' %}'; return false;" >
+            {% endcomment %}
+            <input type="submit" class="btn btn-primary btn-sm" value="Confirm" style="margin-right: 30px; margin-top: 30px;">
+            <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'opwellobjectives:list_opwellobjective' %}'; return false;" value="Cancel">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

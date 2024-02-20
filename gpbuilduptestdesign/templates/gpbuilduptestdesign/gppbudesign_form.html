@@ -1,0 +1,33 @@
+{% extends "Home/gaslayout.html" %}
+
+{% block content %}
+
+<!-- BOOTSTRAP FORM -->
+{% url 'gpbuilduptestdesign:list_gppbu_test_design' as list_all %}
+<div class="container d-flex justify-content-center" style="width: 25%;">
+    <div class="col">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if plug %}
+            <hr>
+            <h5 class="text-center text-success">Update Plug Details </h5> 
+            {% else %}  
+            <h5 class="text-center text-success">Create Plug Details</h5>    
+            {% endif %}  
+            <hr>           
+            <table class="table table-striped" style="font-size:0.8em;"  class="text-center" >
+                {{form.as_table}}
+            </table>
+            <div class="container d-flex justify-content-center" style="width: 10%;">
+                <input type="submit" class="btn btn-primary btn-sm" value="Submit" style="margin-right: 30px; margin-top: 30px;">
+                <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{{list_all}}'; return false;" value="Cancel">
+            </div> 
+           
+        </form> 
+
+    </div>
+</div>
+
+<!-- END BOOTSTRAP FORM -->
+
+{% endblock %}

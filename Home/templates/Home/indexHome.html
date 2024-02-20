@@ -1,0 +1,109 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    {% load static %}
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Home Page</title>
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link rel="stylesheet" content-Type="text/css" href="{% static 'home/css/style.css' %}"/>     
+    <link href='http://fonts.googleapis.com/css?family=Crete+Round' rel='stylesheet' type='text/css'> 
+    <link rel="stylesheet" content-Type="text/css" href="{% static 'home/css/bootstrap.css' %}"/>
+</head>
+ 
+<body>
+    <div class='banner'>
+      <div>
+        <h1 style='text-transform: uppercase; text-align: center; padding-top: 25px;'>IntelliWell</h1>
+      </div>
+    </div>    
+    <!--Navbar-->
+    <header>
+      <nav>
+        <ul>
+          {% if user.is_authenticated %}
+          <h3>Hello {{ fname }}</h3>
+          <h4>You're successfully logged in</h4>
+          <li><a href="{% url 'signout' %}">Sign Out </a></li>
+          {% else %}
+          <li><a href="{% url 'index' %}">Home</a></li>
+          <li><a href="{% url 'about' %}">About</a></li>
+          <li><a href="{% url 'contact' %}">Contact</a></li>
+          <li><a href="{% url 'signup' %}">Sign Up</a></li>
+          <li><a href="{% url 'signin' %}">Sign In</a></li>
+          <li><a href="{% url 'leftsidenavi' %}">Left Navi</a></li>
+          <li><a href="{% url 'topandside' %}">Left Top</a></li>
+          <li><a href="{% url 'lefttop1' %}">Left Top 1</a></li>
+
+
+          {% endif %}
+          
+        </ul>  
+      </nav>
+    </header>
+    
+    <div class='container'>
+      <h2>IntelliWell </h2>
+      <p>An optimization tool for oil and gas wells. </p>
+    </div>
+      <div class='flex-container'>
+         <div class='sec1'>
+           <h2>Inflow Models (IPRs)</h2>            
+            <h5>IntelliWell has possible set of Inflow models covering vertical, deviated, horizontal, multilayer and multilateral geometries. Furthermore, novel development has seen the realisation of unique inflow models that account for changing PVT conditions in the well drainage area as well as in multiple zones. 
+                This allows optimization studies,analysis of skin, the application of sand control measures and many other sensitivities 
+                to be conducted easily.</h5> 
+         </div>
+         <hr>
+         <hr>
+         <div class='sec3'>
+            <p>IntelliWell </p>
+            <h5>A structured well analysis tool to optimize and sustain your oil and gas production developed by Integrated Petroleum Consultancy Services Private Limited </h5>
+         </div>
+         <hr>
+         <hr>
+         <div class='sec1'>
+          <h2>Inflow Models (IPRs)</h2>            
+           <h5>IntelliWell has possible set of Inflow models covering vertical, deviated, horizontal, multilayer and multilateral geometries. Furthermore, novel development has seen the realisation of unique inflow models that account for changing PVT conditions in the well drainage area as well as in multiple zones. 
+               This allows optimization studies,analysis of skin, the application of sand control measures and many other sensitivities 
+               to be conducted easily.</h5> 
+        </div>
+        <hr>
+        <hr>
+        <div class='sec3'>
+           <p>IntelliWell </p>
+           <h5>A structured well analysis tool to optimize and sustain your oil and gas production developed by Integrated Petroleum Consultancy Services Private Limited </h5>
+        </div>
+      </div>
+      <hr>
+      <hr>
+    <div class='container'>
+      <h2>IntelliWell </h2>
+      <p>An optimization tool for oil and gas wells. </p>
+    </div>
+   <div class='flex-container'>
+     <div class='sec1'>
+       <h4>Copy right</h4>      
+     </div>
+     <hr>      
+     <div class='sec2'>
+        <h4>Integrate Petroleum Consultancy Services Private ltd </h4>
+     </div>
+      <hr>
+      <hr>
+     <div class='sec3'>
+        <h4>2023</h4>
+     </div>
+     
+    </div>
+
+    
+
+    {% block js %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="{% static '/home/js/jquery-3.6.0.min.js' %}"> </script>
+    <script src="{% static '/home/js/jquery-ui-1.13.1/jquery-ui.min.js' %}"> </script>
+  {% endblock %}  
+  </body>
+</html>
+</html>

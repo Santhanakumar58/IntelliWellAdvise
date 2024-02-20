@@ -1,0 +1,23 @@
+{% extends "home/waterinjectorlayout.html" %}
+{% block content %}
+
+<div class="container d-flex justify-content-center" style="width: 50%;">
+    <div class="col text-center">
+        <hr>
+        <h5 class="text-center">Delete Gas Producer Cement Bond Log</h5>
+        <hr>
+        <p class="text-danger">Are you sure you want to delete Gas Producer  CBL:</p>
+        <h5 class="text-center">{{ wicementbondlog.gpcasingSize }}</h5>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {% comment %} <input type="submit" value="Confirm">           
+            {% comment %} <input type="submit" value="Confirm">           
+            <input type="submit" value="Cancel" onclick="window.location='{% url 'wicementbondlogs:list_wicementbondlog' wicementbondlog.gpcasingSize_id %}'; return false;">{% endcomment %}
+            <input type="submit" class="btn btn-primary btn-sm" value="Confirm" style="margin-right: 30px; margin-top: 30px;">
+            <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'wicementbondlogs:list_wicementbondlog' cementbondlog.casingSize_id %}'; return false;" value="Cancel">
+            
+        </form>
+    </div>
+</div>
+
+{% endblock %}

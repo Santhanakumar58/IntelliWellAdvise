@@ -1,0 +1,23 @@
+{% extends "home/oillayout.html" %}
+{% block content %}
+
+{% url 'constantratedrawdowntestanalysis:list_const_rate_drawdown_test_data' as list_all %}
+
+<div class="container d-flex justify-content-center mt-2" style="width: 50%;">
+    <div class="col mt-2 text-center">
+        <h5 class="mb-2">Delete Drawdown Test Analysis</h5>
+        <p class="h5 text-danger">Are you sure you want to delete the Drawdown test Dated :</p>
+        <h5 class="my-2">{{drawdown.survey_Date }}</h5>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {% comment %} 
+            <input type="submit" value="Confirm">           
+            <input type="submit" value="Cancel" onclick="window.location='{{list_all}}'; return false;" >
+            {% endcomment %}
+            <input type="submit" class="btn btn-primary btn-sm" value="Confirm" style="margin-right: 30px; margin-top: 30px;">
+            <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{{list_all}}'; return false;" value="Cancel">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

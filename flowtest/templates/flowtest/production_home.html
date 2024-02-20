@@ -1,0 +1,116 @@
+{% extends "home/oillayout.html" %}
+{% block title %}
+Production Home
+{% endblock %}
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <h4 class="text-center">Production Data and Artificial Lift systems Analysis</h4>
+  <hr>   
+  <div class="container main">
+    <div class="row">
+      <div class="col-md-3 " >
+        <div class="container">
+          <a class="btn btn-primary" href="{% url 'flowtest:list_flowtest' %}">
+          <img src="./../Home/static/img/separator3.jpeg" alt="Snow" width="150" height="100"  >
+          </a>
+          <div class="text-center"><h5>Flow Tests</h5></div>
+        </div>      
+      </div>
+      <div class="col-md-3">
+        <div class="container">
+        <a class="btn btn-primary" href="{% url 'flowtest:pressure_vs_depth' %}">
+        <img src="./../Home/static/img/TubingPerformance1.jpg" alt="Snow"  width="150" height="100" >
+        </a>
+        </div>
+        <div class="text-center"><h5>Pressure Traverse</h5></div>
+      </div>
+      <div class="col-md-3 ">
+        <div class="container">
+          <a class="btn btn-primary" href="{% url 'flowtest:inflow_outflow' %}">
+          <img src="./../Home/static/img/inflowoutflow1.png" alt="Snow"  width="150" height="100"  >
+          </a>
+        </div>
+        <div class="text-center"><h5>Inflow-Outflow</h5></div>
+      </div>
+      <div class="col-md-3 ">
+        <div class="container">
+          <a class="btn btn-primary" href="{% url 'flowtest:tubing_Sensitivity' %}">
+          <img src="./../Home/static/img/TbgSensitivity.png" alt="Snow"  width="150" height="100" >
+          </a>
+        </div>
+        <div class="text-center"><h5>Tubing Sensitivity</h5></div>
+      </div>        
+    </div>
+    <div class="row">
+      <div class="col-md-3 ">
+        <div class="container">
+          <a class="btn btn-primary" href="{% url 'flowtest:gor_Sensitivity' %}">
+          <img src="./../Home/static/img/TbgSensitivity.png" alt="Snow"  width="150" height="100" >
+          </a>
+        </div>
+        <div class="text-center"><h5>GOR Sensitivity</h5></div>
+      </div>
+      <div class="col-md-3 ">
+        <div class="container">
+          <a class="btn btn-primary" href="{% url 'flowtest:tubing_Sensitivity' %}">
+          <img src="./../Home/static/img/TbgSensitivity.png" alt="Snow"  width="150" height="100"  >
+          </a>
+        </div>
+        <div class="text-center"><h5>Tubing Sensitivity</h5></div>
+      </div>      
+      <div class="col-md-3 "  >
+        <div class="container">
+          <a class="btn btn-success" href="{% url 'gaslift:list_gas_lift' %}">
+          <img src="./../Home/static/img/gaslift.jpg" alt="Snow" width="150" height="100" >
+          </a>
+          <div class="text-center"><h5>Gaslift Design</h5></div>
+        </div>      
+      </div>     
+      <div class="col-md-3" >
+      <div class="container">
+        <a class="btn btn-success" href="{% url 'espdesign:list_esp_design_data' %}">
+        <img src="./../Home/static/img/ESPmodified.jpeg" alt="Snow" width="150" height="100"  >
+        </a>
+        <div class="text-center"><h5>ESP Design</h5></div>
+      </div>      
+      </div>      
+    </div>
+    <div class="row">
+      <div class="col-md-3 ">
+        <div class="container">
+          <a class="btn btn-success" href="{% url 'srpdesign:list_srp_design_data' %}">
+          <img src="./../Home/static/img/srp.jpg" alt="Snow"  width="150" height="100"  >
+          </a>
+        </div>
+        <div class="text-center"><h5>SRP Design</h5></div>
+      </div>
+      <div class="col-md-3 ">
+        <div class="container">
+          <a class="btn btn-success" href="{% url 'jetpumpdesign:list_jetpump_design_data' %}">
+          <img src="./../Home/static/img/jetpump.jpg" alt="Snow"  width="150" height="100"  >
+          </a>
+        </div>
+        <div class="text-center"><h5>Jet Pump Design</h5></div>
+      </div>      
+      <div class="col-md-3 "  >
+        <div class="container">
+          <a class="btn btn-success" href="{% url 'gaslift:list_gas_lift' %}">
+          <img src="./../Home/static/img/pcp.jpg" alt="Snow" width="150" height="100"  >
+          </a>
+          <div class="text-center"><h5>PCP Design</h5></div>
+        </div>      
+      </div>     
+      <div class="col-md-3" >
+      <div class="container">
+        <a class="btn btn-danger" href="{% url 'espdesign:list_esp_design_data' %}">
+        <img src="./../Home/static/img/ESPmodified.jpeg" alt="Snow" width="150" height="100"   >
+        </a>
+        <div class="text-center"><h5>ESP Design</h5></div>
+      </div>      
+      </div>      
+    </div>
+    <hr>
+  </div>
+</form>   
+{% endblock %}

@@ -1,0 +1,66 @@
+<html lang="en">
+{% extends "Home/observerlayout.html" %}
+  
+{% block content %}
+
+<div class="container d-flex" style="width: 100%;">   
+    <div class="col">
+        <h4 class="text-center">MultiRate Inflow Performance Models</h4>
+        <table class="table table-striped table-bordered " style="border: 2px; border-width:2px; font-size:0.75em;">               
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %}
+                    <th class="text-center" scope="col">Date</th>
+                    <th class="text-center" scope="col">Rate1 (bbls/day)</th>
+                    <th class="text-center" scope="col">Pres.1 (psi)</th>    
+                    <th class="text-center" scope="col">Rate2 (bbls/day)</th>
+                    <th class="text-center" scope="col">Pres.2 (psi)</th>    
+                    <th class="text-center" scope="col">Rate3 (bbls/day)</th>
+                    <th class="text-center" scope="col">Pres.3 (psi)</th>                   
+                    <th class="text-center" scope="col">Res.Pres (psi)</th>
+                    <th class="text-center" scope="col">Layer</th>   
+                    <th class="text-center" scope="col">PVT Well</th>                                
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for multiratemodel in multiratemodels %}
+                <tr style='cursor: pointer; cursor: hand;' onclick="window.location='google.com';"></tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}                    
+                    <td class="text-center">{{multiratemodel.analysis_Date}}</td>
+                    <td class="text-center">{{multiratemodel.test_Rate1}}</td>
+                    <td class="text-center">{{multiratemodel.test_Pressure1}}</td>
+                    <td class="text-center">{{multiratemodel.test_Rate2}}</td>
+                    <td class="text-center">{{multiratemodel.test_Pressure2}}</td>
+                    <td class="text-center">{{multiratemodel.test_Rate3}}</td> 
+                    <td class="text-center">{{multiratemodel.test_Pressure3}}</td> 
+                    <td class="text-center">{{multiratemodel.current_Reservoir_Pressure}}</td> 
+                    <td class="text-center">{{multiratemodel.layer_Name}}</td>   
+                    <td class="text-center">{{multiratemodel.pvt_Well}}</td>                  
+                    <td><a href="{% url 'opinflow:update_inflow' multiratemodel.id %} ">Edit</a></td>
+                    <td><a href="{% url 'opinflow:delete_inflow' multiratemodel.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}        
+            </tbody>
+        </table> 
+        <div class="d-flex text-center">
+            <a href="{% url 'opinflow:create_inflow' %}" class="d-block btn btn-primary my-2">Add New</a>
+        </div>
+    </div>     
+</div> 
+
+<div class="container text-center" style="width: 100%;">  
+    {%  if chart %}
+        <img src="data:image/png;base64, {{chart|safe}}">
+    {% endif %}   
+</div>
+<div class="container text-center" style="width: 100%;">  
+    <h4 class="text-center">MultiRate Inflow Performance</h4>
+    {%  if Global.Multirateloglogchart %}
+        <img src="data:image/png;base64, {{Global.Multirateloglogchart|safe}}">
+    {% endif %}   
+</div>
+
+{% endblock content %}
+</html>

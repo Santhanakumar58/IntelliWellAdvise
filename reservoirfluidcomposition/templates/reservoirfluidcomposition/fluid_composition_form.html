@@ -1,0 +1,25 @@
+{% extends "home/fieldlayout.html" %}
+
+{% block content %}
+{% if fc %}
+<h5 class="text-center text-success">Update Reservoir Fluid Composition Details </h5> 
+{% else %}  
+<h5 class="text-center text-success">Create Reservoir Fluid Composition Details</h5>    
+{% endif %} 
+ 
+<div class="container d-flex justify-content-center mt-0" style="width: 100%;">
+    <div class="col">
+        <form action="" method="post">
+            {% csrf_token %}                       
+            <table class="table">
+                {{form.as_table}}
+            </table>           
+            <div class="container d-flex justify-content-center" style="width: 10%;">
+                <input type="submit" class="btn btn-primary btn-sm" value="Submit" style="margin-right: 30px; margin-top: 30px;">
+                <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'reservoirfluidcomposition:list_fluid_composition' %}'; return false;" value="Cancel">
+            </div>           
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,53 @@
+<html lang="en">
+{% extends "Home/gaslayout.html" %}
+
+{% block content %}
+<form action="" enctype="multipart/form-data" method="POST">
+    <div class="container text-center">  
+        {% include 'home/messages.html' %}  
+        {%  if chart %}
+            <img src="data:image/png;base64, {{chart|safe}}">
+        {% endif %}   
+    </div>
+    <div class="container mt-1">   
+        <div class="row"> 
+            <h4 class="text-center text-success">Rig Workover Operations </h4>
+        </div>  
+        <table class="table table-bordered">
+            <thead>
+                <tr class='text-center'> 
+                    <th>Unit Name</th>                      
+                    <th>Date</th>   
+                    <th>Start Time</th> 
+                    <th>End Time</th> 
+                    <th>Op. Code</th> 
+                    <th>Job Summary</th>                                     <                  
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for data in rig_wor_ops_datas %}
+                <tr class=text-center>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %} 
+                    <td>{{data.unitname}}</td>
+                    <td>{{data.op_Date}}</td>
+                    <td>{{data.time_from}}</td>   
+                    <td>{{data.time_to}}</td>    
+                    <td>{{data.op_code}}</td>               
+                    <td>{{data.op_details}}</td>   
+                    context=(ctid, data.id)                                                                   
+                    <td><a href="{% url 'gprigworkover1operations:update_rig_wor_ops_data' data.id %}" >Edit</a></td>
+                    <td><a href="{% url 'gprigworkover1operations:delete_rig_wor_ops_data' data.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+        </table> 
+        <div class="d-flex text-center">
+            <a href="{% url 'gprigworkover1operations:list_rig_workover_data' %}" class="d-block btn btn-primary btn-sm my-2" style="margin-right: 30px;">Rig Workovers</a>
+            <a href="{% url 'gprigworkover1operations:create_rig_wor_ops_data' ctid %}" class="d-block btn btn-primary btn-sm my-2">Add New</a>
+           
+        </div>             
+    </div> 
+</form>
+{% endblock content %}
+</html>

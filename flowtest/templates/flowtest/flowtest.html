@@ -1,0 +1,96 @@
+{% extends "home/oillayout.html" %}
+
+{% block content %}
+{% for fish in fishes %}
+    {% for colname in fish.column_set.all  %}
+        <p>{{colname}}</p>
+    {% endfor %}
+{% endfor %}
+{% url 'flowtest:update_flowtest' as Update %}
+<form method="POST" enctype="multipart/form-data" action="flowtest:load_from_Excel" style="display: inline;">
+    {% csrf_token %}
+    <div class="container main" style="width:100%;" >       
+        <h4 class="text-center">Flow Tests</h4>  
+        <div class="text-center"> 
+            <div style="width:20%">  
+                <a href="{% url 'flowtest:load_from_Excel' %}" class="d-block btn btn-primary my-1">Upload Excel Data</a>
+            </div>              
+        </div>  
+        <table id="mytable" class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.75em;">
+            <thead > 
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %}
+                    <th class="text-center" scope="col">Date</th>     
+                    <th class="text-center" scope="col">Duration</th>                    
+                    <th class="text-center" scope="col">Choke (1/64 in)</th>
+                    <th class="text-center" scope="col">THP (psi)</sup></th>                   
+                    <th class="text-center" scope="col">Liquid (bbls/d)</th>
+                    <th class="text-center" scope="col">Oil (bbls/d)</sup></th>
+                    <th class="text-center" scope="col">Gas (scf/d)</th>   
+                    <th class="text-center" scope="col">WC (%)</th>   
+                    <th class="text-center" scope="col">FLP (psi)</th> 
+                    <th class="text-center" scope="col">Sep. Pr (psi)</sup></th>                   
+                    <th class="text-center" scope="col">Remarks</th>   
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for flowtest in flowtests %}
+                <tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}                    
+                    <td class="text-center">{{flowtest.test_Date}}</td>
+                    <td class="text-center">{{flowtest.test_Duration}}</td>
+                    <td class="text-center">{{flowtest.choke_Size}}</td>
+                    <td class="text-center">{{flowtest.th_Pres}}</td>                    
+                    <td class="text-center">{{flowtest.liquid_Rate}}</td> 
+                    <td class="text-center">{{flowtest.oil_Rate}}</td> 
+                    <td class="text-center">{{flowtest.gas_Rate}}</td> 
+                    <td class="text-center">{{flowtest.water_Cut}}</td> 
+                    <td class="text-center">{{flowtest.fl_Pres}}</td>                    
+                    <td class="text-center">{{flowtest.sep_Pres}}</td>                
+                    <td class="text-center">{{flowtest.remarks}}</td> 
+                    <td><a href="{% url 'flowtest:update_flowtest' flowtest.id %}">Update</a></td>
+                    <td><a href="{% url 'flowtest:delete_flowtest' flowtest.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}        
+            </tbody>
+        </table> 
+        <hr>  
+        <div class="row">     
+            <div class="container d-flex justify-content-center" style="width: 20%;">            
+                <a href="{% url 'flowtest:create_flowtest' %}" class="d-block btn btn-primary">Add New</a>
+            </div>
+            <div class="container d-flex justify-content-center" style="width: 20%;">            
+                <a href="{% url 'flowtest:production_home' %}" class="d-block btn btn-primary">Production Home</a>
+            </div>
+        </div> 
+        <div class="text-center">  
+            {% include 'home/messages.html' %}  
+            {%  if chart %}
+                <img src="data:image/png;base64, {{chart|safe}}" >
+            {% endif %}   
+        </div>
+        <div class="row text-center"> 
+            <div class="col">
+                {%  if chart1 %}
+                    <img src="data:image/png;base64, {{chart1|safe}}" width="420", height="400" alt="arps" >
+                {% endif %}   
+                <div>Initial production rate (qi) == {{qi}} Bbls/day</div>
+                <div>Initial decline rate (di)    == {{di}} Bbls/day</div>
+                <div>Decline coefficient (b)      == {{b}}  </div>
+                <div>Root Mean Square Error       == {{RMSE}}  </div>
+            </div>
+            <div class="col text-center">
+                {%  if chart2 %}
+                <img src="data:image/png;base64, {{chart2|safe}}" width="420", height="400" alt="arps_bootstrap" >
+                {% endif %}   
+                <div>95% CI of (qi) == {{ci95_qi}}</div>
+                <div>95% CI of (di)    == {{ci95_di}}</div>
+                <div>95% CI of (b)      == {{ci95_b}}  </div>
+               
+            </div>
+        </div>            
+    </div>
+</form>
+{% endblock content %}

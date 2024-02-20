@@ -1,0 +1,70 @@
+{% extends "Home/observerlayout.html" %}
+{% block title %}
+Production Home
+{% endblock %}
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <h4 class="text-center">Well Interventions</h4>
+  <hr>   
+  <div class="container main">
+    <div class="row">
+      <div class="col-md-4 " >
+        <div class="container">
+          <a class="btn btn-success" href="{% url 'obrigworkover:list_obrig_workover_data' %}">
+          <img src="./../Home/static/img/workoverrig.png" alt="Rig" width="225" height="150"  >
+          </a>
+          <div class="text-center"><h5>Rig Workover</h5></div>
+        </div>      
+      </div>
+      <div class="col-md-4">
+        <div class="container">
+        <a class="btn btn-success" href="{% url 'coiltubing:list_coil_tubing_data' %}">
+        <img src="./../Home/static/img/coiltubing.jpg" alt="CT"  width="225" height="150" >
+        </a>
+        </div>
+        <div class="text-center"><h5>Coil Tubing</h5></div>
+      </div>
+      <div class="col-md-4 ">
+        <div class="container">
+          <a class="btn btn-success" href="{% url 'stimulation:list_stimulation_data' %}">
+          <img src="./../Home/static/img/stimulationunit.jpeg" alt="Snow"  width="225" height="150"  >
+          </a>
+        </div>
+        <div class="text-center"><h5>Stimulation</h5></div>
+      </div>
+         
+    </div>
+    <br>
+    <br>
+    <div class="row">
+      <div class="col-md-4 ">
+        <div class="container">
+          <a class="btn btn-success" href="{% url 'wireline:list_wireline_data' %}">
+          <img src="./../Home/static/img/wirelineunit.jpeg" alt="WL"  width="225" height="150"  >
+          </a>
+        </div>
+        <div class="text-center"><h5>Wireline</h5></div>
+      </div>  
+      <div class="col-md-4 ">
+        <div class="container">
+          <a class="btn btn-success" href="{% url 'slickline:list_slickline_data' %}">
+          <img src="./../Home/static/img/slickline.jpeg" alt="Slickline"  width="225" height="150"  >
+          </a>
+        </div>
+        <div class="text-center"><h5>Slickline</h5></div>
+      </div>
+      <div class="col-md-4 ">
+        <div class="container">
+          <a class="btn btn-success" href="{% url 'rigless:list_rigless_data' %}">
+          <img src="./../Home/static/img/rigless.jpeg" alt="Rigless" width="225" height="150"  >
+          </a>
+        </div>
+        <div class="text-center"><h5>Rigless</h5></div>
+      </div> 
+    </div>
+
+    <hr>
+  </div>
+</form>   
+{% endblock %}

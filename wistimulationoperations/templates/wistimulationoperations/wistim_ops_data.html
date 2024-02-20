@@ -1,0 +1,47 @@
+<html lang="en">
+{% extends "Home/waterinjectorlayout.html" %}
+
+{% block content %}
+<form action="" enctype="multipart/form-data" method="POST">
+    <div class="container mt-1">   
+        <div class="row"> 
+            <h4 class="text-center ">Stimulation Operations </h4>
+        </div>  
+        <table class="table table-bordered">
+            <thead>
+                <tr class='text-center'> 
+                    <th>Unit Name</th>                      
+                    <th>Date</th>   
+                    <th>Start Time</th> 
+                    <th>End Time</th> 
+                    <th>Op. Code</th> 
+                    <th>Job Summary</th>                                     <                  
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for data in stim_ops_datas %}
+                <tr class=text-center>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %} 
+                    <td>{{data.wiunitname}}</td>
+                    <td>{{data.wiop_Date}}</td>
+                    <td>{{data.witime_from}}</td>   
+                    <td>{{data.witime_to}}</td>    
+                    <td>{{data.wiop_code}}</td>               
+                    <td>{{data.wiop_details}}</td>   
+                    context=(ctid, data.id)                                                                   
+                    <td><a href="{% url 'stimulationoperations:update_wistim_ops_data' data.id %}" >Edit</a></td>
+                    <td><a href="{% url 'stimulationoperations:delete_wistim_ops_data' data.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+        </table> 
+        <div class="d-flex text-center">
+            <a href="{% url 'stimulation:list_stimulation_data' %}" class="d-block btn btn-primary btn-sm my-2" style="margin-right: 30px;">Stimulations</a>
+            <a href="{% url 'stimulationoperations:create_wistim_ops_data' ctid %}" class="d-block btn btn-primary btn-sm my-2">Add New</a>
+           
+        </div>             
+    </div> 
+</form>
+{% endblock content %}
+</html>

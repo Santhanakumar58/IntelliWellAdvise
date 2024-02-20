@@ -1,0 +1,53 @@
+<html lang="en">
+{% extends "home/oillayout.html" %}
+
+{% block content %}
+
+<form action="" enctype="multipart/form-data" method="POST">
+    <div class="container main mt-1">   
+        <div class="row"> 
+            <h4 class="text-center  ">Coil Tubing Interventions </h4>
+        </div>  
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.8em; width: 90%;">           
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr class='text-center'>  
+                    <th>CT Name</th>                      
+                    <th>Start Date</th>   
+                    <th>End Date</th> 
+                    <th>Job Summary</th> 
+                    <th>Operation</th>  
+                    <th>Gains</th>                                     
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for data in coil_tubing_datas %}
+                <tr class=text-center>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %} 
+                    <td>{{data.ctname}}</td>
+                    <td>{{data.start_Date}}</td>
+                    <td>{{data.end_Date}}</td>                    
+                    <td>{{data.jobsummary}}</td> 
+                    <td><a href="{% url 'coiltubingoperations:list_coil_tubing_ops_data' data.id %}">Operation</a></td> 
+                    <td><a href="{% url 'coiltubing:detail_coil_tubing_data' data.id %}">Gains</a></td>                
+                    <td><a href="{% url 'coiltubing:update_coil_tubing_data' data.id %}" >Edit</a></td>
+                    <td><a href="{% url 'coiltubing:delete_coil_tubing_data' data.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+        </table> 
+        <h5 class="text-center" style="color: darkred;">Average Liquid gain = {{avgliqgain}} </h5>  
+        <h5 class="text-center" style="color: green;">Average Oil gain = {{avgoilgain}} </h5> 
+        <div class="d-flex text-center">
+            <a href="{% url 'coiltubing:create_coil_tubing_data' %}" class="d-block btn btn-primary btn-sm my-5">Add New</a>
+        </div>             
+    </div> 
+    <div class="container text-center">  
+        {% include 'home/messages.html' %}  
+        {%  if chart %}
+            <img src="data:image/png;base64, {{chart|safe}}">
+        {% endif %}   
+    </div>
+</form>
+{% endblock content %}
+</html>

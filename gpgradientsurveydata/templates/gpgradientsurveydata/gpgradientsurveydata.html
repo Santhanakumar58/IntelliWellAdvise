@@ -1,0 +1,50 @@
+<html lang="en">
+{% extends "Home/gaslayout.html" %}
+
+{% block content %}
+
+
+<div class="container d-flex mt-0" style="width: 100%;">   
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %} 
+    <div class="row">        
+        <h4 class="text-center"> Gradient Survey Data</h4>        
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.75em; width:98%;">
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr>  
+                    <th class='id'>Survey Id</th>                       
+                    <th class='date'>Measured Depth</th>   
+                    <th class=''>Gauge Pressure (psi)</th>                   
+                    <th class='liquidrate'>Gauge Temp. (deg. <sup>o</sup>F)</th>  
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for gradientsurveydata in gradientsurveydatas %}
+                <tr >
+                    {% comment %} <th scgpe="row">{{forlogp.counter}}</th> {% endcomment %} 
+                    <td class="">{{gradientsurveydata.gpgradientsurvey_id}}</td>
+                    <td class="">{{gradientsurveydata.gpgauge_Depth}}</td>
+                    <td class="">{{gradientsurveydata.gpgauge_Pressure}}</td> 
+                    <td class="">{{gradientsurveydata.gpgauge_Temperature}}</td>
+                    <td><a href="{% url 'gpgradientsurveydata:update_gradientsurveydata' gradientsurveydata.id %} ">Edit</a></td>
+                    <td><a href="{% url 'gpgradientsurveydata:delete_gradientsurveydata' gradientsurveydata.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+        </table> 
+        <div class="d-flex text-center">
+            <a href="{% url 'gpgradientsurveys:list_gpgradientsurvey' %}" class="d-block btn btn-primary btn-sm my-2" style="margin-right: 30px;">Gradient Surveys</a>
+            <a href="{% url 'gpgradientsurveydata:create_gpgradientsurveydata' id %}" class="d-block btn btn-primary btn-sm my-2">Add New</a>
+        </div> 
+    </div>       
+</div> 
+<div class="container text-center">  
+    {% include 'home/messages.html' %}  
+    {%  if chart %}
+        <img src="data:image/png;base64, {{chart|safe}}">
+    {% endif %}   
+</div>
+    
+{% endblock content %}
+</html>

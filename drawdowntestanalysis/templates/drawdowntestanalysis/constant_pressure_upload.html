@@ -1,0 +1,39 @@
+{% extends "home/oillayout.html" %}
+
+{% block content %}
+{% include 'home/messages.html' %}  
+{% url 'drawdowntestanalysis:list_drawdown_test_data' as list_all %}
+<div class="container d-flex justify-content-center mt-5" style="width: 50%;">
+    <div class="col mt-0">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h5 class="text-center text-success">Drawdown Test Analysis - Constant Pressure</h5>                  
+            <table class="table">
+                {{form.as_table}}
+            </table> 
+            {% if drawdown.test_Type == 'Constant_Rate' %}
+                <h6  class="text-center text-success">** Guess Vakue is the nth data point where the deviation from straight line occurs</h6>    
+                <h6  class="text-center text-success">** Change the Guess Vakue to match the data</h6>         
+                <div class="container d-flex justify-content-center" style="width: 10%;">
+                    <input type="submit" class="btn btn-primary btn-sm" value="Re_Calculate" style="margin-right: 30px; margin-top: 30px;">
+                    <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{{list_all}}'; return false;" value="Cancel">
+                </div> 
+            {% endif %}
+            <br>
+            <hr>
+            <br>
+            <div class="container text-center">  
+                {%  if chart %}
+                    <img src="data:image/png;base64, {{chart|safe}}">
+                {% endif %}   
+            </div>
+            <br>
+            <hr>
+            <div class="container d-flex justify-content-center" style="width: 10%;">
+                <a href="{% url 'drawdowntestanalysis:list_drawdown_test_data' %}" class="d-block btn btn-primary btn-sm my-5">Back</a>
+            </div>  
+        
+        </form> 
+    </div>
+</div>
+{% endblock  %}

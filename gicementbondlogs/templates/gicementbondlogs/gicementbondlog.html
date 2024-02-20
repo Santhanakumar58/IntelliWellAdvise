@@ -1,0 +1,51 @@
+{% extends "Home/gasinjectorlayout.html" %}
+
+{% block content %}
+
+<div class="container d-flex" style="width: 100%;">  
+    <div class="col">      
+        <h5 class="text-center">Cement Bond Logs for   {{gicementbondlogs.first.casingSize}} inch Casing</h5>
+        <hr>
+        <table class="table table-bordered table-striped" style="font-size:0.85em;"  class="text-center" >
+            <thead style="background-color:lightgrey;">
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %} 
+                    <th class=''>CBL id</th>
+                    <th class=''>Logged Date</th>
+                    <th class=''>Casing Size</th>
+                    <th class=''>Analyst</th>
+                    <th class=''>Interpretation</th>
+                    <th class=''>CBL image</th>
+                    <th>CBL Data</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for cementbondlog in gicementbondlogs %}
+                <tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}  
+                    <td class="text-center">{{cementbondlog.id }}</td> 
+                    <td class="text-center">{{cementbondlog.girecorded_date }}</td> 
+                    <td class="text-center">{{cementbondlog.gicasingSize}}</td>
+                    <td class="text-center">{{cementbondlog.gianalyst}}</td>                    
+                    <td class="text-center">{{cementbondlog.giinterpretation }}</td> 
+                    <td class="text-center">{{cementbondlog.gicblImage.url}}</td>                    
+                    {% if gicementbondlog %}   
+                        <td><a href="#">CBL Data</a></td>                     
+                        <td><a href="{% url 'gicementbondlogs:update_gicementbondlog' cementbondlog.id %} ">Edit</a></td>
+                        <td><a href="{% url 'gicementbondlogs:delete_gicementbondlog' cementbondlog.id %}">Delete</a></td>        
+                    {% endif %}
+                </tr>
+            {% endfor %}        
+            </tbody>
+        </table> 
+        <br> 
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'casings:list_casings' %}" class="d-block btn btn-primary my-1 mx-5">Back to Casings</a> 
+            <a href="{% url 'cementbondlogs:create_cementbondlog' id %}" class="d-block btn btn-primary my-1">Add New</a>
+        </div>
+    </div>        
+</div>
+
+{% endblock content %}

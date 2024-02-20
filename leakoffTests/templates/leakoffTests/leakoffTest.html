@@ -1,0 +1,58 @@
+{% extends "home/oillayout.html" %}
+
+{% block content %}
+{% for leakoffTest in leakoffTests %}
+    {% for colname in leakoffTest.column_set.all  %}
+        <p>{{colname}}</p>
+    {% endfor %}
+{% endfor %} 
+
+<div class="container d-flex" style="width: 100%;">
+    <hr>
+    <div class="col">
+        <h5 class="text-center">Leak-off Tests </h5>
+        <table  class="table table-hoover">
+            <thead style="background-color:lightgray ; height: 40px;">
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %}                                                         
+                    <th class='casingSize'>ID</th>
+                    <th class='casingSize'>Casing Size</th>
+                    <th class='analyst'>Analyst</th>
+                    <th class='recordedData'>Test Date</th>
+                    <th class='mudWeight'>Mudweight (ppg)</th>
+                    <th class='opnhole'>Openhole (ft)</th> 
+                    <th>Test Data</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for test in leakoffTests %}
+                <tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}                     
+                    <td class="text-center">{{test.id}}</td>
+                    <td class="text-center">{{test.casingSize}}</td>
+                    <td class="text-center">{{test.analyst}}</td>                    
+                    <td class="text-center">{{test.recorded_Date }}</td> 
+                    <td class="text-center">{{test.mudWeight}}</td>
+                    <td class="text-center">{{test.openholeLength}}</td>  
+                    console.log(test)                   
+                    {% if test %}
+                        <td><a href="{% url 'leakoffTestData:list_leakoffTestData' test.id %}">Test Data</a></td>                        
+                        <td><a href="{% url 'leakoffTests:update_leakoffTest' test.id %} ">Update</a></td>
+                        <td><a href="{% url 'leakoffTests:delete_leakoffTest' test.id %}">Delete</a></td>                       
+                    {% endif %}
+                </tr>
+            {% endfor %}        
+            </tbody>
+        </table> 
+        <br>         
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'casings:list_casings' %}" class="d-block btn btn-primary my-1 mx-5">Back to Casings</a>                      
+            <a href="{% url 'leakoffTests:create_leakoffTest' id %}" class="d-block btn btn-primary my-1">Add New</a>
+        </div>
+        
+    </div>        
+</div>
+
+{% endblock content %}

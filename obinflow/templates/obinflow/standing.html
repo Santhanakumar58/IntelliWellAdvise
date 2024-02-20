@@ -1,0 +1,56 @@
+<html lang="en">
+{% extends "Home/observerlayout.html" %}
+  
+{% block content %}
+<div class="container" style="width: 100%;">   
+    <div class="col">
+        <h4 class="text-center">Standing's Inflow Performance Models</h4>
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.8em;">           
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %}
+                    <th class="text-center" scope="col">Analysis Date</th>
+                    <th class="text-center" scope="col">Rate (bbls/day)</th>
+                    <th class="text-center" scope="col">Pressure (psi)</th>
+                    <th class="text-center" scope="col">Reservoir Pres. (psi)</th>
+                    <th class="text-center" scope="col">Future Res. Pres.(psi)</th>
+                    <th class="text-center" scope="col">Current RelPerm (mD)</th>
+                    <th class="text-center" scope="col">future_RelPerm (mD)</th>
+                    <th class="text-center" scope="col">Layer Name</th>  
+                    <th class="text-center" scope="col">PVT Well</th>                 
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for standingmodel in standingmodels %}
+                <tr style='cursor: pointer; cursor: hand;' onclick="window.location='google.com';"></tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}                    
+                    <td class="text-center">{{standingmodel.analysis_Date}}</td>
+                    <td class="text-center">{{standingmodel.current_Test_Rate}}</td>
+                    <td class="text-center">{{standingmodel.current_Test_Pressure}}</td>
+                    <td class="text-center">{{standingmodel.current_Reservoir_Pressure}}</td>
+                    <td class="text-center">{{standingmodel.future_Reservoir_Pressure}}</td>
+                    <td class="text-center">{{standingmodel.current_Relative_Permeability}}</td>
+                    <td class="text-center">{{standingmodel.future_Relative_Permeability}}</td>
+                    <td class="text-center">{{standingmodel.layer_Name}}</td>   
+                    <td class="text-center">{{standingmodel.pvt_Well}}</td>                 
+                    <td><a href="{% url 'opinflow:update_inflow' standingmodel.id %} ">Edit</a></td>
+                    <td><a href="{% url 'opinflow:delete_inflow' standingmodel.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}        
+            </tbody>
+        </table> 
+        <div class="d-flex text-center">
+            <a href="{% url 'opinflow:create_inflow' %}" class="d-block btn btn-primary my-2">Add New</a>
+        </div>
+    </div>     
+</div> 
+<div class="container" style="width: 100%;">  
+    <h4 class="text-center">Standing's Inflow Performance</h4>
+    {%  if chart %}
+        <img src="data:image/png;base64, {{chart|safe}}">
+    {% endif %}   
+</div>
+{% endblock content %}
+</html>

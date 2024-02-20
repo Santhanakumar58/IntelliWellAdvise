@@ -1,0 +1,31 @@
+{% extends "home/oillayout.html" %}
+
+{% block content %}
+
+<!-- BOOTSTRAP FORM -->
+
+<div class="container d-flex justify-content-center mt-5" style="width: 25%;">
+    <div class="col mt-0">
+        <form action="" method="post">
+            {% csrf_token %}
+            {% if gradientsurvey %}
+                <h5>Create / Update Gradient Survey</h5> 
+            {% else %}  
+                <h5>Create Gradient Survey</h5>    
+            {% endif %}      
+            <table class="table">
+                {{form.as_table}}
+            </table>           
+            <div class="container d-flex justify-content-center" style="width: 10%;">
+                <input type="submit" class="btn btn-primary btn-sm" value="Save" style="margin-right: 30px; margin-top: 30px;">
+                <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'opgradientsurveys:list_gradientsurvey' %}'; return false;" value="Cancel">
+            </div> 
+          
+        </form> 
+
+    </div>
+</div>
+
+<!-- END BOOTSTRAP FORM -->
+
+{% endblock %}

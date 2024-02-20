@@ -1,0 +1,21 @@
+{% extends "Home/gasinjectorlayout.html" %}
+{% block content %}
+
+{% url 'gidrillingsummaary:all' as list_all %}
+
+<div class="container d-flex justify-content-center mt-5" style="width: 50%;">
+    <div class="col text-center">
+        <h5 class="text-center">Delete Drilling Summary </h5>
+        <p class="h5 text-danger">Are you sure you want to delete the  Drilling Summary of the well :</p>
+        <h3 class="text-center">{{ d_summary.wellid }}</h3>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {% comment %} <input type="submit" value="Confirm">           
+            <input type="submit" value="Cancel"onclick="window.location='{% url 'gidrillingsummary:list_gidrillingsummary' %}'; return false;">{% endcomment %}
+            <input type="submit" class="btn btn-primary btn-sm" value="Confirm" style="margin-right: 30px; margin-top: 30px;">
+            <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;"onclick="window.location='{% url 'gidrillingsummaary:list_gidrillingsummary' %}'; return false;" value="Cancel">
+        </form>
+    </div>
+</div>
+gidrillingops
+{% endblock %}

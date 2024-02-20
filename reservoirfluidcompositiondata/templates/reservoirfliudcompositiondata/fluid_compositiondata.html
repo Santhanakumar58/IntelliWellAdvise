@@ -1,0 +1,59 @@
+<html lang="en">
+{% extends "home/fieldlayout.html" %}
+{% block title%}
+<h4>Costant Composition Expansion PVT </h4>
+{% endblock%}
+{% block content %}
+<div class="container d-flex mt-0 justify-content-center" style="width: 100%;">   
+    <div class="row">        
+        <h5 class="text-center text-success"> Fluid Compositions</h5>        
+        <table class='table table-striped' width="100%" style="border-color:green; border: thick 4px; ;">
+            <thead>
+                <tr>  
+                    <th class='text-center'>Component</th>    
+                    <th class='text-center'>Mole Percent</th> 
+                    <th class='text-center'>Weight Percent</th> 
+                    <th class='text-center'>Liquid Density (gm/cc)</th>
+                    <th class='text-center'>Molecular Weight </th>                   
+                    <th class='text-center'>Update</th>
+                    <th class='text-center'>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for fc in fcdatas %}
+                <tr >
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}         
+                    <td class="text-center">{{fc.component}}</td>
+                    <td class="text-center">{{fc.mole_Percent}}</td>
+                    <td class="text-center">{{fc.weight_Percent}}</td> 
+                    <td class="text-center">{{fc.liquid_Density}}</td> 
+                    <td class="text-center">{{fc.molecular_Weight}}</td> 
+                    <td class='text-center'><a href="{% url 'reservoirfliudcompositiondata:update_fluid_composition_data' fc.id %} ">Update</a></td>
+                    <td class='text-center'><a href="{% url 'reservoirfliudcompositiondata:delete_fluid_composition_data' fc.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+        </table> 
+        <table class='table table-striped' width="100%" style="border-color:green; border: thick 4px; ;">
+            <thead>
+                <tr>  
+                    <th class='text-center'></th>    
+                    <th class='text-center'>Mole Percent Total </th> 
+                    <th class='text-center'>Weight Percent Total</th>                    
+                </tr>
+            </thead>
+            <tbody>  
+                <tr >
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}         
+                    <td class="text-center">ToTal</td>
+                    <td class="text-center">{{total_mol_percent}}</td>
+                    <td class="text-center">{{total_weight_percent }}</td>                     
+                </tr>           
+        </table> 
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'reservoirfliudcomposition:list_fluid_composition' %}" class="d-block btn btn-primary m-5">Back to Fluid Composition Details</a>
+            <a href="{% url 'reservoirfliudcompositiondata:create_fluid_composition_data' fcid %}" class="d-block btn btn-primary m-5">Add New</a>
+        </div> 
+    </div>         
+</div>    
+{% endblock content %}
+</html>

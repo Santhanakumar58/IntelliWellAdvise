@@ -1,0 +1,23 @@
+{% extends "Home/observerlayout.html" %}
+{% block content %}
+
+{% url 'gpwellobjectives:list_gpwellobjective' as list_all %}
+
+<div class="container d-flex justify-content-center mt-5" style="width: 50%;">
+    <div class="col mt-5 text-center">
+        <h5 class="mb-5">Delete Well Gas Producer Well Objectives</h5>
+        <p class="h5 text-danger">Are you sure you want to delete the well objective of the well:</p>
+        <h5 class="my-5">{{ gpwellobjective.gpwellname }}</h5>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {% comment %} 
+            <input type="submit" value="Confirm">           
+            <input type="submit" value="Cancel" onclick="window.location='{% url 'gpwellobjectives:list_gpwellobjective' %}'; return false;" >
+            {% endcomment %}
+            <input type="submit" class="btn btn-primary btn-sm" value="Confirm" style="margin-right: 30px; margin-top: 30px;">
+            <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'gpwellobjectives:list_gpwellobjective' %}'; return false;" value="Cancel">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

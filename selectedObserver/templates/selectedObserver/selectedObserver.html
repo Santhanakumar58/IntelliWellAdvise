@@ -1,0 +1,62 @@
+{% extends "home/observerlayout.html" %}
+
+{% block content %}
+{% for op in selectedObservers %}
+    {% for colname in op.column_set.all  %}
+        <p>{{colname}}</p>
+    {% endfor %}
+{% endfor %}
+
+
+<div class="container d-flex" style="width: 100%;">
+    <hr>
+    <div class="col">
+        <h5 class="text-center">Selected Gas Well</h5>
+        <table  id="selectedfgitable" class="table table-hoover">
+            <thead style="background-color:lightgray ; height: 40px;">
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %}
+                    <th class='id'>Well ID</th> 
+                    <th class='fgid'>FG ID</th>
+                    <th class='unitid'>Unit ID</th>                   
+                    <th class='wellname'>Well Name</th>
+                    <th class='completiontype'>Completion</th>
+                    <th class='deviationtype'>Deviation</th>
+                    <th class='artificiallifttype'>A/L</th>
+                    <th class='inflowtype'>Inflow</th>
+                    <th class='station'>Station</th>  
+                    <th class='header'>Header</th>                    
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for op in selectedObservers %}
+                <tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}  
+                    <td class="text-center">{{op.wellid }}</td> 
+                    <td class="text-center">{{op.fgid}}</td>
+                    <td class="text-center">{{op.unit}}</td>                    
+                    <td class="text-center">{{op.wellname }}</td> 
+                    <td class="text-center">{{op.completion}}</td>
+                    <td class="text-center">{{op.deviation}}</td> 
+                    <td class="text-center">{{op.artificiallift}}</td>
+                    <td class="text-center">{{op.inflow}}</td> 
+                    <td class="text-center">{{op.station}}</td>
+                    <td class="text-center">{{op.header}}</td> 
+                    <td><a href="{% url 'selectedObserver:update_selectedObserver' op.id %} ">Update</a></td>
+                    <td><a href="{% url 'selectedObserver:delete_selectedObserver' op.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}        
+            </tbody>
+        </table>   
+        <br>
+        <br> 
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'selectedObserver:create_selectedObserver' %}" class="d-block btn btn-primary my-5">Add New</a>
+        </div>
+    </div>
+        
+</div>
+
+{% endblock content %}

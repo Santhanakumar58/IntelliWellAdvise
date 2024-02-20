@@ -1,0 +1,103 @@
+{% extends "home/oillayout.html" %}
+
+{% block content %}
+{% for fish in fishes %}
+    {% for colname in fish.column_set.all  %}
+        <p>{{colname}}</p>
+    {% endfor %}
+{% endfor %}
+{% url 'srpdesign:update_srp_design_data' as Update %}
+<form method="POST" enctype="multipart/form-data" action="">
+    {% csrf_token %}
+    <div class="container main" style="width:100%;" >       
+        <h3 class="text-center">SRP Design Data</h3>        
+        <table class="table table-striped table-bordered " style="border: 2px; border-width:2px; font-size:0.60em;">               
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %}
+                    <th class="text-center">Date</th>     
+                    <th class="text-center">Liquid Rate (BLPD)</th>                    
+                    <th class="text-center">Water Cut (%)</th>
+                    <th class="text-center">Water Spgr</th>
+                    <th class="text-center">THP (psi)</sup></th>   
+                    <th class="text-center">THT (deg F)</sup></th>                 
+                    <th class="text-center">Res. Pr (psi)</th>                    
+                    <th class="text-center">Min Pwf (psi)</sup></th>
+                    <th class="text-center">Pump Depth (ft)</sup></th>
+                    <th class="text-center">Fluid Level (ft) </th> 
+                    <th class="text-center">Speed (Stoke/min) </th>   
+                    <th class="text-center">Stork Length (In) </th> 
+                    <th class="text-center">Plunger Dia (In) </th> 
+                    <th class="text-center">Anchored ?</th>    
+                    <th class="text-center">Rod no</th>                     
+                    <th class="text-center">PVT Well</th> 
+                    <th>Design</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for data in srpdatas %}
+                <tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}                    
+                    <td class="text-center">{{data.design_Date}}</td>
+                    <td class="text-center">{{data.design_Liquid}}</td>
+                    <td class="text-center">{{data.water_Cut}}</td>
+                    <td class="text-center">{{data.water_spgr}}</td>
+                    <td class="text-center">{{data.th_Pres}}</td>                    
+                    <td class="text-center">{{data.th_Temp}}</td> 
+                    <td class="text-center">{{data.curr_Res_Pres}}</td> 
+                    <td class="text-center">{{data.min_Pwf}}</td> 
+                    <td class="text-center">{{data.pump_Depth}}</td> 
+                    <td class="text-center">{{data.fluid_Level}}</td>                    
+                    <td class="text-center">{{data.pumping_Speed }}</td>   
+                    <td class="text-center">{{data.surface_Stroke_Length }}</td> 
+                    <td class="text-center">{{data.plunger_Dia}}</td> 
+                    <td class="text-center">{{data.anchored}}</td> 
+                    <td class="text-center">{{data.rod_No}}</td> 
+                    <td class="text-center">{{data.pvt_Well}}</td> 
+                    <td><a href="{% url 'srpdesign:srp_design' data.id %}">Design</a></td>
+                    <td><a href="{% url 'srpdesign:update_srp_design_data' data.id %}">Update</a></td>
+                    <td><a href="{% url 'srpdesign:delete_srp_design_data' data.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}        
+            </tbody>
+        </table>          
+        <div class="row">     
+            <div class="col-md-2 ">            
+                <a href="{% url 'srpdesign:create_srp_design_data' %}" class="d-block btn btn-primary">Add New</a>
+            </div>
+            <div class="col-md-3 ">            
+                <a href="{% url 'flowtest:production_home' %}" class="d-block btn btn-primary">Production Home</a>
+            </div>
+        </div> 
+        <h3 class="text-center">SRP Design for the latest data</h3>    
+        <div class="text-center">  
+            {% include 'home/messages.html' %}  
+            {%  if chart3 %}
+                <img src="data:image/png;base64, {{chart3|safe}}" >
+            {% endif %}   
+        </div>
+        <br>
+        <h3 class="text-center">SRP Performance Plot</h3>    
+        <div class="text-center">  
+            {% include 'home/messages.html' %}  
+            {%  if chart2 %}
+                <img src="data:image/png;base64, {{chart2|safe}}" >
+            {% endif %}   
+        </div>
+        <div class="text-center">  
+            {% include 'home/messages.html' %}  
+            {%  if chart1 %}
+                <img src="data:image/png;base64, {{chart1|safe}}" >
+            {% endif %}   
+        </div>
+        <div class="text-center">  
+            {% include 'home/messages.html' %}  
+            {%  if chart %}
+                <img src="data:image/png;base64, {{chart|safe}}" >
+            {% endif %}   
+        </div>
+    </div>
+</form>
+{% endblock content %}

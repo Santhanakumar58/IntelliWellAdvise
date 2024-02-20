@@ -1,0 +1,57 @@
+<html lang="en">
+{% extends "home/oillayout.html" %}
+
+{% block content %}
+
+<form action="" enctype="multipart/form-data" method="POST">
+
+    <div class="container mt-1">   
+        <div class="row"> 
+            <h4 class="text-center text-success">Drawdown Test Analysis Data </h4>
+            <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.8em;">
+                <thead style="background-color:rgb(106, 130, 238);">
+                <tr class='text-center'>  
+                    <th>Porosity (fr)</th> 
+                    <th>Thickness (ft)</th>  
+                    <th>Wellbore Radius</th>  
+                    <th>Compressibility (ft)</th>  
+                    <th>Initial Res. Pres(psi)</th>  
+                    <th>Oil Viscosity (cp)</th>  
+                    <th>Oil FVF</th> 
+                    <th>Test Type</th> 
+                    <th>File Name</th>                               
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for data in drawdown_test_datas %}
+                <tr class=text-center>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}                     
+                    <td>{{data.layer_Porosity}}</td>                    
+                    <td>{{data.layer_Thickness}}</td>
+                    <td>{{data.wellbore_Radius}}</td>
+                    <td>{{data.total_Compressibility}}</td>
+                    <td>{{data.initial_Res_Pres}}</td>                    
+                    <td>{{data.oil_Viscosity}}</td> 
+                    <td>{{data.oil_FVF}}</td> 
+                    <td>{{data.test_Type}}</td> 
+                    <td><a href="{% url 'drawdowntestanalysis:upload_Conatant_Rate_test_data' data.id %}" >Constant Rate</a></td>  
+                    <td><a href="{% url 'drawdowntestanalysis:update_drawdown_test_data' data.id %}" >Edit</a></td>
+                    <td><a href="{% url 'drawdowntestanalysis:delete_drawdown_test_data' data.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}   
+        </table> 
+        <div class="d-flex text-center">
+            <a href="{% url 'drawdowntestanalysis:create_drawdown_test_data' %}" class="d-block btn btn-primary btn-sm my-5">Add New</a>
+        </div>             
+    </div> 
+    <div class="container text-center">  
+        {% include 'home/messages.html' %}  
+        {%  if chart %}
+            <img src="data:image/png;base64, {{chart|safe}}">
+        {% endif %}   
+    </div>
+</form>
+{% endblock content %}
+</html>

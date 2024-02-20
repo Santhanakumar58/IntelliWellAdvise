@@ -1,0 +1,23 @@
+{% extends "home/gasinjectorlayout.html" %}
+{% block title %}
+Upload Excel File
+{% endblock %}
+{% block content %}
+<form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="row">
+    <h5 class="text-center text-success">Import well objective Excel data</h5>   
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <input type="file" name="myfile" class="form-control">
+    </div>
+
+    <div class="col-md-6">
+      <button type="submit" class="btn btn-success" >Upload data using Pandas</button> 
+    </div>
+     
+  </div>
+</form>   
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "home/gaslayout.html" %}
+
+{% block content %}
+
+<div class="container d-flex" style="width: 100%;">
+    <hr>
+    <div class="col">
+        <hr>
+        <h5 class="text-center text-success">Cement Plugs</h5>
+        <hr>
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.75em; width: 98%;">
+            {% csrf_token %}
+            <thead style="background-color:rgb(106, 130, 238);">
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %}
+                    <th class="text-center" scope="col">Plug Date</th>     
+                    <th class="text-center" scope="col">Plug Top</th>                    
+                    <th class="text-center" scope="col">Plug Bottom</th>
+                    <th class="text-center" scope="col">Cement Density</sup></th>
+                    <th class="text-center" scope="col">Cement Volume</sup></th>
+                    <th class="text-center" scope="col">Description</th>   
+                    <th>Pump Data</th>                
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for plug in gpcementplugs %}
+                <tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}                    
+                    <td class="text-center">{{plug.gpplug_Date}}</td>
+                    <td class="ml-5">{{plug.gpplug_Top}}</td>
+                    <td class="text-center">{{plug.gpplug_Bottom}}</td>
+                    <td class="text-center">{{plug.gpcement_Density}}</td>
+                    <td class="text-center">{{plug.gpcement_Volume}}</td>
+                    <td class="text-center">{{plug.gpplug_Description}}</td>                    
+                    <td><a href="{% url 'gpcementplugs:list_gpcement_pumpData' plug.id %} ">Pump Data</a></td>
+                    <td><a href="{% url 'gpcementplugs:update_gpcement_plug' plug.id %} ">Edit</a></td>
+                    <td><a href="{% url 'gpcementplugs:delete_gpcement_plug' plug.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}        
+            </tbody>
+        </table>   
+        <br>
+        <br> 
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'gpcementplugs:create_gpcement_plug' %}" class="d-block btn btn-primary my-5">Add New</a>
+        </div>
+    </div>        
+</div>
+{% endblock content %}

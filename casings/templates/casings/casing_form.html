@@ -1,0 +1,63 @@
+{% extends "home/oillayout.html" %}
+
+{% block content %}
+
+<!-- BOOTSTRAP FORM -->
+
+<div class="container d-flex justify-content-center" style="width: 25%;">
+    <div class="col">
+        <form action="" method="post" id="casingModelForm" data-casingWeight-url = {% url 'casings:ajax_load_casingWeight' %} data-casingGrade-url = {% url 'casings:ajax_load_casingGrade' %}>
+            {% csrf_token %}
+            <hr>
+            {% if casing %}
+            <h5 class="text-center text-success">Update Casing </h5> 
+            {% else %}  
+            <h5 class="text-center text-success">Create Casing </h5>    
+            {% endif %} 
+            <hr>
+            <table class="table table-striped" style="font-size:0.8em;"  class="text-center" >
+                {{form.as_table}}
+            </table>
+            <div class="container d-flex justify-content-center" style="width: 10%;">
+                <input type="submit" class="btn btn-primary btn-sm" value="Submit" style="margin-right: 30px; margin-top: 30px;">
+                <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'casings:list_casings' %}'; return false;" value="Cancel">
+            </div>    
+        </form>         
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script>
+            $("#id_casingSize").change(function() {
+                const url = $("#casingModelForm").attr("data-casingWeight-url");
+                const casingSize_id = $(this).val();                
+                $.ajax({
+                    url: url,
+                    data: {   
+                                     
+                        'casingSize_id' :casingSize_id
+                    },
+                    success: function (data) {   
+                        console.log(data),                                                
+                        $("#id_casingWeight").html(data);
+                        
+                    }});
+                });
+
+            $("#id_casingWeight").change(function() {
+                const url = $("#casingModelForm").attr("data-casingGrade-url");
+                const casingWeight_id = $(this).val();                
+                $.ajax({
+                    url: url,
+                    data: {                        
+                        'casingWeight_id' :casingWeight_id
+                    },
+                    success: function (data) {                                             
+                        $("#id_casingGrade").html(data);
+                       
+                    }});
+                });
+
+        </script>
+<!-- END BOOTSTRAP FORM -->
+
+{% endblock %}

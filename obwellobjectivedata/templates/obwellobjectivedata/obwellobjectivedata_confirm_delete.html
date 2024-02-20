@@ -1,0 +1,19 @@
+{% extends "Home/observerlayout.html" %}
+{% block content %}
+
+{% url 'gpwellobjectivedata:list_gpwellobjectivedata' as list_all %}
+
+<div class="container d-flex justify-content-center mt-5" style="width: 50%;">
+    <div class="col mt-5 text-center">
+        <h5 class="mb-5">Delete Observer Objective Profile </h5>
+        <p class="h5 text-danger">Are you sure you want to delete the Observer Objective Profile of the well:</p>
+        <h5 class="my-5">{{ obwellobjectivedata.obwellobjective }}</h5>
+        <form action="" method="POST">
+            {% csrf_token %}           
+            <input type="submit" class="btn btn-primary btn-sm" value="Confirm" style="margin-right: 30px; margin-top: 30px;">
+            <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'obwellobjectivedata:list_obwellobjectivedata' gpwellobjectivedata.gpwellobjective_id %}'; return false;" value="Cancel">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

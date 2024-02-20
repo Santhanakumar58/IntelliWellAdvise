@@ -1,0 +1,80 @@
+{% extends "home/fieldlayout.html" %}
+{% block title %}
+
+{% endblock %}
+{% block content %}  
+<table  class="table table-bordered"  id="myTable">
+    <thead>
+    <th>
+        Asset
+    </th>
+    <th>
+        Block
+    </th>
+    <th>
+        Field
+    </th>
+    <th>
+        Layer
+    </th>
+    <th>
+        SubLayer
+    </th>
+    <th>
+        Edit
+    </th>
+    <th>
+        Delete
+    </th>
+    </thead>
+    <tbody>
+    </tbody>
+    </table>
+    
+    <div  id="roomForm">
+        <button  id="createRoom"  class="btn btn-primary"> Create FGI </button>
+    </div> 
+    <script type="text/javascript"> 
+        $.ajax({
+            url:  '/selectedfgi/list',
+            type:  'get',
+            dataType:  'json',
+            success: function  (data) {
+                let rows =  '';
+                data.selectedfgi.forEach(fgi => {
+                rows += `
+                <tr>
+                    <td>${fgi.selectedassetname}</td>
+                    <td>${fgi.selectedblockname}</td>
+                    <td>${fgi.selectedfieldname}</td>
+                    <td>${fgi.selectedlayername}</td>
+                    <td>${fgi.selectedsublayername}</td>
+                    <td>
+                        <button class="btn deleteBtn" data-id="${fgi.id}">Delete</button>
+                        <button class="btn updateBtn" data-id="${fgi.id}">Update</button>
+                    </td>
+                </tr>`;
+            });
+            $('[#Selectedfgi] > tbody').append(rows);
+            $('.deleteBtn').each((i, elm) => {
+                $(elm).on("click",  (e) => {
+                    deleteSelectedfgi($(elm))
+                })
+            })
+            }
+        });
+
+        function  deleteSelectedfgi(el){
+            fgiId  =  $(el).data('id')
+            $.ajax({
+                url:  `/selectedfgi/delete/${fgiId}`,
+                type:  'post',
+                dataType:  'json',
+                success:  function (data) {
+                    $(el).parents()[1].remove()
+                }
+            });
+        }
+    </script>  
+{% endblock %}
+ 

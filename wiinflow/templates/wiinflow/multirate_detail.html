@@ -1,0 +1,36 @@
+{% extends "Home/waterinjectorlayout.html" %}
+
+{% block content %}
+
+<div class="container mt-0" style="width: 70%;">
+    <div class="col">
+        <h5 class="text-center">Oil Producers Details</h5>
+        <div class="d-flex justify-content-center">
+            <table class="table table-striped mt-5" style="width: 100%">
+                <thead>
+                    <tr>
+                       
+                    </tr>
+                </thead>
+                <tbody>
+                
+                    {% for label, id in oilproducer.get_fields  %}
+                        <tr>
+                            <td>{{label | upper}}</td>
+                            <td>{{id.wellname}}</td>
+                        </tr>
+                    {% endfor %}
+                        
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <br>
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'oilproducers:list_oilproducer' %}" class="d-block btn btn-primary btn-lg my-5">BACK</a>
+        </div>
+    </div>
+        
+</div>
+
+{% endblock  %}

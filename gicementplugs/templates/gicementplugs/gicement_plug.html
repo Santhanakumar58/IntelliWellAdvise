@@ -1,0 +1,48 @@
+{% extends "Home/gasinjectorlayout.html" %}
+
+{% block content %}
+
+<div class="container d-flex" style="width: 100%;">
+    <hr>
+    <div class="col">
+        <hr>
+        <h5 class="text-center text-success"> Cement Plugs</h5>
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.8em;">
+            {% csrf_token %}
+            <thead style="background-color:rgb(106, 130, 238);">         
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %}
+                    <th class="text-center" scope="col">Plug Date</th>     
+                    <th class="text-center" scope="col">Plug Top</th>                    
+                    <th class="text-center" scope="col">Plug Bottom</th>
+                    <th class="text-center" scope="col">Cement Density</sup></th>
+                    <th class="text-center" scope="col">Cement Volume</sup></th>
+                    <th class="text-center" scope="col">Description</th>   
+                    <th>Pump Data</th>                
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for plug in gicementplugs %}
+                <tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}                    
+                    <td class="text-center">{{plug.giplug_Date}}</td>
+                    <td class="text-center">{{plug.giplug_Top}}</td>
+                    <td class="text-center">{{plug.giplug_Bottom}}</td>
+                    <td class="text-center">{{plug.gicement_Density}}</td>
+                    <td class="text-center">{{plug.gicement_Volume}}</td>
+                    <td class="text-center">{{plug.gpplug_Description}}</td>                    
+                    <td><a href="{% url 'gicementplugs:list_gicement_pumpData' plug.id %} ">Pump Data</a></td>
+                    <td><a href="{% url 'gicementplugs:update_gicement_plug' plug.id %} ">Edit</a></td>
+                    <td><a href="{% url 'gicementplugs:delete_gicement_plug' plug.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}        
+            </tbody>
+        </table>   
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'gicementplugs:create_gicement_plug' %}" class="d-block btn btn-primary my-5">Add New</a>
+        </div>
+    </div>        
+</div>
+{% endblock content %}
