@@ -80,7 +80,7 @@ def list_blackoilpvt(request):
             co = (-1433+ ((5.0)*solutiongas) +(17.2 * temperature)-(1180 * gasgravity)+(12.61 * oilgravity))/ pressure
             co= co/100000                    
          elif oilgravity >30.0:
-            Pavaques =-Decimal('10.393')*oilgravity/(temperature+460)
+            Pavaques =-(10.393)*oilgravity/(temperature+460)
             Pb =((56.18* solutiongas/gasgravity)*10**((Pavaques)))**0.84246
             var1 = 23.931*(oilgravity/(temperature+460))
             Rs= 0.0178*gasgravity*Pb**1.1870 * (math.exp(var1))                      
@@ -173,14 +173,11 @@ def list_blackoilpvt(request):
             oildensityabovebp = (oildensityatbp)* (math.exp(Boabterm1*(pressure**0.4094-(Pb)**0.4094)))
          if Pb > pressure:
                pressure=Pb 
-         co = 1.705*10**-8 *solutiongas**0.69357* gasgravity**0.1885 * oilgravity**0.3272*temperature**0.6729 * pressure**-0.5906
-         
+         co = 1.705*10**-8 *solutiongas**0.69357* gasgravity**0.1885 * oilgravity**0.3272*temperature**0.6729 * pressure**-0.5906         
       elif pvt.pbCorrelation == "":
          # Material Balance Equation only foe BO
          oilg = 141.5/(oilgravity+ 131.5)  
          Bo = (62.4 * oilg + 0.0136*solutiongas * gasgravity)/(62.4 * oilg)
-
-
       if pvt.viscosityCorrelation=="_Beal":
          vterm = 0.43+(8.33/oilgravity)
          visA1 = 10**(vterm)             

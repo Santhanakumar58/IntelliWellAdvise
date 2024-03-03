@@ -7,23 +7,32 @@ from blackoilpvt.utils import get_Bo, get_Pb, get_Viscosity
 from selectedOilProducer.models import SelectedOilProducer
 from .models import ProductivityIndexModel, VogelModel, StandingsModel, WigginsModel, MultirateModel, DarcyModel
 from .forms import ProductivityIndexForm, StandingsForm, VogelForm, WigginsForm, MultiRateForm, DarcyModelForm
-from .utility import draw_CompositeIPR_Darcy, draw_CompositeIPR_Multirate, draw_CompositePR_PI, draw_LayerIPR_Darcy, draw_LayerIPR_Multirate, draw_LayerIPR_PI, draw_LayerIPR_Standing, draw_LayerIPR_Vogel, draw_LayerIPR_Wiggin, draw_Multirateloglogplot, draw_compositeIPR_Standing, draw_compositeIPR_Vogel, draw_compositeIPR_Wiggins
+from .utility import draw_CompositeIPR_Darcy, draw_CompositeIPR_Multirate, draw_CompositePR_PI, draw_LayerIPR_Darcy 
+from .utility import draw_LayerIPR_Multirate, draw_LayerIPR_PI, draw_LayerIPR_Standing, draw_LayerIPR_Vogel, draw_LayerIPR_Wiggin
+from .utility import draw_Multirateloglogplot, draw_compositeIPR_Standing, draw_compositeIPR_Vogel, draw_compositeIPR_Wiggins, draw_dummy_plot
 
 def list_inflow(request): 
     selectedwell = SelectedOilProducer.objects.first() 
     if selectedwell.inflow =='PI':
-        pimodels = ProductivityIndexModel.objects.filter(wellid=selectedwell.wellid).all()
-        chart,xc,y,pis = draw_CompositePR_PI(pimodels)
+        pimodels = ProductivityIndexModel.objects.filter(wellid=selectedwell.wellid).order_by("-productivity_index")
+        if len(pimodels) >0:
+            chart,xc,y,pis = draw_CompositePR_PI(pimodels)
+        else:
+            chart = draw_dummy_plot
         return render (request, 'opinflow/pindex.html', {'pimodels': pimodels, 'chart':chart})  
     elif selectedwell.inflow =='Vogel':
-        vogelmodels = VogelModel.objects.filter(wellid=selectedwell.wellid).all()
-        print((vogelmodels))
-        chart = draw_compositeIPR_Vogel(vogelmodels)        
+        vogelmodels = VogelModel.objects.filter(wellid=selectedwell.wellid).order_by("-reservoir_Pressure") 
+        if len(vogelmodels) >0:      
+            chart,xc,y = draw_compositeIPR_Vogel(vogelmodels) 
+        else: 
+            chart = draw_dummy_plot 
         return render (request, 'opinflow/vogel.html', {'vogelmodels': vogelmodels, 'chart':chart})  
     elif selectedwell.inflow =='Standing':
-        standingmodels = StandingsModel.objects.filter(wellid=selectedwell.wellid).all()
-        print (len(standingmodels))
-        chart = draw_compositeIPR_Standing(standingmodels)                  
+        standingmodels = StandingsModel.objects.filter(wellid=selectedwell.wellid).order_by("-current_Reservoir_Pressure")        
+        if len(standingmodels) >0:
+            chart, xc, y = draw_compositeIPR_Standing(standingmodels) 
+        else :
+            chart = draw_dummy_plot                 
         return render (request, 'opinflow/standing.html', {'standingmodels': standingmodels, 'chart':chart})  
     elif selectedwell.inflow =='Wiggins':
         wigginmodels = WigginsModel.objects.filter(wellid=selectedwell.wellid).all()        
@@ -41,7 +50,7 @@ def list_inflow(request):
 def create_inflow(request):
     selectedwell = SelectedOilProducer.objects.first()    
     if selectedwell.inflow =='PI':
-        models = ProductivityIndexModel.objects.filter(wellid=selectedwell.wellid).all()
+        models = ProductivityIndexModel.objects.filter(wellid=selectedwell.wellid).order_by("productivity_index")        
         if len(models) ==4 :            
             return redirect ('opinflow:list_inflow')  
         pimodel = ProductivityIndexModel()
@@ -53,10 +62,9 @@ def create_inflow(request):
             pimodel.wellid = selectedwell.wellid            
             form = ProductivityIndexForm(request.POST or None, instance=pimodel)          
             if form.is_valid(): 
-                form.save() 
-                print(pimodel)
+                form.save()                 
                 chart = draw_LayerIPR_PI(pimodel)
-                return render (request, 'opinflow/pindex_form.html', {'form': form, 'chart':chart})             
+                return redirect ('opinflow:list_inflow')             
         return render (request, 'opinflow/pindex_form.html', {'form': form})             
     elif selectedwell.inflow =='Vogel':
         models = VogelModel.objects.filter(wellid=selectedwell.wellid).all()
@@ -76,7 +84,7 @@ def create_inflow(request):
                 vogelmodel.save() 
                 print(vogelmodel)
                 chart = draw_LayerIPR_Vogel(vogelmodel)
-                return render (request, 'opinflow/vogel_form.html', {'form': form, 'chart':chart})              
+                return redirect ('opinflow:list_inflow')            
         return render (request, 'opinflow/vogel_form.html', {'form': form})       
     elif selectedwell.inflow =='Standing':
         models = StandingsModel.objects.filter(wellid=selectedwell.wellid).all()
@@ -127,7 +135,7 @@ def create_inflow(request):
                 form.save() 
                 chart= draw_LayerIPR_Multirate(multiratemodel)
                 loglogchart = draw_Multirateloglogplot(multiratemodel) 
-                return render (request, 'opinflow/multirate_form.html', {'form': form, 'multiratemodel':multiratemodel, 'chart':chart, 'loglogchart':loglogchart})                           
+                return redirect ('opinflow:list_inflow')    
         return render (request, 'opinflow/multirate_form.html', {'form': form})     
     elif selectedwell.inflow =='Darcy':
         models = DarcyModel.objects.filter(wellid=selectedwell.wellid).all()
@@ -154,14 +162,13 @@ def create_inflow(request):
             if form.is_valid(): 
                 form.save() 
                 chart = draw_LayerIPR_Darcy(darcymodel)
-                return render (request,'opinflow/darcy_form.html', {'form': form, 'chart':chart})             
+                return redirect ('opinflow:list_inflow')             
         return render (request, 'opinflow/darcy_form.html', {'form': form })   
    
 def update_inflow(request, id):
     selectedwell = SelectedOilProducer.objects.first()
     if selectedwell.inflow =='PI':
-        pimodel = ProductivityIndexModel.objects.get(id=id)
-        print(pimodel)
+        pimodel = ProductivityIndexModel.objects.get(id=id)       
         chart= draw_LayerIPR_PI(pimodel)
         form = ProductivityIndexForm(request.POST or None, instance=pimodel)
         if request.method =="POST":        

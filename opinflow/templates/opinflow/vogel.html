@@ -2,22 +2,12 @@
 {% extends "home/oillayout.html" %}
   
 {% block content %}
-{% for vogelmodel in vogelmodels %}
-    {% for colname in pimodel.column_set.all  %}
-        <p>{{colname}}</p>
-    {% endfor %}
-{% endfor %}
-<div class="container text-center" style="width: 100%;">  
-    <h5 class="text-center">Vogel's Inflow Performance</h5>
-    {%  if chart %}
-        <img src="data:image/png;base64, {{chart|safe}}">
-    {% endif %}   
-</div>
-<div class="container" style="width: 100%;">   
+
+<div class="container main" style="width: 100%;">   
     <div class="col">
-        <h5 class="text-center">Vogel's Inflow Performance Models</h5>
-        <table id="Table1" class="table table-hover mt-1">
-            <thead style="background-color:lightgray ; height: 40px;">
+        <h4 class="text-center">Vogel's Inflow Performance Models</h4>
+        <table class="table table-striped table-bordered " style="border: 2px; border-width:2px; font-size:0.75em;">               
+            <thead>
                 <tr>
                     {% comment %} <th>#</th> {% endcomment %}
                     <th class="text-center" scope="col">Analysis Date</th>
@@ -48,6 +38,12 @@
             <a href="{% url 'opinflow:create_inflow' %}" class="d-block btn btn-primary my-2">Add New</a>
         </div>
     </div>     
+</div>
+<div class="container text-center" style="width: 100%;"> 
+
+    {%  if chart %}
+        <img src="data:image/png;base64, {{chart|safe}}">
+    {% endif %}   
 </div> 
 {% endblock content %}
 </html>

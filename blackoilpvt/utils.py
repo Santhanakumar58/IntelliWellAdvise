@@ -27,7 +27,7 @@ def get_graph():
 
 def get_plot(x,y,y1,y2,y3,z):
     plt.switch_backend('AGG')
-    plt.figure(figsize=(9,5))
+    plt.figure(figsize=(6,6))
     plt.title("Solution Gas Oil Ratio")
     plt.scatter(x,y, color='red')
     # plt.scatter(x,z, color='blue') 
@@ -373,12 +373,12 @@ def get_Density(pvt=BlackoilPVT()):
             if pressure <Pb :
                 oildensity = (62.4*oilg + 0.0136 * Rs* gasgravity)/(Bo)   
             else :               
-                oildensity = (oildensityatbp)* (math.exp(Decimal(valueA)*((math.log(pressure/Pb)))))
+                oildensity = (oildensityatbp)* (math.exp((valueA)*((math.log(pressure/Pb)))))
         elif oilgravity >30:            
             if pressure <Pb: 
                 oildensity = (62.4*oilg + 0.0136 * Rs* gasgravity)/(Bo)   
             else :
-                oildensity = (oildensityatbp)* (math.exp(Decimal(valueA)*((math.log(pressure/Pb)))))
+                oildensity = (oildensityatbp)* (math.exp((valueA)*((math.log(pressure/Pb)))))
     elif pvt.pbCorrelation == "_Glaso": 
         oildensityatbp = (62.4*oilg + 0.0136 * solutiongas* gasgravity)/(Bo)  
         valueA = 10**-5 * (-1433+ ((5.0)*solutiongas) +(17.2 * temperature)-(1180 * gasgravity)+(12.61 * oilgravity))      

@@ -1,13 +1,15 @@
 <html lang="en">
 {% extends "Home/oillayout.html" %}
-  
+{% block title %}
+Oil Producer
+{% endblock %}  
 {% block content %}
  
 <div class="container main d-flex text-center main" style="width: 100%;">  
     <div class="row text-center">
-        <h3 class="text-center">Inflow Performance Data </h3>
+        <h4 class="text-center">Inflow Performance Data </h4>
         <table class="table table-striped table-bordered " style="border: 2px; border-width:2px; font-size:0.75em;">               
-            <thead style="background-color:rgb(106, 130, 238);">
+            <thead>
                 <tr>
                     {% comment %} <th>#</th> {% endcomment %}
                     <th class="text-center" scope="col">Date</th>
@@ -28,7 +30,7 @@
                     <td class="text-center">{{pimodel.reservoir_Pressure}}</td>
                     <td class="text-center">{{pimodel.layer_Name}}</td>  
                     <td class="text-center">{{pimodel.pvt_Well}}</td>                                       
-                    <td><a href="{% url 'opinflow:update_inflow' pimodel.id %} ">Edit</a></td>
+                    <td><a href="{% url 'opinflow:update_inflow' pimodel.id %}">Edit</a></td>
                     <td><a href="{% url 'opinflow:delete_inflow' pimodel.id %}">Delete</a></td>
                 </tr>
             {% endfor %}        

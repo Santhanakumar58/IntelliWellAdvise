@@ -164,8 +164,8 @@
       }     
       div a {
         text-decoration: none;         
-        font-size: 16px;
-        padding: 15px;
+        font-size: 12px;
+        padding: 0px;
         display:inline;
       }
       ul {
@@ -303,10 +303,10 @@
             <li>
               <a href="#Reservoir">Reservoir</a>
               <ul>
-                <li><a href="{% url 'opreservoirpressure:list_reservoirPressure' %}">Res. Pressure</a></li>
-                <li><a href="{% url 'respresestimation:list_respres' %}">Pr. Estimation</a></li>
                 <li><a href="{% url 'opinflow:list_inflow' %}">Inflow (IPR)</a></li>
-                <li><a href="{% url 'opgradientsurveys:list_gradientsurvey' %}">Pr. Surveys</a></li>        
+                <li><a href="{% url 'opgradientsurveys:list_gradientsurvey' %}">Pr. Surveys</a></li> 
+                <li><a href="{% url 'opreservoirpressure:list_reservoirPressure' %}">Res. Pressure</a></li>
+                <li><a href="{% url 'respresestimation:list_respres' %}">Pres. Estimation</a></li>  
               </ul>
             </li>
           </ul>        

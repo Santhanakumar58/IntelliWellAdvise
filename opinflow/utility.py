@@ -29,6 +29,7 @@ def get_plot(x,y,layer1):
     plt.title("Composite IPR")
     if x != NULL:
         plt.plot(x, y, color='green', label= layer1)
+        plt.fill_between( x, y, color="green", alpha=0.2)
     plt.xticks(rotation=45)
     plt.xlabel('Liquid Rate bbls/day')
     plt.ylabel('Pressure (psi)') 
@@ -46,10 +47,13 @@ def get_plot1(x,y, x1,y1,xc, layer1, layer2):
     plt.title("Composite IPR")
     if x != NULL:
         plt.plot(x,y, color='red', label=layer1)
+        plt.fill_between( x, y, color="red", alpha=0.2)
     if x1 != NULL:
         plt.plot(x1,y1, color='orange' , label=layer2)
+        plt.fill_between( x1, y1, color="orange", alpha=0.2)
     if xc != NULL:
         plt.plot(xc,y, color='green', label="Composite") 
+        plt.fill_between( xc, y, color="green", alpha=0.2)
     plt.xticks(rotation=45)
     plt.xlabel('Liquid Rate bbls/day')
     plt.ylabel('Pressure (psi)') 
@@ -67,12 +71,16 @@ def get_plot2(x,y, x1,y1, x2, y2,xc, layer1, layer2, layer3):
     plt.title("Composite IPR")
     if x != NULL:
         plt.plot(x,y, color='red', label=layer1)
+        plt.fill_between( x, y, color="red", alpha=0.2)
     if x1 != NULL:
         plt.plot(x1,y1, color='orange', label=layer2)
+        plt.fill_between( x1, y1, color="orange", alpha=0.2)
     if x2 != NULL:
         plt.plot(x2,y2, color='gray', label=layer3)
+        plt.fill_between( x2, y2, color="gray", alpha=0.2)
     if xc != NULL:
-        plt.plot(xc,y, color='green', label="Composite")   
+        plt.plot(xc,y, color='green', label="Composite")  
+        plt.fill_between( xc, y, color="green", alpha=0.2) 
     plt.xticks(rotation=45)
     plt.xlabel('Liquid Rate bbls/day')
     plt.ylabel('Pressure (psi)') 
@@ -94,14 +102,19 @@ def get_plot3(x,y, x1,y1, x2, y2,x3, y3,xc, layer1, layer2, layer3, layer4):
         ax.spines[axis].set_color('green')    # change color  
     if x != NULL:
         plt.plot(x,y, color='red', label=layer1)
+        plt.fill_between( x, y, color="red", alpha=0.2)
     if x1 != NULL:
         plt.plot(x1,y1, color='orange', label=layer2)
+        plt.fill_between( x1, y1, color="orange", alpha=0.2)
     if x2 != NULL:
         plt.plot(x2,y2, color='gray', label=layer3)
+        plt.fill_between( x2, y2, color="gray", alpha=0.2)
     if x3 != NULL:
         plt.plot(x3,y3, color='blue', label=layer4)
+        plt.fill_between( x3, y3, color="blue", alpha=0.2)
     if xc !=NULL:
         plt.plot(xc,y, color='green', label='Composite')
+        plt.fill_between( xc, y, color="green", alpha=0.2)
     plt.xticks(rotation=45)
     plt.xlabel('Liquid Rate bbls/day')
     plt.ylabel('Pressure (psi)') 
@@ -119,10 +132,13 @@ def get_plot4(x,y,x1,y1,x2,y2,layer1):
     plt.title("Current and Future IPRs", color='orangered')
     if x != NULL:
         plt.plot(x, y, color='green', label= layer1)
+        plt.fill_between( x, y, color="green", alpha=0.2)
     if x1 != NULL:
         plt.plot(x1, y1, color='red', label= layer1)
+        plt.fill_between( x1, y1, color="red", alpha=0.2)
     if x2 != NULL:
         plt.plot(x2, y2, color='blue', label= layer1)
+        plt.fill_between( x2, y2, color="blue", alpha=0.2)
     plt.xticks(rotation=45)
     plt.xlabel('Liquid Rate bbls/day')
     plt.ylabel('Pressure (psi)') 
@@ -149,6 +165,7 @@ def get_loglogplot(logx,logy):
         z = np.polyfit(logx, logy, 1)
         p = np.poly1d(z)
         plt.plot(logx, p(logx), color='red', label='n =' + str(slope ))
+        plt.fill_between( logx, p(logx), color="red", alpha=0.2)
     plt.xticks(rotation=45)
     plt.xlabel('Liquid Rate bbls/day')    
     plt.ylabel('Pr^2 - Pwf^2') 
@@ -179,13 +196,13 @@ def draw_CompositePR_PI (pimodels = ProductivityIndexModel()):
             maxResPres = pimodel.reservoir_Pressure  
     j=0
     for pimodel in pimodels:            
-        delp = maxResPres/100
-        pvt = BlackoilPVT.objects.filter(wellName =pimodel.pvt_Well, subLayer =pimodel.layer_Name).last()
-        temperature = pvt.reservoirTemperature
-        oilgravity = pvt.oilAPIgravity
-        solutiongas = pvt.solutionGOR
-        gasgravity = pvt.gasGravity
-        oilg = 141.5/(oilgravity+ 131.5) 
+        delp = maxResPres/100       
+        pvt = BlackoilPVT.objects.filter(wellName =pimodel.pvt_Well).last()        
+       #temperature = pvt.reservoirTemperature
+       #oilgravity = pvt.oilAPIgravity
+       #solutiongas = pvt.solutionGOR
+       #gasgravity = pvt.gasGravity
+       #oilg = 141.5/(oilgravity+ 131.5) 
         Pb = get_Pb( pvt)
         respres = pimodel.reservoir_Pressure
         Qbp = pimodel.productivity_index * (pimodel.reservoir_Pressure - Pb)
@@ -283,12 +300,12 @@ def draw_compositeIPR_Vogel(vogelmodels = VogelModel()):
     j=0
     for vogelmodel in vogelmodels:            
         delp = maxResPres/100
-        pvt = BlackoilPVT.objects.filter(wellName =vogelmodel.pvt_Well, subLayer =vogelmodel.layer_Name).last()
-        temperature = pvt.reservoirTemperature
+        pvt = BlackoilPVT.objects.filter(wellName =vogelmodel.pvt_Well).last()       
+        #temperature = pvt.reservoirTemperature
         oilgravity = pvt.oilAPIgravity
-        solutiongas = pvt.solutionGOR
-        gasgravity = pvt.gasGravity
-        oilg = Decimal('141.5')/(oilgravity+ Decimal('131.5')) 
+        #solutiongas = pvt.solutionGOR
+        #gasgravity = pvt.gasGravity
+        oilg = (141.5)/(oilgravity+ (131.5)) 
         Pb = get_Pb( pvt)
         respres = vogelmodel.reservoir_Pressure
         Qbp = vogelmodel.vogel_Test_Rate
@@ -296,7 +313,7 @@ def draw_compositeIPR_Vogel(vogelmodels = VogelModel()):
         Qmax = Qbp/(1 - 0.2 * (float(pwf) / respres) - 0.8 * math.pow(float(pwf) / respres, 2));
         for i in range(101):
             pres = i*delp
-            rate = Decimal(Qmax * (1 - 0.2 * (pres / respres) - 0.8 * math.pow(pres / respres, 2)))           
+            rate = (Qmax * (1 - 0.2 * (pres / respres) - 0.8 * math.pow(pres / respres, 2)))           
             if k==0:
                 x.append(0)
                 y.append(0)
@@ -355,8 +372,7 @@ def draw_compositeIPR_Vogel(vogelmodels = VogelModel()):
         chart=get_plot(x,y,layer1)
     elif k==2:
         for i in range(101):
-            xc.append(x[i] + x1[i])
-            print(x[i], x1[1], xc)
+            xc.append(x[i] + x1[i])            
         chart=get_plot1(x,y, x1,y1,xc, layer1, layer2)
     elif k==3:
         for i in range(101):
@@ -386,8 +402,8 @@ def draw_compositeIPR_Standing(standingmodels = StandingsModel()):
     j=0      
     for standingmodel in standingmodels:            
        # delp = maxResPres/100
-        pvt = BlackoilPVT.objects.filter(wellName =standingmodel.pvt_Well, subLayer =standingmodel.layer_Name).last()
-        oilgravity = pvt.oilAPIgravity
+        pvt = BlackoilPVT.objects.filter(wellName =standingmodel.pvt_Well).last()
+        #oilgravity = pvt.oilAPIgravity
         Pb = get_Pb( pvt)
         Bo =get_Bo(pvt)
         viscosity = get_Viscosity(pvt)
@@ -411,8 +427,8 @@ def draw_compositeIPR_Standing(standingmodels = StandingsModel()):
             rate = (futurePI * futurerespres /1.8) * (1 - 0.2 * (pres / futurerespres) - 0.8 * math.pow(pres / futurerespres, 2))
             
             if k==0:
-                x.append(0)
-                y.append(0)
+                x.append(rate)
+                y.append(pres)
                 chart=get_plot(x,y, "No Data")                
             elif k ==1:
                 if j==0:
@@ -461,7 +477,9 @@ def draw_compositeIPR_Standing(standingmodels = StandingsModel()):
                     layer4= standingmodel.layer_Name
         j=j+1  
     if k==1:
+        xc =x
         chart=get_plot(x,y,layer1)
+        print(layer1)
     elif k==2:
         for i in range(101):
             xc.append(x[i] + x1[i])
@@ -796,6 +814,7 @@ def get_layeripr(x,y,layer1):
     plt.title("Layer IPR")
     if x != NULL:
         plt.plot(x, y, color='green', label= layer1)
+        plt.fill_between( x, y, color="green", alpha=0.2)
     plt.xticks(rotation=45)
     plt.xlabel('Liquid Rate bbls/day')
     plt.ylabel('Pressure (psi)') 
@@ -811,7 +830,7 @@ def draw_LayerIPR_Darcy(darcymodel = DarcyModel()):
     x=[] 
     y=[]  
     print (darcymodel.pvt_Well)
-    pvt = BlackoilPVT.objects.filter(wellName =darcymodel.pvt_Well, subLayer =darcymodel.layer_Name).first()
+    pvt = BlackoilPVT.objects.filter(wellName =darcymodel.pvt_Well).first()
     oilgravity = pvt.oilAPIgravity  
     pvt.reservoirPressure = darcymodel.current_Reservoir_Pressure
     Pb = get_Pb(pvt)
@@ -904,7 +923,7 @@ def draw_LayerIPR_Standing(standingmodel=StandingsModel()):
     y1=[]
     x2=[] 
     y2=[]
-    pvt = BlackoilPVT.objects.filter(wellName =standingmodel.pvt_Well, subLayer =standingmodel.layer_Name).last()
+    pvt = BlackoilPVT.objects.filter(wellName =standingmodel.pvt_Well).last()
     oilgravity = pvt.oilAPIgravity
     Pb = get_Pb( pvt)
     Bo =get_Bo(pvt)
@@ -943,12 +962,12 @@ def draw_LayerIPR_Standing(standingmodel=StandingsModel()):
 def draw_LayerIPR_Vogel(vogelmodel=VogelModel()):
     x=[] 
     y=[]
-    pvt = BlackoilPVT.objects.filter(wellName =vogelmodel.pvt_Well, subLayer =vogelmodel.layer_Name).last()
+    pvt = BlackoilPVT.objects.filter(wellName =vogelmodel.pvt_Well).last()
     temperature = pvt.reservoirTemperature
     oilgravity = pvt.oilAPIgravity
     solutiongas = pvt.solutionGOR
     gasgravity = pvt.gasGravity
-    oilg = Decimal('141.5')/(oilgravity+ Decimal('131.5')) 
+    oilg = (141.5)/(oilgravity+ (131.5)) 
     Pb = get_Pb( pvt)   
     respres = vogelmodel.reservoir_Pressure
     Qbp = vogelmodel.vogel_Test_Rate
@@ -1025,3 +1044,21 @@ def draw_Multirateloglogplot(multiratemodel=MultirateModel()):
     logy.append(pwf3)           
     loglogchart = get_loglogplot(logx,logy) 
     return loglogchart 
+
+def draw_dummy_plot():
+    y=[]
+    x=[]        
+    maxResPres=5000.0
+    delp = maxResPres/100.0  
+    Pb =3200
+    respres = 5000
+    Qbp = 5 * (5000 - Pb)       
+    Qmax = Qbp/(1 - 0.2 * ((Pb) / respres) - 0.8 * math.pow((Pb) / respres, 2))
+    layer1 = "Dummy Layer"
+    for i in range(101):
+        pres = i*delp
+        rate = (Qmax * (1 - 0.2 * (pres / respres) - 0.8 * math.pow(pres / respres, 2))) 
+        x.append(rate)
+        y.append(pres)
+    chart = get_plot(x,y,layer1)
+    return chart

@@ -4,12 +4,12 @@
 
 <!-- BOOTSTRAP FORM -->
 
-<div class="container d-flex justify-content-center">
+<div class="container main d-flex justify-content-center">
     <div class="col">
         <form action="" method="post">
             {% csrf_token %}
             {% if vogelmodel %}
-                <h5> Update Vogel's IPR Model </h5>   
+                <h4> Update Vogel's IPR Model </h4>   
             {% else %}  
                 <h5> Create Vogel's IPR Model </h5>  
             {% endif %}          
