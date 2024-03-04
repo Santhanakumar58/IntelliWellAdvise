@@ -6,7 +6,7 @@
     <div class="row">
         <h4 class="text-center">Reservoir Pressures</h4>
         <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.75em;">       
-            <thead style="background-color:rgb(106, 130, 238);">  
+            <thead >  
                 <tr>
                     {% comment %} <th>#</th> {% endcomment %}                    
                     <th class="text-center" scope="col">Survey Date</th>
@@ -44,7 +44,7 @@
         </table>   
         <br>
         <br> 
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center" style=width:15%;>
             <a href="{% url 'opreservoirpressure:create_reservoirPressure' %}" class="d-block btn btn-primary my-5">Add New</a>
         </div>
     </div>        

@@ -1,22 +1,22 @@
 <html lang="en">
-{% extends "home/oillayout.html" %}
+{% extends "Home/oillayout.html" %}
 
 {% block content %}
-    <div class="container main"> 
-        <div class="row"> 
+<div class="container main"> 
+    <div class="row"> 
             <div style="width:25%">  
                 <a href="{% url 'opwellobjectivedata:Import_Excel_pandas' objid %}" class="d-block btn btn-primary my-1">Upload Excel Data</a>
             </div>              
-        </div> 
-        <div class="row">        
-            <h5 class="text-center text-success"> Well Objective Profile Data </h5>        
-            <table class='table table-striped' width="100%" style="border-color:green; border: thick 4px; ;">
+    </div> 
+    <div class="row">        
+            <h4 class="text-center"> Well Objective Profile Data </h4>        
+            <table class="table table-striped table-bordered " style="border: 2px; border-width:2px; font-size:0.75em;">  
             <thead>
                 <tr> 
                     <th class='date'>Date</th>                  
                     <th class='liquidrate'>Liquid Rate</th>
                     <th class='watercut'>Water Cut %</th>
-                    <th class='gasoilratio'>Gas Oil Ratio (scf/bbl) </th>
+                    <th class='gasoilratio'>GOR (scf/bbl) </th>
                     <th class='oilrate'>Oil Rate (bbls/d)</th>
                     <th class='gasrate'>Gas Rate (sfc/d)</th>
                     <th class='waterrate'>Water Rate (sfc/d)</th>
@@ -40,20 +40,14 @@
                 </tr>
             {% endfor %}   
             </table> 
-        </div>       
-        <div class="row">
-            <div class="d-flex justify-content-center">
-            <a href="{% url 'opwellobjectives:list_opwellobjective' %}" class="d-block btn btn-primary m-2 ">Back to Well Objective</a>
-            <a href="{% url 'opwellobjectivedata:create_opwellobjectivedata' objid %}" class="d-block btn btn-primary m-2">Add New</a>
-            </div> 
-        </div>
-    </div>         
-    </div>   
-    <div class="row"> 
-        {%  if chart %}
-            <img alt="" src="data:image/png;base64, {{chart|safe}}">
-        {% endif %}         
+    </div>       
+    <div class="row">
+    <div class="d-flex justify-content-center" style="width: 40%;">
+        <a href="{% url 'opwellobjectives:list_opwellobjective' %}" class="d-block btn btn-primary m-2 ">Back to Well Objective</a>
+        <a href="{% url 'opwellobjectivedata:create_opwellobjectivedata' objid %}" class="d-block btn btn-primary m-2">Add New</a>
+        </div> 
     </div>
-
+</div>         
+ 
 {% endblock  %}
 </html>

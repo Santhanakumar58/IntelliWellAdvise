@@ -15,8 +15,9 @@ def get_graph():
 
 def get_plot(x,y,z, y1,y2,y3):
     plt.switch_backend('AGG')
-    plt.figure(figsize=(5,3))
+    #plt.figure(figsize=(8,6))
     figure, axis = plt.subplots(2, 1)
+    plt.figure(figsize=(8,6))    
     axis[0].plot(x, y, color='red', label = 'Gas Rate')
     axis[0].plot(x, z, color='blue', label = 'GOR')
     axis[0].set_title("Gas Plot")    

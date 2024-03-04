@@ -1,7 +1,5 @@
-{% extends "home/oillayout.html" %}
+{% extends "Home/oillayout.html" %}
 {% block content %}
-
-{% url 'drillingwelldata:all' as list_all %}
 
 <div class="container d-flex justify-content-center mt-5" style="width: 50%;">
     <div class="col text-center">
@@ -11,9 +9,9 @@
         <form action="" method="POST">
             {% csrf_token %}
             {% comment %} <input type="submit" value="Confirm">           
-            <input type="submit" value="Cancel"onclick="window.location='{% url 'deviationsurvey:list_deviationsurvey' %}'; return false;">{% endcomment %}
+            <input type="submit" value="Cancel"onclick="window.location='{% url 'deviationsurvey:list_drillingwelldata' %}'; return false;">{% endcomment %}
             <input type="submit" class="btn btn-primary btn-sm" value="Confirm" style="margin-right: 30px; margin-top: 30px;">
-            <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;"onclick="window.location='{% url 'drillingwelldata:list_deviationsurvey' %}'; return false;" value="Cancel">
+            <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;"onclick="window.location='{% url 'drillingwelldata:list_drillingwelldata' %}'; return false;" value="Cancel">
         </form>
     </div>
 </div>

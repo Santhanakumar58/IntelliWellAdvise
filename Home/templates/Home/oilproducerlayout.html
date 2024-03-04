@@ -226,19 +226,19 @@
           <li>
             <a href="#Drilling">Drilling</a>
             <ul>
-              <li><a href="{% url 'drillingwelldata:list_drillingwelldata' %}">Well Data</a></li>
-              <li><a href="{% url 'drillingplanvsactual:list_drilling_plan' %}">Plan Vs Actual</a></li>
+              <li><a href="{% url 'drillingwelldata:list_drillingwelldata' %}">Well Data</a></li>                
               <li><a href="{% url 'deviationsurveydata:list_deviationsurvey' %}">Deviation</a></li>
+              <li><a href="{% url 'drillingsummary:list_drillingsummary' %}">Drill. Summary</a></li>
+              <li><a href="{% url 'drillingoperations:list_drilling_ops' %}">Operations</a></li> 
               <li><a href="{% url 'casings:list_casings' %}">Casings</a></li> 
               <li><a href="{% url 'wellhead:list_wh_data' %}">Wellhead</a></li>            
-              <li><a href="{% url 'perforations:list_perforation' %}">Perforations</a></li>
-              <li><a href="{% url 'fish:list_fish' %}">Fish Details</a></li>
+              <li><a href="{% url 'perforations:list_perforation' %}">Perforations</a></li>              
               <li><a href="{% url 'cementplugs:list_cement_plug' %}">Cement Plugs</a></li>
-              <li><a href="{% url 'cementplugs:list_cement_plug' %}">Bridge Plugs</a></li>            
+              <li><a href="{% url 'bridgeplugs:list_bridgeplug' %}">Bridge Plugs</a></li>            
               <li><a href="{% url 'wellcompletion:list_completion_data' %}">Completion</a></li>
               <li><a href="{% url 'drillingproblems:list_drilling_problem' %}">Problems</a></li>
-              <li><a href="{% url 'drillingsummary:list_drillingsummary' %}">Summary</a></li>
-              <li><a href="{% url 'drillingoperations:list_drilling_ops' %}">Operations</a></li>              
+              <li><a href="{% url 'fish:list_fish' %}">Fish Details</a></li>                
+              <li><a href="{% url 'drillingplanvsactual:list_drilling_plan' %}">Plan Vs Actual</a></li>          
             </ul>
           </li>
         </ul>        
