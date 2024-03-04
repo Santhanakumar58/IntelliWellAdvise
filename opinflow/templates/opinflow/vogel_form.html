@@ -1,18 +1,19 @@
-{% extends "home/oillayout.html" %}
+{% extends "Home/oillayout.html" %}
 
 {% block content %}
 
 <!-- BOOTSTRAP FORM -->
-
+<div class="container main d-flex justify-content-center mt-0" style="width: 100%;">
+    {% if vogelmodel %}
+        <h4 class="text-center"> Update Vogel Inflow Model </h4>   
+    {% else %}  
+        <h4 clsss="text-center"> Create Vogel Inflow Model </h4>  
+    {% endif %}
+</div>
 <div class="container main d-flex justify-content-center">
     <div class="col">
         <form action="" method="post">
-            {% csrf_token %}
-            {% if vogelmodel %}
-                <h4> Update Vogel's IPR Model </h4>   
-            {% else %}  
-                <h5> Create Vogel's IPR Model </h5>  
-            {% endif %}          
+            {% csrf_token %}                    
             <table class="table d-flex ">
                 {{form.as_table}}
             </table>           

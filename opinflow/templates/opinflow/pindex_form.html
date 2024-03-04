@@ -1,31 +1,29 @@
-{% extends "home/oillayout.html" %}
+{% extends "Home/oillayout.html" %}
 
 {% block content %}
 
 <!-- BOOTSTRAP FORM -->
-
-<div class="row container justify-content-center main" >
+<div class="container main d-flex justify-content-center mt-0" style="width: 100%;">
+    {% if pimodel %}
+        <h4 class="text-center"> Update roductivity Index Model </h4>   
+    {% else %}  
+        <h4 clsss="text-center"> Create roductivity Index Model </h4>  
+    {% endif %}
+</div>
+<div class="container main justify-content-center" >
     <div class="row">
         <form action="" method="post">
-            {% csrf_token %}
-            {% if pimodel %}
-                <h4 class="text-center"> Update Productivity Index Model </h4>                 
-            {% else %}  
-                <h4 class="text-center"> Create Productivity Index Model </h4>  
-            {% endif %}           
+            {% csrf_token %}          
             <div class="row">                 
-                <div class="col-md-6">
-                    <br>
-                    <br>
+                <div class="col-md-5">
+                    <br>                   
                     <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.75em;">               
                         <thead style="background-color:rgb(106, 130, 238);">
                         {{form.as_table}}
                     </table>   
                 </div>
-                <div class="col-md-6">
-                    <div class="main" > 
-                        <img src="data:image/png;base64, {{chart|safe}}">
-                    </div>    
+                <div class="col-md-6">                    
+                    <img src="data:image/png;base64, {{chart|safe}}">                      
                 </div>
             </div>                    
             <div class="container d-flex justify-content-center">

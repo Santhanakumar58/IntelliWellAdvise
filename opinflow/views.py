@@ -25,26 +25,35 @@ def list_inflow(request):
         if len(vogelmodels) >0:      
             chart,xc,y = draw_compositeIPR_Vogel(vogelmodels) 
         else: 
-            chart = draw_dummy_plot 
+            chart = draw_dummy_plot()
         return render (request, 'opinflow/vogel.html', {'vogelmodels': vogelmodels, 'chart':chart})  
     elif selectedwell.inflow =='Standing':
         standingmodels = StandingsModel.objects.filter(wellid=selectedwell.wellid).order_by("-current_Reservoir_Pressure")        
         if len(standingmodels) >0:
             chart, xc, y = draw_compositeIPR_Standing(standingmodels) 
         else :
-            chart = draw_dummy_plot                 
+            chart = draw_dummy_plot()
         return render (request, 'opinflow/standing.html', {'standingmodels': standingmodels, 'chart':chart})  
     elif selectedwell.inflow =='Wiggins':
-        wigginmodels = WigginsModel.objects.filter(wellid=selectedwell.wellid).all()        
-        chart = draw_compositeIPR_Wiggins(wigginmodels)         
+        wigginmodels = WigginsModel.objects.filter(wellid=selectedwell.wellid).all()
+        if len(wigginmodels)>0:
+            chart,xc,y = draw_compositeIPR_Wiggins(wigginmodels)
+        else:
+            chart = draw_dummy_plot()
         return render (request, 'opinflow/wiggin.html', {'wigginmodels': wigginmodels, 'chart':chart}) 
     elif selectedwell.inflow =='MultiRate':
         multiratemodels = MultirateModel.objects.filter(wellid=selectedwell.wellid).all()
-        chart =draw_CompositeIPR_Multirate(multiratemodels)         
+        if len(multiratemodels) >0:
+            chart,xc,y =draw_CompositeIPR_Multirate(multiratemodels)   
+        else:
+            chart= draw_dummy_plot()      
         return render (request, 'opinflow/multirate.html', {'multiratemodels': multiratemodels, 'chart':chart})
     elif selectedwell.inflow =='Darcy':        
-        darcymodels = DarcyModel.objects.filter(wellid=selectedwell.wellid).all()  
-        chart = draw_CompositeIPR_Darcy(darcymodels) 
+        darcymodels = DarcyModel.objects.filter(wellid=selectedwell.wellid).all()         
+        if len(darcymodels) >0:
+            chart, xc,y = draw_CompositeIPR_Darcy(darcymodels)
+        else:
+            chart= draw_dummy_plot()          
         return render (request, 'opinflow/darcy.html', {'darcymodels': darcymodels, 'chart':chart})       
 
 def create_inflow(request):

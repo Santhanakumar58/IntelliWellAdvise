@@ -512,7 +512,7 @@ def draw_compositeIPR_Wiggins(wigginmodels= WigginsModel()):
             maxResPres = wigginmodel.current_Reservoir_Pressure  
     j=0         
     for wigginmodel in wigginmodels: 
-        pvt = BlackoilPVT.objects.filter(wellName =wigginmodel.pvt_Well, subLayer =wigginmodel.layer_Name).last()
+        pvt = BlackoilPVT.objects.filter(wellName =wigginmodel.pvt_Well).last()
         oilgravity = pvt.oilAPIgravity           
         respres = wigginmodel.current_Reservoir_Pressure
         futurerespres = wigginmodel.future_Reservoir_Pressure
@@ -686,6 +686,7 @@ def draw_CompositeIPR_Multirate(multiratemodels= MultirateModel()):
         y.append(0)
         chart=get_plot(x,y, "No Data")
     if k==1:
+        xc=x
         chart=get_plot(x,y,layer1)
     elif k==2:
         for i in range(101):
@@ -718,7 +719,7 @@ def draw_CompositeIPR_Darcy(darcymodels = DarcyModel()):
             maxResPres = darcymodel.current_Reservoir_Pressure  
     j=0         
     for darcymodel in darcymodels: 
-        pvt = BlackoilPVT.objects.filter(wellName =darcymodel.pvt_Well, subLayer =darcymodel.layer_Name).last()
+        pvt = BlackoilPVT.objects.filter(wellName =darcymodel.pvt_Well).last()
         oilgravity = pvt.oilAPIgravity  
         pvt.reservoirPressure = darcymodel.current_Reservoir_Pressure
         Pb = get_Pb(pvt)
@@ -730,12 +731,13 @@ def draw_CompositeIPR_Darcy(darcymodels = DarcyModel()):
         drainage = darcymodel.drainage_Radius
         wellbore = darcymodel.wellbore_Radius
         skin = darcymodel.layer_Skin           
-        delp = maxResPres/100
-        for i in range(101):
+        delp = maxResPres/1000
+        for i in range(1001):
             pres = i*delp
             pi = 0.00708 * perm * thick / (float(viscosity * Bo) * (math.log(drainage /wellbore) - 0.75 + skin))
             if respres > Pb and  pres > Pb:                   
-                rate = pi*(respres- pres)
+                # rate = pi*(respres- pres)
+                rate = pi/(2*float(Pb))*(respres**2 - pres**2)
             else:
                 rate = pi/(2*float(Pb))*(respres**2 - pres**2)
             if k==0:
@@ -793,17 +795,18 @@ def draw_CompositeIPR_Darcy(darcymodels = DarcyModel()):
         y.append(0)
         chart=get_plot(x,y,"No Data")
     elif k==1:
+        xc=x
         chart=get_plot(x,y,layer1)
     elif k==2:
-        for i in range(101):
+        for i in range(1001):
             xc.append(x[i] + x1[i])
         chart=get_plot1(x,y, x1,y1,xc, layer1, layer2)
     elif k==3:
-        for i in range(101):
+        for i in range(1001):
             xc.append(x[i] + x1[i] + x2[i] )
         chart=get_plot2(x,y, x1,y1,x2,y2,xc, layer1, layer2, layer3)
     elif k==4:
-        for i in range(101):
+        for i in range(1001):
             xc.append(x[i] + x1[i] + x2[i]+x3[i] )
         chart=get_plot3(x,y, x1,y1,x2,y2,x3,y3,xc,layer1, layer2, layer3, layer4)
     return chart, xc, y
@@ -828,8 +831,7 @@ def get_layeripr(x,y,layer1):
 
 def draw_LayerIPR_Darcy(darcymodel = DarcyModel()):
     x=[] 
-    y=[]  
-    print (darcymodel.pvt_Well)
+    y=[]      
     pvt = BlackoilPVT.objects.filter(wellName =darcymodel.pvt_Well).first()
     oilgravity = pvt.oilAPIgravity  
     pvt.reservoirPressure = darcymodel.current_Reservoir_Pressure
@@ -843,12 +845,13 @@ def draw_LayerIPR_Darcy(darcymodel = DarcyModel()):
     wellbore = darcymodel.wellbore_Radius
     skin = darcymodel.layer_Skin 
     layer =darcymodel.layer_Name          
-    delp = respres/100
-    for i in range(101):
+    delp = respres/1000
+    for i in range(1001):
         pres = i*delp
         pi = 0.00708 * perm * thick / (float(viscosity * Bo) * (math.log(drainage /wellbore) - 0.75 + skin))
-        if respres >=Pb and  pres >= Pb:                   
-            rate = pi*(respres- pres)
+        if respres >=Pb and  pres >= Pb: 
+            rate = pi/(2*float(Pb))*(respres**2 - pres**2)                  
+            # rate = pi*(respres- pres)
             x.append(rate)
             y.append(pres)
         else:
@@ -892,8 +895,8 @@ def draw_LayerIPR_Multirate(multiratemodel = MultirateModel()):
 
 def draw_LayerIPR_Wiggin(wigginmodel = WigginsModel()):
     x=[] 
-    y=[]
-    pvt = BlackoilPVT.objects.filter(wellName =wigginmodel.pvt_Well, subLayer =wigginmodel.layer_Name).last()
+    y=[]     
+    pvt = BlackoilPVT.objects.filter(wellName =wigginmodel.pvt_Well).last()    
     oilgravity = pvt.oilAPIgravity           
     respres = wigginmodel.current_Reservoir_Pressure
     futurerespres = wigginmodel.future_Reservoir_Pressure

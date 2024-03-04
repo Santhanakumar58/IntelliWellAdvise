@@ -1,18 +1,19 @@
-{% extends "home/oillayout.html" %}
+{% extends "Home/oillayout.html" %}
 
 {% block content %}
 
 <!-- BOOTSTRAP FORM -->
-
-<div class="container  d-flex justify-content-center mt-0" style="width: 90%;">
+<div class="container main d-flex justify-content-center mt-0" style="width: 100%;">
+    {% if darcymodel %}
+        <h4 class="text-center"> Update Darcy Inflow Model </h4>   
+    {% else %}  
+        <h4 clsss="text-center"> Create Darcy Inflow Model </h4>  
+    {% endif %}
+</div>
+<div class="container main d-flex justify-content-center mt-0" > 
     <div class="col">
         <form action="" method="post">
-            {% csrf_token %}
-            {% if darcymodel %}
-            <h5> Update Darcy IPR Model </h5>   
-        {% else %}  
-        <h5> Create Darcy IPR Model </h5>  
-        {% endif %}          
+            {% csrf_token %}          
             <table class="table">
                 {{form.as_table}}
             </table>           

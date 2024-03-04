@@ -1,15 +1,15 @@
-{% extends "home/oillayout.html" %}
+{% extends "Home/oillayout.html" %}
 
 {% block content %}
 
 <!-- BOOTSTRAP FORM -->
-
-{% if standingmodel %}
-    <h4 class="text-center"> Update Standings IPR Model </h4>   
-{% else %}  
-    <h4 class="text-center"> Create Standings IPR Model </h4>  
-{% endif %}
-
+<div class="container main d-flex justify-content-center mt-0" style="width: 100%;">
+    {% if standingmodel %}
+        <h4 class="text-center"> Update Standing's Inflow Model </h4>   
+    {% else %}  
+        <h4 clsss="text-center"> Create Standings's Inflow Model </h4>  
+    {% endif %}
+</div>
 <div class="container main d-flex justify-content-center mt-0" style="width: 100%;">   
     
     <div class="col mt-0">
