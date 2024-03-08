@@ -20,9 +20,11 @@ def list_drilling_ops(request):
     cnx.close() 
     df = pd.DataFrame(ops)
     df_well = df[df['wellid']==id1]
-    label = df_well['ops_Code'].unique()
-    y=df.groupby('ops_Code')['totalhrs'].sum()    
-    chart = get_pieplot(y,label)   
+    label = df_well['ops_Code'].unique()    
+    y=df.groupby('ops_Code')['totalhrs'].sum()  
+    label = df['ops_Code'].unique() 
+    print(y)   
+    chart = get_pieplot(y,y.index)   
     return render (request, 'drillingoperations/drilling_ops.html', {'drilling_opss': drilling_opss, 'chart':chart})   
  
 def create_drilling_ops(request):     
@@ -35,7 +37,7 @@ def create_drilling_ops(request):
     drilling_ops.wellid = selectedwell.wellid   
     form = DrillingOpsForm(request.POST or None, instance=drilling_ops)   
     if request.method =="POST":  
-        form = DrillingOpsForm(request.POST, instance=drilling_ops)       
+        #form = DrillingOpsForm(request.POST, instance=drilling_ops)       
         drilling_ops.fgId = selectedwell.fgid
         drilling_ops.wellid = selectedwell.wellid   
         drilling_ops.drillingid =drillingsum 
@@ -48,10 +50,17 @@ def create_drilling_ops(request):
         timefrom = request.POST['time_From'] 
         timeto = request.POST['time_To']
         t1 = pd.to_datetime(timefrom)
-        t2 = pd.to_datetime(timeto)             
-        diff = abs((t2-t1).total_seconds()/360)    
-        drilling_ops.totalhrs =round(diff,2)
+        t2 = pd.to_datetime(timeto)   
+        print(t1,t2)     
+        diff = (t2-t1).total_seconds()/(3600)
+        print(diff)
+        if diff <0.0:
+            diff = diff+24.0   
+        print(diff)           
+        drilling_ops.totalhrs =diff
+        form = DrillingOpsForm(request.POST or None, instance=drilling_ops)
         if form.is_valid():
+           print(drilling_ops.totalhrs)
            form.save()  
            return redirect ('drillingoperations:list_drilling_ops') 
     return render (request, 'drillingoperations/drilling_ops_form.html', {'form': form})
@@ -72,7 +81,10 @@ def update_drilling_ops(request, id):
         timeto = request.POST['time_To']
         t1 = pd.to_datetime(timefrom)
         t2 = pd.to_datetime(timeto)
-        diff = (t2-t1).total_seconds()/3600         
+        print(t1,t2)
+        diff = (t2-t1).total_seconds()/3600   
+        if diff <0:
+            diff = diff+24.0      
         drilling_ops.totalhrs = round(diff,2)         
         form = DrillingOpsForm(request.POST, instance=drilling_ops)
         if form.is_valid():            

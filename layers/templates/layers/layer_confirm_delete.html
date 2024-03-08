@@ -1,4 +1,9 @@
 {% extends "home/fieldwidelayout.html" %}
+<title>
+    {% block title %}
+        Delete Layer
+    {% endblock %}
+</title>
 {% block content %}
 
 {% url 'layers:all' as list_all %}

@@ -1,20 +1,36 @@
 {% extends "Home/oillayout.html" %}
-
+<title>
+    {% block title %}
+        {% if opwellobjective %}
+            Update Well Objectives
+        {% else %}  
+            Create Well Onjectives     
+        {% endif %} 
+    {% endblock %}
+</title>
 {% block content %}
 
 <!-- BOOTSTRAP FORM -->
-<div>
-    {% if opwellobjective %}
-        <h4 class="text-center">Update Well Objective </h4>   
-    {% else %}      
-        <h4 class="text-center">Create Well Objective </h4>   
-    {% endif %} 
-</div>
-<div class="container main d-flex justify-content-center">   
+
+<div class="container d-flex justify-content-center">  
     <form action="" method="post">
-        {% csrf_token %}         
-        {{form.as_table}}               
-        <div class="container d-flex justify-content-center" style="width: 20%;">
+        <div class="row">
+            {% if opwellobjective %}
+                <h4 class="text-center">Update Well Objectives </h4>   
+            {% else %}      
+                <h4 class="text-center">Create Well Objectives </h4>   
+            {% endif %} 
+        </div>
+        {% csrf_token %}  
+        <div class="row">
+
+        </div>   
+        <div class="row" style="text-align: justify;" >  
+            <div class="col-md-1"></div>                  
+            {{form.opobjectives}}             
+            <div class="col-md-1"></div>             
+         </div>   
+        <div class="container d-flex justify-content-center" style="width: 15%;">
             <input type="submit" class="btn btn-primary btn-sm" value="Submit" style="margin-right: 30px; margin-top: 30px;">
             <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'opwellobjectives:list_opwellobjective' %}'; return false;" value="Cancel">
         </div>           

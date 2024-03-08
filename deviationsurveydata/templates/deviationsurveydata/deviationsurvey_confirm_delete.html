@@ -1,11 +1,16 @@
-{% extends "home/oillayout.html" %}
+{% extends "Home/oillayout.html" %}
+<title>
+    {% block title%}
+        Delete Deviation Survey Data
+    {% endblock %}
+</title>
 {% block content %}
 
 {% url 'deviationsurvey:list_deviationsurvey' as list_all %}
 
 <div class="container d-flex justify-content-center mt-5" style="width: 50%;">
     <div class="col text-center">
-        <h5 class="text-center">Delete Deviation Survey Data</h5>
+        <h4 class="text-center">Delete Deviation Survey Data</h4>
         <p class="h5 text-danger">Are you sure you want to delete the Data:</p>
         <h3 class="text-center">{{ deviationsurvey.wellName }}</h3>
         <form action="" method="POST">

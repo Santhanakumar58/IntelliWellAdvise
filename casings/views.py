@@ -13,7 +13,7 @@ import pandas as pd
 def list_casings(request):
     selectedoilproducer = SelectedOilProducer.objects.first()  
     wellid1 = selectedoilproducer.wellid
-    casings = CasingModel.objects.filter(wellid=wellid1).filter(wellid=wellid1).all().order_by('shoedepth')     
+    casings = CasingModel.objects.filter(wellid=wellid1).filter(wellid=wellid1).all().order_by('shoedepth')   
     casingdf =pd.DataFrame()
     width=0.0
     widths=[]
@@ -21,47 +21,51 @@ def list_casings(request):
     hangers=[]
     cements=[]
     casingdefs=[]
-    for casing in casings:    
-        csize = CasingSizeModel.objects.get(casingSize = casing.casingSize)  
-        if csize.casingSize =="20":
-            width =20*2
-        elif csize.casingSize == "18 5/8":
-            width =18.625*2
-        elif csize.casingSize == "16":
-            width =16*2
-        elif csize.casingSize == "13 3/8":
-            width =13.375*2
-        elif csize.casingSize == "11 3/4":
-            width =11/75*2
-        elif csize.casingSize == "10 3/4":
-            width =10.75*2
-        elif csize.casingSize == "9 5/8":
-            width =9.625*2
-        elif csize.casingSize == "8 5/8":
-            width =8.625*2
-        elif csize.casingSize == "7 3/4":
-            width =7.75*2
-        elif csize.casingSize == "7 5/8":
-            width =7.5*2
-        elif csize.casingSize == "7":
-            width =7.0*2
-        elif casing.Casing_Size == "6 5/8":
-            width =6.625*2
-        elif csize.casingSize == "5":
-            width =5*2
-        elif csize.casingSize == "4 1/2":
-            width =4.5*2
-        elif csize.casingSize == "4":
-            width =4*2
-        depth = casing.shoedepth
-        hanger = casing.hangerDepth
-        cement = casing.cementTop
-        widths.append(width)
-        depths.append(depth)
-        hangers.append(hanger)
-        cements.append(cement)
-        casingdef = str(casing.casingSize)+ "  ,  " + str(casing.casingWeight) + " ppf, "
-        casingdefs.append(casingdef)
+    print(len(casings))
+    if casings :
+        for casing in casings:
+            print(casing.casingSize)
+           #csize = CasingSizeModel.objects.get(casingSize = casing.casingSize)  
+           #if csize.casingSize =="20":
+           #    width =20*2
+           #elif csize.casingSize == "18 5/8":
+           #    width =18.625*2
+           #elif csize.casingSize == "16":
+           #    width =16*2
+           #elif csize.casingSize == "13 3/8":
+           #    width =13.375*2
+           #elif csize.casingSize == "11 3/4":
+           #    width =11/75*2
+           #elif csize.casingSize == "10 3/4":
+           #    width =10.75*2
+           #elif csize.casingSize == "9 5/8":
+           #    width =9.625*2
+           #elif csize.casingSize == "8 5/8":
+           #    width =8.625*2
+           #elif csize.casingSize == "7 3/4":
+           #    width =7.75*2
+           #elif csize.casingSize == "7 5/8":
+           #    width =7.5*2
+           #elif csize.casingSize == "7":
+           #    width =7.0*2
+           #elif casing.Casing_Size == "6 5/8":
+           #    width =6.625*2
+           #elif csize.casingSize == "5":
+           #    width =5*2
+           #elif csize.casingSize == "4 1/2":
+           #    width =4.5*2
+           #elif csize.casingSize == "4":
+           #    width =4*2
+            width =10
+            depth = casing.shoedepth
+            hanger = casing.hangerDepth
+            cement = casing.cementTop
+            widths.append(width)
+            depths.append(depth)
+            hangers.append(hanger)
+            cements.append(cement)
+            casingdef = str(casing.casingSize)+ "  ,  " + str(casing.casingWeight) + " ppf, "
+            casingdefs.append(casingdef)
     deviationdata = Deviationsurveydata.objects.filter(wellid=wellid1).all()
     if deviationdata:
         chart2 = get_plot2(widths, depths, hangers, cements, deviationdata, casingdefs)
@@ -224,10 +228,10 @@ def create_casing(request):
         casinggrade = CasingGradeModel.objects.filter(id=gradeid).first()   
         casing.collapsePressure =casinggrade.collapsePressure  
         casing.burstPressure =casinggrade.burstPressure 
-   form = CasingModelForm(request.POST, instance=casing)            
-   if form.is_valid():
-        form.save() 
-        return redirect ('casings:list_casings')    
+        form = CasingModelForm(request.POST, instance=casing)            
+        if form.is_valid():
+            form.save() 
+            return redirect ('casings:list_casings')    
    return render (request, 'casings/casing_form.html', {'form': form})
 
 def update_casing(request, id):

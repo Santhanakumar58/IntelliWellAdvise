@@ -45,8 +45,8 @@
                     {% if casing %}
                         <td><a href="{% url 'casings:update_casing' casing.id %} ">Update</a></td>
                         <td><a href="{% url 'casings:delete_casing' casing.id %}">Delete</a></td>
-                        <td><a href="{% url 'leakoffTests:list_leakoffTest' casing.casingSize_id %}">LOT</a></td>                        
-                        <td><a href="{% url 'cementbondlogs:list_cementbondlog' casing.casingSize_id %}">CBL</a></td>
+                        <td><a href="{% url 'leakoffTests:list_leakoffTest' casing.id %}">LOT</a></td>                        
+                        <td><a href="{% url 'cementbondlogs:list_cementbondlog' casing.id %}">CBL</a></td>
                        
                     {% endif %}
                 </tr>

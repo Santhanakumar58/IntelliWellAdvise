@@ -1,21 +1,48 @@
 {% extends "home/fieldwidelayout.html" %}
-
+<title>
+    {% block title %}
+    {% if object %}
+        Update Block 
+    {% else %}  
+        Create Block    
+    {% endif %} 
+    {% endblock %}
+</title>
 {% block content %}
 
 <!-- BOOTSTRAP FORM -->
 {% url 'blocks:all' as list_all %}
-<div class="container d-flex justify-content-center" style="width:50%;">
+<div class="container" style="border: 2px; border-width:2px; font-size:0.75em;">
     <div class="col ">
         <form action="" method="post">
             {% csrf_token %}       
             {% if object  %}           
-                <h4 class="text-center text-success">Update Block Details </h4> 
+                <h4 class="text-center">Update Block Details </h4> 
             {% else %}  
-                <h4 class="text-center text-success">Create Block Details</h4>    
-            {% endif %}           
-            <table class="table table-striped" style="font-size:0.8em;"  class="text-center" >
-                {{form.as_table}}
-            </table>
+                <h4 class="text-center ">Create Block Details</h4>    
+            {% endif %} 
+            <hr>          
+            <div class="row">
+                <div class="col-md-3" style="border:2px ;">
+                    <label for="assetname">Block Name:</label><br>
+                    <div class="centered">{{form.blockname}} </div>
+                </div> 
+                <div class="col-md-3" >
+                    <label for="area">Area (Sq. km):</label><br>
+                     {{form.area}}
+                </div>
+                <div class="col-md-3" >
+                    <label for="assetname">Discovery Year</label>
+                   {{form.year}}
+                </div> 
+                <div class="col-md-3">
+                    <label for="area">Asset Name</label><br>      
+                    {{form.asset}}
+                </div>
+            </div>
+            <div class="row" style="text-align: justify;">
+                {{form.description}}
+             </div> 
             <div class="container d-flex justify-content-center" style="width: 10%;">
                 <input type="submit" class="btn btn-primary btn-sm" value="Submit" style="margin-right: 30px; margin-top: 30px;">
                 <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{{list_all}}'; return false;" value="Cancel">

@@ -1,4 +1,9 @@
 {% extends "home/fieldwidelayout.html" %}
+<title>
+    {% block title %}
+        Delete Field
+    {% endblock %}
+</title>
 {% block content %}
 
 {% url 'oilfields:all' as list_all %}

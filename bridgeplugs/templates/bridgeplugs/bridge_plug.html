@@ -42,8 +42,8 @@
                     <td class="text-center">{{plug.Pressure_rating}}</td>
                     <td class="text-center">{{plug.Temperature_rating}}</td>
                     <td class="text-center">{{plug.plug_setting_Problems}}</td>
-                    <td><a href="{% url 'gpcementplugs:update_gpcement_plug' plug.id %} ">Edit</a></td>
-                    <td><a href="{% url 'gpcementplugs:delete_gpcement_plug' plug.id %}">Delete</a></td>
+                    <td><a href="{% url 'bridgeplugs:update_bridge_plug' plug.id %} ">Edit</a></td>
+                    <td><a href="{% url 'bridgeplugs:delete_bridge_plug' plug.id %}">Delete</a></td>
                 </tr>
             {% endfor %}        
             </tbody>
@@ -51,7 +51,7 @@
         <br>
         <br> 
         <div class="d-flex justify-content-center" style="width: 15%;">
-            <a href="{% url 'gpcementplugs:create_gpcement_plug' %}" class="d-block btn btn-primary my-5">Add New</a>
+            <a href="{% url 'bridgeplugs:create_bridgeplug' %}" class="d-block btn btn-primary my-5">Add New</a>
         </div>
     </div>        
 </div>

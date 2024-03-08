@@ -1,4 +1,9 @@
 {% extends "Home/oillayout.html" %}
+<title>
+    {% block title %}
+        Delete Well Objectives
+    {% endblock %}
+</title>
 {% block content %}
 
 {% url 'opwellobjectives:list_opwellobjective' as list_all %}

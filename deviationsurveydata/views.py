@@ -168,35 +168,50 @@ def Import_Deviation_SurveyData(request):
     return render(request, 'deviationsurveydata/Import_excel.html',{})
 
 
-def calculate_North(previous_depth, previous_angle, previous_azimuth,current_depth, current_angle, current_azimuth):
-    depth_diff = current_depth-previous_depth
-    ang = math.cos(previous_angle*math.pi/180)- math.cos(current_angle*math.pi/180)
-    azi = math.sin(current_azimuth*math.pi/180)-math.sin(previous_azimuth*math.pi/180)    
-    north_dir = depth_diff*ang*azi*(180/math.pi)**2 /((current_angle-previous_angle) * (current_azimuth-previous_azimuth))  
+def calculate_North(previous_depth, previous_angle, previous_azimuth,current_depth, current_angle, current_azimuth): 
+    if (previous_angle-current_angle)==0 or (previous_azimuth-current_azimuth) ==0:
+        north_dir =0.0
+    else:
+        depth_diff = current_depth-previous_depth
+        ang = math.cos(previous_angle*math.pi/180)- math.cos(current_angle*math.pi/180)
+        azi = math.sin(current_azimuth*math.pi/180)-math.sin(previous_azimuth*math.pi/180) 
+        north_dir = depth_diff*ang*azi*(180/math.pi)**2 /((current_angle-previous_angle) * (current_azimuth-previous_azimuth))  
     return round(north_dir,2)
 
 def calculate_East(previous_depth, previous_angle, previous_azimuth,current_depth, current_angle, current_azimuth):
-    depth_diff = current_depth-previous_depth
-    ang = math.cos(previous_angle*math.pi/180)- math.cos(current_angle*math.pi/180)
-    azi = math.cos(previous_azimuth*math.pi/180)-math.cos(current_azimuth*math.pi/180)    
-    est_dir = depth_diff*ang*azi*(180/math.pi)**2 /((current_angle-previous_angle) * (current_azimuth-previous_azimuth))  
+    if (previous_angle-current_angle)==0 or (previous_azimuth-current_azimuth) ==0:
+        est_dir =0.0
+    else:
+        depth_diff = current_depth-previous_depth
+        ang = math.cos(previous_angle*math.pi/180)- math.cos(current_angle*math.pi/180)
+        azi = math.cos(previous_azimuth*math.pi/180)-math.cos(current_azimuth*math.pi/180)    
+        est_dir = depth_diff*ang*azi*(180/math.pi)**2 /((current_angle-previous_angle) * (current_azimuth-previous_azimuth))  
     return round(est_dir,2)
 
 def calculate_Vert(previous_depth, previous_angle, previous_azimuth,current_depth, current_angle, current_azimuth):
-    depth_diff = current_depth-previous_depth
-    ang = math.sin(current_angle*math.pi/180)- math.sin(previous_angle*math.pi/180)   
-    ver_dir = depth_diff*ang*(180/math.pi)/(current_angle-previous_angle) 
+    if (previous_angle-current_angle)==0 or (previous_azimuth-current_azimuth) ==0:
+        ver_dir =0.0
+    else:
+        depth_diff = current_depth-previous_depth
+        ang = math.sin(current_angle*math.pi/180)- math.sin(previous_angle*math.pi/180)   
+        ver_dir = depth_diff*ang*(180/math.pi)/(current_angle-previous_angle) 
     return round(ver_dir,2)
 
-def calculate_Dogleg( previous_angle, previous_azimuth, current_angle, current_azimuth):   
-    cosbeta = math.cos(previous_angle* math.pi/180-current_angle*math.pi/180)- math.sin(previous_angle*math.pi/180) *  math.sin(current_angle*math.pi/180) * (1- math.cos((current_azimuth-previous_azimuth)* math.pi/180))
-    dogleg =  (math.acos((cosbeta))) * (180 / (math.pi)) ## in degree 
+def calculate_Dogleg( previous_angle, previous_azimuth, current_angle, current_azimuth):  
+    if (previous_angle-current_angle)==0 or (previous_azimuth-current_azimuth) ==0:
+        dogleg =0.0
+    else: 
+        cosbeta = math.cos(previous_angle* math.pi/180-current_angle*math.pi/180)- math.sin(previous_angle*math.pi/180) *  math.sin(current_angle*math.pi/180) * (1- math.cos((current_azimuth-previous_azimuth)* math.pi/180))
+        dogleg =  (math.acos((cosbeta))) * (180 / (math.pi)) ## in degree 
     return round(dogleg,2)
 
 def calculate_Net_Drift(previous_depth, previous_angle, current_depth, current_angle):
-    depth_diff = current_depth-previous_depth
-    term4 = math.sin((current_angle + previous_angle) * math.pi/180/2)
-    net_drift = depth_diff * term4    
+    if (previous_angle-current_angle)==0:
+        net_drift =0.0
+    else:
+        depth_diff = current_depth-previous_depth
+        term4 = math.sin((current_angle + previous_angle) * math.pi/180/2)
+        net_drift = depth_diff * term4    
     return round(net_drift,2)
 
 def calculate_Vertical_Section(netdrift,  previous_azimuth, current_azimuth):

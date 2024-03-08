@@ -1,7 +1,7 @@
 from django.db import models
 
 class CasingSizeModel(models.Model):
-    casingSize = models.CharField(max_length=20)
+    casingSize = models.CharField(max_length=10)
 
     def __str__(self):
         return self.casingSize
@@ -40,9 +40,9 @@ class CasingModel(models.Model):
     casingSize=models.ForeignKey(CasingSizeModel, on_delete=models.SET_NULL, blank=True, null=True, related_name='casingSizes')
     casingWeight=models.ForeignKey(CasingWeightModel, on_delete=models.SET_NULL, blank=True, null=True, related_name='casingWeights')
     casingGrade=models.ForeignKey(CasingGradeModel, on_delete=models.SET_NULL, blank=True, null=True,related_name='casingGrades' )
-    casingID = models.DecimalField(decimal_places=3, max_digits=10, blank=True, null=True)
-    collapsePressure =models.DecimalField(decimal_places=3, max_digits=10,  blank=True, null=True)
-    burstPressure = models.DecimalField(decimal_places=3, max_digits=10,  blank=True, null=True)
+    casingID = models.FloatField(blank=True, null=True)
+    collapsePressure =models.FloatField(blank=True, null=True)
+    burstPressure = models.FloatField(blank=True, null=True)
     Casing_Threads =(        
             ("1", "STC"),
             ("2", "LTC"),  
@@ -62,10 +62,10 @@ class CasingModel(models.Model):
             ("4", "Inconel")            
         )
     material=models.CharField(max_length = 20,choices = Materials,default = '1', blank=True, null=True)
-    shoedepth=models.FloatField()
-    floatCollar=models.FloatField()
-    hangerDepth=models.FloatField()
-    cementTop=models.FloatField()
+    shoedepth=models.FloatField(blank=True, null=True)
+    floatCollar=models.FloatField(blank=True, null=True)
+    hangerDepth=models.FloatField(blank=True, null=True)
+    cementTop=models.FloatField(blank=True, null=True)
    
     def __str__(self):
         return self.casingType

@@ -1,5 +1,9 @@
 {% extends "Home/oillayout.html" %}
-
+<title>
+    {% block title %}
+        Drilling Well Data 
+    {% endblock %}
+</title>
 {% block content %}
 {% for data in list_drillingwelldata %}
     {% for colname in drillingwelldata.column_set.all  %}

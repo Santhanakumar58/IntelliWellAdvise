@@ -9,17 +9,13 @@
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {% if completion_data %}
-                <h3 class="text-center">Update Completion Data </h3> 
+                <h4 class="text-center">Update Completion Data </h4> 
             {% else %}  
-                <h3 class="text-center">Create Completion Data</h3>    
-            {% endif %}  
-            <div class="col-md-3"></div> 
-            <div class="col-md-6">        
-                <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.8em;">
-                    <thead style="background-color:rgb(106, 130, 238);">
-                    {{form.as_table}}
-                </table>   
-            <div class="col-md-3"></div>         
+                <h4 class="text-center">Create Completion Data</h4>    
+            {% endif %}       
+            <table class="table">
+                {{form.as_table}}
+            </table>      
             <div class="container d-flex justify-content-center" style="width: 10%;">
                 <input type="submit" class="btn btn-primary btn-sm" value="Save" style="margin-right: 30px; margin-top: 30px;">
                 <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{{list_all}}'; return false;" value="Cancel">

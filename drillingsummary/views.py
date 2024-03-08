@@ -16,19 +16,19 @@ def create_drillingsummary(request):
    d_summary = DrillingSummary()   
    d_summary.fgId = selctedoilproducer.fgid
    d_summary.wellid= selctedoilproducer.wellid
+   form = DrillingSummaryForm(request.POST or None, instance=d_summary)  
+
    if request.method == "POST":
         liquid = float(request.POST["liquid_Rate"])
         wc = float(request.POST["water_Cut"])
         gor = float(request.POST["gas_Oil_Ratio"])
-        print(type(liquid), type(wc), type(gor))
         oilrate = (liquid*(1.0-wc/100.0))  
         gasrate = round(oilrate*gor/1000)
         d_summary.oil_Rate = oilrate
         d_summary.gas_Rate = gasrate
-   form = DrillingSummaryForm(request.POST or None, instance=d_summary)  
-   if form.is_valid():
-       form.save()       
-       return redirect ('drillingsummary:list_drillingsummary')    
+        if form.is_valid():
+            form.save()       
+            return redirect ('drillingsummary:list_drillingsummary')    
    return render (request, 'drillingsummary/drillingsummary_form.html', {'form': form})
 
 def update_drillingsummary(request, id):

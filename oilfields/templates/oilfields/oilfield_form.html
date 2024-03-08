@@ -1,29 +1,52 @@
 {% extends "home/fieldwidelayout.html" %}
-
+<title>
+    {% block title %}
+    {% if oilfield %}
+        Update Field 
+    {% else %}  
+        Create Field    
+    {% endif %} 
+    {% endblock %}
+</title>
 {% block content %}
 
 <!-- BOOTSTRAP FORM -->
 {% url 'oilfields:all' as list_all %}
-<div class="container d-flex justify-content-center" >
-    <div class="col mt-1">
-        <form action="" method="post">
-            {% csrf_token %}           
-            {% if object  %}           
-                <h4 class="text-center">Update Field Details </h4> 
-            {% else %}  
-                <h4 class="text-center">Create Field Details</h4>    
-            {% endif %} 
-            <hr>
-            <table class="table table-striped" style="font-size:0.8em;"  class="text-center" >                
-                {{form.as_table}}
-            </table>
-            <div class="container d-flex justify-content-center" style="width: 10%;">
-                <input type="submit" class="btn btn-primary btn-sm" value="Submit" style="margin-right: 30px; margin-top: 30px;">
-                <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{{list_all}}'; return false;" value="Cancel">
-            </div>    
-        </form> 
-
-    </div>
+<div class="container d-flex justify-content-center" style="border: 2px; border-width:2px; font-size:0.75em;">    
+    <form action="" method="post">
+        {% csrf_token %}           
+        {% if object  %}           
+            <h4 class="text-center">Update Field Details </h4> 
+        {% else %}  
+            <h4 class="text-center">Create Field Details</h4>    
+        {% endif %} 
+        <hr>         
+        <div class="row">
+            <div class="col-md-3" style="border:2px ;">
+                <label for="assetname">Block Name:</label><br>
+                <div class="centered">{{form.block}} </div>
+            </div> 
+            <div class="col-md-3" >
+                <label for="area">Area (Sq. km):</label><br>
+                 {{form.area}}
+            </div>
+            <div class="col-md-3" >
+                <label for="assetname">Discovery Year</label>
+               {{form.year}}
+            </div> 
+            <div class="col-md-3">
+                <label for="area">Field Name</label><br>      
+                {{form.oilfieldname}}
+            </div>
+        </div>
+        <div class="row" style="text-align: justify;">
+            {{form.description}}
+         </div> 
+        <div class="container d-flex justify-content-center" style="width: 15%;">
+            <input type="submit" class="btn btn-primary btn-sm" value="Submit" style="margin-right: 30px; margin-top: 30px;">
+            <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{{list_all}}'; return false;" value="Cancel">
+</div>    
+    </form> 
 </div>
 
 <!-- END BOOTSTRAP FORM -->

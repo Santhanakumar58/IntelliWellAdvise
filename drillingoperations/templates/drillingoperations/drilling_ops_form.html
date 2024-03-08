@@ -1,5 +1,13 @@
 {% extends "home/oillayout.html" %}
-
+<title>
+    {% block title %}
+        {% if drilling_ops %}
+            Update Drilling Operation
+        {% else %}  
+            Create Drilling Operation     
+        {% endif %} 
+    {% endblock %}
+</title>
 {% block content %}
 
 <!-- BOOTSTRAP FORM -->
@@ -12,21 +20,21 @@
 </div>
 {% endfor %}
 
-<div class="container d-flex justify-content-center" style="width: 75%;">
+<div class="container main d-flex justify-content-center">
     <div class="col">
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {% if drilling_ops %}
-            <h5 class="text-center text-success">Update Drilling Operation </h5> 
+            <h4 class="text-center ">Update Drilling Operation </h4> 
             {% else %}  
-            <h5 class="text-center text-success">Create Drilling Operation</h5>    
+            <h4 class="text-center">Create Drilling Operation</h4>    
             {% endif %} 
             <table class="table">                
                 {{form.as_table}}
             </table>
             <div class="container d-flex justify-content-center" style="width: 10%;">
                 <input type="submit" class="btn btn-primary btn-sm" value="Submit" style="margin-right: 30px; margin-top: 30px;" >
-                <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'drillingoperations:list_drilling_ops' ctid %}'; return false;" value="Cancel">
+                <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'drillingoperations:list_drilling_ops' %}'; return false;" value="Cancel">
             </div> 
            
         </form> 

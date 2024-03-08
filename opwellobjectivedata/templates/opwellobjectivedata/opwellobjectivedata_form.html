@@ -1,17 +1,26 @@
-{% extends "home/oillayout.html" %}
+{% extends "Home/oillayout.html" %}
+<title>
+    {% block title %}
+        {% if opwellobjectivedata %}
+            Update Well Objective Data
+        {% else %}  
+            Create Well Onjective Data     
+        {% endif %} 
+    {% endblock %}
+</title>
 
 {% block content %}
 
 <!-- BOOTSTRAP FORM -->
 {% url 'opwellobjectivedata:list_opwellobjectivedata' as list_all %}
-<div class="container d-flex justify-content-center mt-5" style="width: 25%;">
+<div class="container main d-flex justify-content-center mt-5" >
     <div class="col mt-0">
         <form action="" method="post">
             {% csrf_token %}
-            {% if opwellobjective %}
-                <h5 class="text-center text-success">Update Well Objective Data </h5>   
+            {% if opwellobjectivedata %}
+                <h4 class="text-center">Update Well Objective Data </h4>   
             {% else %}      
-                <h5 class="text-center text-success">Create Well Objective  Data</h5>   
+                <h4 class="text-center">Create Well Objective  Data</h4>   
             {% endif %}            
             <table class="table">
                 {{form.as_table}}

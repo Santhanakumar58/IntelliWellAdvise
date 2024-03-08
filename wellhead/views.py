@@ -8,12 +8,10 @@ from .forms import WellheadForm
 
 # Create your views here.
 def list_wh_data(request): 
-
     selectedwell=SelectedOilProducer.objects.all().first()
     wh_datas = Wellhead.objects.filter(wellid =selectedwell.wellid).all()      
     return render (request, 'wellhead/wellhead_data.html', {'wh_datas': wh_datas} )
   
-
 def create_wh_data(request): 
     selectedwell=SelectedOilProducer.objects.all().first()   
     wh_data = Wellhead()    

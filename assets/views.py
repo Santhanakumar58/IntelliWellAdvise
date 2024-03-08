@@ -18,8 +18,8 @@ def update_asset(request, id):
    asset = Asset.objects.get(id=id)
    form = AssetForm(request.POST or None, instance=asset)   
    if form.is_valid():
-    form.save()
-    redirect ('assets:list_assets')
+        form.save()
+        return redirect ('assets:list_assets')
    return render (request, 'assets/assets_form.html', {'form': form, 'asset':asset})
 
 def delete_asset(request, id):

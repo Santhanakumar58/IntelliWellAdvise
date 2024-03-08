@@ -1,26 +1,18 @@
 <html lang="en">
-{% extends "home/oillayout.html" %}
-
+{% extends "Home/oillayout.html" %}
+{% block title %}
+   Wellhead Details
+{% endblock %}
 {% block content %}
-{% for data in coil_tubing_ops_datas %}
-    {% for colname in data.column_set.all  %}
-        <p>{{colname}}</p>
-    {% endfor %}
-{% endfor %}
+
 <form action="" enctype="multipart/form-data" method="POST">
-    <div class="container text-center">  
-        {% include 'home/messages.html' %}  
-        {%  if chart %}
-            <img src="data:image/png;base64, {{chart|safe}}">
-        {% endif %}   
-    </div>
-    <div class="container main">   
+       <div class="container main">   
         <div class="row"> 
-            <h3 class="text-center">Wellhead Details </h3>
+            <h4 class="text-center">Wellhead Details </h4>
         </div>  
-        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.8em;">
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.75em;">
             {% csrf_token %}
-            <thead style="background-color:rgb(106, 130, 238);">
+            <thead >
                 <tr class='text-center'> 
                     <th>Make</th>                      
                     <th>Model</th>   

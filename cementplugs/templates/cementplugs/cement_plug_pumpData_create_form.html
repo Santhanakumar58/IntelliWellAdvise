@@ -4,23 +4,21 @@
 
 <!-- BOOTSTRAP FORM -->
 {% url 'cementplugs:list_cement_pumpData' as list_all %}?plugid =plugid
-<div class="container d-flex justify-content-center" style="width: 75%;">
+<div class="container main d-flex justify-content-center">
     <div class="col">
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {% if pumpdata %}
-            <hr>
-            <h5 class="text-center text-success">Update Pumping Data </h5> 
+            <h4 class="text-center">Update Pumping Data </h4> 
             {% else %}  
-            <h5 class="text-center text-success">Create Pumping Data</h5>    
-            {% endif %}  
-            <hr>           
-            <table class="table table-striped" style="font-size:0.8em;"  class="text-center" >
+            <h4 class="text-center">Create Pumping Data</h4>    
+            {% endif %}             
+            <table class="table" >
                 {{form.as_table}}              
             </table>
-            <div class="container d-flex justify-content-center" style="width: 10%;">
+            <div class="container main d-flex justify-content-center" style="width: 10%;">
                 <input type="submit" class="btn btn-primary btn-sm" value="Submit" style="margin-right: 30px; margin-top: 30px;" > 
-                <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'cementplugs:list_cement_pumpData' id  %}'; return false;" value="Cancel">               
+                <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'cementplugs:list_cement_pumpData' plugid  %}'; return false;" value="Cancel">               
 
             </div> 
            

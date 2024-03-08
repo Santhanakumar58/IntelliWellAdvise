@@ -1,7 +1,10 @@
-{% extends "home/oillayout.html" %}
+{% extends "Home/oillayout.html" %}
+{% block title %}
+   Delete Wellhead Details
+{% endblock %}
 {% block content %}
 
-{% url 'coiltubing:list_coil_tubing_ops_data' as list_all %}
+{% url 'wellhead:list_wh_data' as list_all %}
 <div class="container d-flex justify-content-center mt-2" style="width: 50%;">
     <div class="col mt-2 text-center">
         <h5 class="mb-2">Delete Coil Tubing Intervention Operation</h5>
@@ -11,10 +14,10 @@
             {% csrf_token %}
             {% comment %} 
             <input type="submit" value="Confirm">           
-            <input type="submit" value="Cancel" onclick="window.location='{% url 'coiltubingoperations:list_coil_tubing_ops_data' ctid %}'; return false;" >
+            <input type="submit" value="Cancel" onclick="window.location='{% url 'wellhead:list_wh_data' ctid %}'; return false;" >
             {% endcomment %}
             <input type="submit" class="btn btn-primary btn-sm" value="Confirm" style="margin-right: 30px; margin-top: 30px;">
-            <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'coiltubingoperations:list_coil_tubing_ops_data'  id %}'; return false;" value="Cancel">
+            <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'wellhead:list_wh_data'  %}'; return false;" value="Cancel">
         </form>
     </div>
 </div>

@@ -1,24 +1,51 @@
-{% extends "home/oillayout.html" %}
-
+{% extends "Home/oillayout.html" %}
+<title>
+    {% block title %}
+        {% if drillingproblem %}
+            Update Drilling Problem 
+        {% else %}  
+            Create Drilling Problem    
+        {% endif %} 
+    {% endblock %}
+</title>
 {% block content %}
 
 <!-- BOOTSTRAP FORM -->
 
-<div class="container d-flex justify-content-center" style="width: 75%;">
+<div class="container main d-flex justify-content-center" style="border: 2px; border-width:2px; font-size:1em;">
     <div class="col">
         <form action="" method="post">
             {% csrf_token %}
             {% if drillingproblem %}
-            <h5 class="text-center text-success">Update Drilling Problem </h5> 
+                <h4 class="text-center ">Update Drilling Problem </h4> 
             {% else %}  
-            <h5 class="text-center text-success">Create Drilling Problem</h5>    
+                <h4 class="text-center">Create Drilling Problem</h4>    
             {% endif %} 
-            <table class="table">                
-                {{form.as_table}}
-            </table>
-            <div class="container d-flex justify-content-center" style="width: 10%;">
+            <hr>
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="assetname">Occured Date:</label><br>
+                    <div class="centered">{{form.ops_Date}} </div>
+                </div> 
+                <div class="col-md-3" >
+                    <label for="area">Hole Size (In):</label><br>
+                     {{form.hole_Size}}
+                </div>
+                <div class="col-md-3" >
+                    <label for="assetname">Depth From (ft):</label>
+                   {{form.depth_From}}
+                </div> 
+                <div class="col-md-3">
+                    <label for="area">Depth To (ft) :</label><br>      
+                    {{form.depth_To}}
+                </div>
+            </div>   
+            <div class="row" style="text-align: justify;">
+               {{form.description}}
+            </div>            
+            <div class="container main d-flex justify-content-center" style="width: 10%;">
                 <input type="submit" class="btn btn-primary btn-sm" value="Submit" style="margin-right: 30px; margin-top: 30px;" >
-                <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'drillingproblems:list_drilling_problem' id %}'; return false;" value="Cancel">
+                <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'drillingproblems:list_drilling_problem' %}'; return false;" value="Cancel">
             </div> 
            
         </form> 

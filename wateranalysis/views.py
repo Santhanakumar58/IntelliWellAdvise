@@ -35,15 +35,12 @@ def list_wateranalysis(request):
     df['Ca'] =x5
     df['Mg'] =x6
     df['K'] =x7
-     
-    print(selectedfgi.fgid)
     ions = {
         'HCO3': 61, 'CO3' : 30, 'Cl' : 35, 'SO4': 48,
         'Na' : 23, 'Ca' : 20, 'Mg' : 12, 'K'  : 39
         }
     for ion in ions.keys():
-        df[str(ion)+'_meq'] = df[ion]/ions[ion]
-    print(df)
+        df[str(ion)+'_meq'] = df[ion]/ions[ion]   
     #SO4
     df['SO4_norm'] = df['SO4_meq'] / (df['SO4_meq'] +df['HCO3_meq']+df['CO3_meq']+df['Cl_meq']) * 100
     #HCO3
@@ -72,8 +69,7 @@ def list_wateranalysis(request):
         Mg = 5 
         HCO3 = 5
         SO4 = 5 
-        Cl = 5
-    print(Nak, Ca, Mg, SO4, HCO3, Cl)
+        Cl = 5    
     chart2 = stiff_diagram(Nak, Ca, Mg, SO4, HCO3, Cl)
     return render (request, 'wateranalysis/wateranalysis.html', {'wadatas':wadatas, 'chart':chart, 'chart2':chart2})
     

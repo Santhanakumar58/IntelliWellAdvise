@@ -1,5 +1,13 @@
 {% extends "home/oillayout.html" %}
-
+<title>
+    {% block title %}
+        {% if deviationsurvey %}
+            Update Deviation Data
+        {% else %}  
+            Create Deviation Data     
+        {% endif %} 
+    {% endblock %}
+</title>
 {% block content %}
 
 <!-- BOOTSTRAP FORM -->

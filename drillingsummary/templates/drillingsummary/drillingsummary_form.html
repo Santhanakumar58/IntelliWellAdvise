@@ -1,22 +1,54 @@
-{% extends "home/oillayout.html" %}
-
+{% extends "Home/oillayout.html" %}
+<title>
+    {% block title %}
+        {% if d_summary %}
+            Update Drilling Summary 
+        {% else %}  
+            Create Drilling Summary    
+        {% endif %} 
+    {% endblock %}
+</title>
 {% block content %}
 
 <!-- BOOTSTRAP FORM -->
 
-<div class="container d-flex justify-content-center" style="width: 75%;">
+<div class="container main d-flex justify-content-center" style="border: 2px; border-width:2px; font-size:1em;">
     <div class="col">
         <form action="" method="post">
             {% csrf_token %}
             {% if d_summary %}
-            <h5 class="text-center text-success">Update Drilling Summary </h5> 
+                <h4 class="text-center ">Update Drilling Summary </h4> 
             {% else %}  
-            <h5 class="text-center text-success">Create Drilling Summary</h5>    
+                <h4 class="text-center">Create Drilling Summary</h4>    
             {% endif %} 
-            <table class="table">                
-                {{form.as_table}}
-            </table>
-            <div class="container d-flex justify-content-center" style="width: 10%;">
+            <hr>
+            <div class="row">
+                <div class="col-md-2">
+                    <label for="assetname">Spud Date:</label><br>
+                    {{form.start_Date}}
+                </div> 
+                <div class="col-md-2" >
+                    <label for="area">Completion Date:</label><br>
+                    {{form.end_Date}}
+                </div>            
+                <div class="col-md-3" >
+                    <label for="assetname">Liquid (bbls/day):</label><br>
+                    {{form.liquid_Rate}}
+                </div> 
+                <div class="col-md-3" >
+                    <label for="area">Water Cut (%):</label><br>
+                     {{form.water_Cut}}
+                </div>
+                <div class="col-md-2" >
+                    <label for="assetname">GOR (Scf/bbl):</label><br>
+                   {{form.gas_Oil_Ratio}}
+                </div> 
+            </div>   
+            <br>
+            <div class="row" style="text-align: justify;">
+               {{form.drilling_Summary}}
+            </div> 
+            <div class="container main d-flex justify-content-center" style="width: 15%;">
                 <input type="submit" class="btn btn-primary btn-sm" value="Submit" style="margin-right: 30px; margin-top: 30px;">
                 <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;"onclick="window.location='{% url 'drillingsummary:list_drillingsummary' %}'; return false;" value="Cancel">
             </div> 

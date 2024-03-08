@@ -1,14 +1,23 @@
 {% extends "Home/fieldwidelayout.html" %}
-
+<title>
+    {% block title %}
+    {% if asset %}
+        Update Asset 
+    {% else %}  
+        Create Asset    
+    {% endif %} 
+    {% endblock %}
+</title>
 {% block content %}
 {% if asset %}
-<h4 class="text-center text-success"> Update Asset </h4> 
+    <h4 class="text-center" > Update Asset </h4> 
 {% else %}  
-<h4 class="text-center text-success" >Create Asset</h4>    
+    <h4 class="text-center" >Create Asset</h4>    
 {% endif %} 
 
 {% url 'assets:list_assets' as list_all %}
-<div class="container d-flex justify-content-center" style="width: 50%;">
+{% comment %}
+<div class="container d-flex justify-content-center" style="background-color:rgb(220, 220, 220) ;">
     <div class="col">
         <form action="" method="post">
             {% csrf_token %}           
@@ -23,6 +32,43 @@
         </form> 
     </div>
 </div>
+{{end    
+{% endcomment %}
+   
+<div class="container" style="border: 2px; border-width:2px; font-size:0.75em;">
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <hr>
+        <div class="row">
+            <div class="col-md-3" style="border:2px ;">
+                <label for="assetname">Asset Name:</label><br>
+                <div class="centered">{{form.assetname}} </div>
+            </div> 
+            <div class="col-md-3" >
+                <label for="area">Area (Sq. km):</label><br>
+                 {{form.area}}
+            </div>
+            <div class="col-md-3" >
+                <label for="assetname">Discovery Year</label>
+               {{form.year}}
+            </div> 
+            <div class="col-md-3">
+                <label for="area">Score out of 10</label><br>      
+                {{form.score_out_of_10}}
+            </div>
+        </div>   
+        <div class="row" style="text-align: justify;">
+           {{form.description}}
+        </div>       
+        <div class="container d-flex justify-content-center" style="width: 50%;">
+            <input type="submit" class="btn btn-primary btn-sm" value="Submit" style="margin-right: 30px; margin-top: 30px;">
+            <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'assets:list_assets' %}'; return false;" value="Cancel">
+        </div>  
+    
+    </form>
+</div>
+    
+
 
 <!-- END BOOTSTRAP FORM -->
 

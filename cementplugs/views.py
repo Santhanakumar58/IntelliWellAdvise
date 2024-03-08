@@ -41,8 +41,7 @@ def delete_cement_plug(request, id):
     return render (request, 'cementplugs/cement_plug_confirm_delete.html', {'plug':plug})
 
 
-def list_cement_pumpData(request,id): 
-    plugid=id    
+def list_cement_pumpData(request,plugid):   
     well = SelectedOilProducer.objects.all().first()     
     pumpdatas= PumpingData.objects.filter( wellid=well.wellid , cementplug = plugid ).all()
     return render (request, 'cementplugs/cement_plug_pumpData.html', {'pumpdatas': pumpdatas, 'plugid':plugid})
@@ -62,7 +61,7 @@ def create_cement_pumpData(request, plugid):
     if form.is_valid():
         form.save()
         return redirect ('cementplugs:list_cement_pumpData', plugid)
-    return render (request, 'cementplugs/cement_plug_pumpData_create_form.html', {'form': form, 'id':id})
+    return render (request, 'cementplugs/cement_plug_pumpData_create_form.html', {'form': form, 'plugid':plugid})
 
 def update_cement_pumpData(request, id):   
     pumpdata = PumpingData.objects.get(id=id)    

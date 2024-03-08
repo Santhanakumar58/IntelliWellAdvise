@@ -4,18 +4,17 @@
 
 <!-- BOOTSTRAP FORM -->
 
-<div class="container d-flex justify-content-center" style="width: 25%;">
+<div class="container main d-flex justify-content-center">
     <div class="col">
         <form action="" method="post" id="casingModelForm" data-casingWeight-url = {% url 'casings:ajax_load_casingWeight' %} data-casingGrade-url = {% url 'casings:ajax_load_casingGrade' %}>
             {% csrf_token %}
-            <hr>
             {% if casing %}
-            <h5 class="text-center text-success">Update Casing </h5> 
+            <h4 class="text-center">Update Casing </h4> 
             {% else %}  
-            <h5 class="text-center text-success">Create Casing </h5>    
+            <h4 class="text-center">Create Casing </h4>    
             {% endif %} 
             <hr>
-            <table class="table table-striped" style="font-size:0.8em;"  class="text-center" >
+            <table class="table" >
                 {{form.as_table}}
             </table>
             <div class="container d-flex justify-content-center" style="width: 10%;">
