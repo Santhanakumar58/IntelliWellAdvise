@@ -16,7 +16,17 @@ def get_graph():
     buffer.close()
     return graph
 
-
+def get_fanning(NRE, F):
+    plt.switch_backend('AGG')  
+    plt.figure(figsize=(12, 4)) 
+    plt.plot(NRE, F, color = "green")
+    plt.xlabel('Reynolds No')
+    plt.ylabel('Friction Factor')
+    plt.legend(loc="upper right")    
+    plt.title("Fanning Friction Factor - Chen")
+    plt.tight_layout()
+    graph = get_graph()
+    return graph
 
 # Plotting the Beggs and Brill and Hagedorn and Brown  plots
 def get_plot(pipline_range, pressures, pressures1, holdups, holdups1):

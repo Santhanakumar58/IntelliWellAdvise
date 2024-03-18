@@ -1,18 +1,18 @@
-{% extends "home/oillayout.html" %}
-
+{% extends "Home/oillayout.html" %}
+<title>
+    
+    {% block title %}
+        Cement Bond Log
+    {% endblock title %}
+        
+</title>
 {% block content %}
-{% for cementbondlog in cementbondlogs %}
-    {% for colname in cementbondlog.column_set.all  %}
-        <p>{{colname}}</p>
-    {% endfor %}
-{% endfor %}
 
-<div class="container d-flex" style="width: 100%;">  
+<div class="container main" >  
     <div class="col">      
-        <h5 class="text-center">Cement Bond Logs for   {{cementbondlogs.first.casingSize}} inch Casing</h5>
-        <hr>
-        <table class="table table-bordered table-striped" style="font-size:0.85em;"  class="text-center" >
-            <thead style="background-color:lightgrey;">
+        <h4 class="text-center">Cement Bond Logs for   {{cementbondlogs.first.casingSize}} inch Casing</h4>
+        <table class="table table-bordered table-striped text-center" style="font-size:0.75em;" >
+            <thead >
                 <tr>
                     {% comment %} <th>#</th> {% endcomment %} 
                     <th class=''>CBL id</th>
@@ -35,20 +35,17 @@
                     <td class="text-center">{{cementbondlog.casingSize}}</td>
                     <td class="text-center">{{cementbondlog.analyst}}</td>                    
                     <td class="text-center">{{cementbondlog.interpretation }}</td> 
-                    <td class="text-center">{{cementbondlog.cblImage.url}}</td>                    
-                    {% if cementbondlog %}   
-                        <td><a href="#">CBL Data</a></td>                     
-                        <td><a href="{% url 'cementbondlogs:update_cementbondlog' cementbondlog.id %} ">Edit</a></td>
-                        <td><a href="{% url 'cementbondlogs:delete_cementbondlog' cementbondlog.id %}">Delete</a></td>        
-                    {% endif %}
+                    <td class="text-center">{{cementbondlog.cblImage.url}}</td>                            
+                    <td><a href="#">CBL Data</a></td>                     
+                    <td><a href="{% url 'cementbondlogs:update_cementbondlog' cementbondlog.id %} ">Edit</a></td>
+                    <td><a href="{% url 'cementbondlogs:delete_cementbondlog' cementbondlog.id %}">Delete</a></td>                   
                 </tr>
             {% endfor %}        
             </tbody>
-        </table> 
-        <br> 
-        <div class="d-flex justify-content-center">
+        </table>         
+        <div class="d-flex justify-content-center" style="width: 35%;">
             <a href="{% url 'casings:list_casings' %}" class="d-block btn btn-primary my-1 mx-5">Back to Casings</a> 
-            <a href="{% url 'cementbondlogs:create_cementbondlog' id %}" class="d-block btn btn-primary my-1">Add New</a>
+            <a href="{% url 'cementbondlogs:create_cementbondlog' cid %}" class="d-block btn btn-primary my-1">Add New</a>
         </div>
     </div>        
 </div>

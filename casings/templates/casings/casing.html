@@ -1,12 +1,23 @@
 {% extends "home/oillayout.html" %}
+<title>
+{% block title %}
+    Casings
+{% endblock title %}    
+</title>
 
 {% block content %}
-{% for casing in casings %}
-    {% for colname in casing.column_set.all  %}
-        <p>{{colname}}</p>
-    {% endfor %}
-{% endfor %}
 
+<div class="container main ">
+    <h4 class="text-center">Casing Diagram </h4>
+    <div class="row">
+        <div class="col text-center">
+            {%  if chart21 %}
+                <img src="data:image/png;base64, {{chart21|safe}}">
+            {% endif %}
+        </div>
+
+    </div>
+</div>
 <div class="container main">  
     <div class="col">      
         <h4 class="text-center">Casings</h4>       
@@ -14,6 +25,7 @@
             <thead >
                 <tr>
                     {% comment %} <th>#</th> {% endcomment %} 
+                    <th class='casingType'>Id</th> 
                     <th class='casingType'>Casing Type</th>                                    
                     <th class='casingSize'>Casing Size</th>
                     <th class='casingWeight'>Casing Weight</th>
@@ -33,6 +45,7 @@
                 {% for casing in casings %}
                 <tr>
                     {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}  
+                    <td class="text-center">{{casing.id }}</td> 
                     <td class="text-center">{{casing.casingType }}</td> 
                     <td class="text-center">{{casing.casingSize}}</td>
                     <td class="text-center">{{casing.casingWeight}}</td>                    
@@ -41,14 +54,12 @@
                     <td class="text-center">{{casing.shoedepth}}</td> 
                     <td class="text-center">{{casing.floatCollar}}</td>
                     <td class="text-center">{{casing.hangerDepth}}</td>
-                    <td class="text-center">{{casing.cementTop}}</td>  
-                    {% if casing %}
-                        <td><a href="{% url 'casings:update_casing' casing.id %} ">Update</a></td>
-                        <td><a href="{% url 'casings:delete_casing' casing.id %}">Delete</a></td>
-                        <td><a href="{% url 'leakoffTests:list_leakoffTest' casing.id %}">LOT</a></td>                        
-                        <td><a href="{% url 'cementbondlogs:list_cementbondlog' casing.id %}">CBL</a></td>
-                       
-                    {% endif %}
+                    <td class="text-center">{{casing.cementTop}}</td>                      
+                    <td><a href="{% url 'casings:update_casing' casing.id %} ">Update</a></td>
+                    <td><a href="{% url 'casings:delete_casing' casing.id %}">Delete</a></td>
+                    <td><a href="{% url 'leakoffTests:list_leakoffTest' casing.id %}">LOT</a></td>                        
+                    <td><a href="{% url 'cementbondlogs:list_cementbondlog' casing.id %}">CBL</a></td>                      
+                  
                 </tr>
             {% endfor %}        
             </tbody>
@@ -59,13 +70,15 @@
         </div>
     </div>        
 </div>
-<hr>
-<h3 class="text-center">Casing Diagram </h3>
-<div class="row">
-    <div class="col text-center">
-        {%  if chart2 %}
-            <img src="data:image/png;base64, {{chart2|safe}}">
-        {% endif %}
+<div class="container main ">
+    <h4 class="text-center">Casing Diagram </h4>
+    <div class="row">
+        <div class="col text-center">
+            {%  if chart2 %}
+                <img src="data:image/png;base64, {{chart2|safe}}">
+            {% endif %}
+        </div>
+
     </div>
 </div>
 

@@ -1,4 +1,9 @@
 {% extends "home/oillayout.html" %}
+<title>    
+    {% block title %}
+        Delete Leakoff Test
+    {% endblock title %}        
+</title>
 {% block content %}
 
 {% url 'leakoffTests:list_leakoffTest' as list_all %}
@@ -13,7 +18,7 @@
             {% comment %} <input type="submit" value="Confirm">           
             <input type="submit" value="Cancel" onclick="window.location='{% url 'leakoffTests:list_leakoffTest' leakoffTest.casingSize_id %}'; return false;">{% endcomment %}
             <input type="submit" class="btn btn-primary btn-sm" value="Confirm" style="margin-right: 30px; margin-top: 30px;">
-            <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'leakoffTests:list_leakoffTest' leakoffTest.casingSize_id %}'; return false;" value="Cancel">
+            <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'leakoffTests:list_leakoffTest' leakoffTest.casingModelid %}'; return false;" value="Cancel">
             
         </form>
     </div>

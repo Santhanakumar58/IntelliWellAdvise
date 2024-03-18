@@ -1,7 +1,7 @@
 from asyncio.windows_events import NULL
 from decimal import Decimal
 from django.shortcuts import render, redirect
-from .utils import get_plot, get_plot2, get_dummyplot
+from .utils import get_plot, get_plot2, get_dummyplot, get_plot21
 from selectedOilProducer.models import SelectedOilProducer
 from .forms import CasingModelForm
 from .models import CasingModel, CasingGradeModel, CasingSizeModel, CasingWeightModel
@@ -21,42 +21,41 @@ def list_casings(request):
     hangers=[]
     cements=[]
     casingdefs=[]
-    print(len(casings))
+    #print(len(casings))
     if casings :
         for casing in casings:
-            print(casing.casingSize)
-           #csize = CasingSizeModel.objects.get(casingSize = casing.casingSize)  
-           #if csize.casingSize =="20":
-           #    width =20*2
-           #elif csize.casingSize == "18 5/8":
-           #    width =18.625*2
-           #elif csize.casingSize == "16":
-           #    width =16*2
-           #elif csize.casingSize == "13 3/8":
-           #    width =13.375*2
-           #elif csize.casingSize == "11 3/4":
-           #    width =11/75*2
-           #elif csize.casingSize == "10 3/4":
-           #    width =10.75*2
-           #elif csize.casingSize == "9 5/8":
-           #    width =9.625*2
-           #elif csize.casingSize == "8 5/8":
-           #    width =8.625*2
-           #elif csize.casingSize == "7 3/4":
-           #    width =7.75*2
-           #elif csize.casingSize == "7 5/8":
-           #    width =7.5*2
-           #elif csize.casingSize == "7":
-           #    width =7.0*2
-           #elif casing.Casing_Size == "6 5/8":
-           #    width =6.625*2
-           #elif csize.casingSize == "5":
-           #    width =5*2
-           #elif csize.casingSize == "4 1/2":
-           #    width =4.5*2
-           #elif csize.casingSize == "4":
-           #    width =4*2
-            width =10
+            #print(casing.casingSize)
+            csize = CasingSizeModel.objects.get(casingSize = casing.casingSize)  
+            if csize.casingSize =="20":
+                width =20
+            elif csize.casingSize == "18 5/8":
+                width =18.625
+            elif csize.casingSize == "16":
+                width =16
+            elif csize.casingSize == "13 3/8":
+                width =13.375
+            elif csize.casingSize == "11 3/4":
+                width =11/75
+            elif csize.casingSize == "10 3/4":
+                width =10.75
+            elif csize.casingSize == "9 5/8":
+                width =9.625
+            elif csize.casingSize == "8 5/8":
+                width =8.625
+            elif csize.casingSize == "7 3/4":
+                width =7.75
+            elif csize.casingSize == "7 5/8":
+                width =7.5
+            elif csize.casingSize == "7":
+                width =7.0
+            elif casing.Casing_Size == "6 5/8":
+                width =6.625
+            elif csize.casingSize == "5":
+                width =5
+            elif csize.casingSize == "4 1/2":
+                width =4.5
+            elif csize.casingSize == "4":
+                width =4            
             depth = casing.shoedepth
             hanger = casing.hangerDepth
             cement = casing.cementTop
@@ -67,8 +66,9 @@ def list_casings(request):
             casingdef = str(casing.casingSize)+ "  ,  " + str(casing.casingWeight) + " ppf, "
             casingdefs.append(casingdef)
     deviationdata = Deviationsurveydata.objects.filter(wellid=wellid1).all()
-    if deviationdata:
+    if casings:
         chart2 = get_plot2(widths, depths, hangers, cements, deviationdata, casingdefs)
+        chart21 = get_plot21(widths, depths, hangers, cements, deviationdata, casingdefs)
     else:
         chart2 = get_dummyplot()
     
@@ -209,7 +209,7 @@ def list_casings(request):
       
         
     
-    return render (request, 'casings/casing.html', {'casings': casings, 'chart2':chart2})
+    return render (request, 'casings/casing.html', {'casings': casings, 'chart2':chart2, 'chart21': chart21})
 
 def create_casing(request):
    selectedwell = SelectedOilProducer.objects.first()

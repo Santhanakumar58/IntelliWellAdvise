@@ -1,7 +1,15 @@
-{% extends "home/oillayout.html" %}
+{% extends "Home/oillayout.html" %}
+<title>    
+    {% block title %}
+    {% if cementbondlog %}
+    Update Cement Bond Log  Survey
+    {% else %}
+    Create Cement Bond Log  Survey
+    {% endif %}    
+    {% endblock title %}        
+</title>
 
 {% block content %}
-
 <!-- BOOTSTRAP FORM -->
 {% url 'cementbondlogs:list_cementbondlog' as list_all %}
 <div class="container d-flex justify-content-center" style="width: 25%;">
@@ -9,22 +17,22 @@
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {% if cementbondlog %}
-            <hr>
-                <h5 class="text-center text-success">Update Deviation Survey </h5>   
+                <h4 class="text-center">Update Cement Bond Log  </h4>   
             {% else %}      
-                <h5 class="text-center text-success">Create Deviation Survey</h5>   
-            {% endif %}  
-            <hr>          
+                <h4 class="text-center">Create Cement Bond Log</h4>   
+            {% endif %}                   
             <table class="table table-striped" style="font-size:0.8em;"  class="text-center" >
                 {{form.as_table}}
             </table>
             <div class="text-cente">
-                <h6 class="text-success">Current Image</h5> 
-                <img src="{{cementbondlog.cblImage.url}}" alt="CurrentImage" style="max-height:300px"> 
+                <h4 class="text-center">Current Image</h4> 
+                {% if cementbondlog.cblImage %}
+                    <img src="{{cementbondlog.cblImage.url}} " alt="CurrentImage" style="max-height:300px"> 
+                {% endif %}
             </div>           
             <div class="container d-flex justify-content-center" style="width: 10%;">
                 <input type="submit" class="btn btn-primary btn-sm" value="Submit" style="margin-right: 30px; margin-top: 30px;">
-                <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'cementbondlogs:list_cementbondlog' id %}'; return false;" value="Cancel">
+                <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'cementbondlogs:list_cementbondlog' cid %}'; return false;" value="Cancel">
             </div>    
         </form>         
     </div>
