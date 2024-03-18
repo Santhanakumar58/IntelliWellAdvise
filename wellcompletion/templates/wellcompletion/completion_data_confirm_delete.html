@@ -1,4 +1,9 @@
-{% extends "home/oillayout.html" %}
+{% extends "Home/oillayout.html" %}
+<title>    
+    {% block title %}
+        Delete Completion Eqipnent
+    {% endblock title %}        
+</title>
 {% block content %}
 
 {% url 'completion:list_completion_data' as list_all %}
