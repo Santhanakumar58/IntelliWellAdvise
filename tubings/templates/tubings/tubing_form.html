@@ -1,0 +1,70 @@
+{% extends "home/oillayout.html" %}
+<title>
+    {% block title %}
+    {% if tubing %}
+        Update Tubing  
+    {% else %}  
+        Create Tubing 
+    {% endif %}        
+    {% endblock title %}   
+</title>
+{% block content %}
+
+<!-- BOOTSTRAP FORM -->
+
+<div class="container main d-flex justify-content-center">
+    <div class="col">
+        <form action="" method="post" id="tubingModelForm" data-tubingWeight-url = {% url 'tubings:ajax_load_tubingWeight' %} data-tubingGrade-url = {% url 'tubings:ajax_load_tubingGrade' %}>
+            {% csrf_token %}
+            {% if tubing %}
+            <h4 class="text-center">Update Tubing </h4> 
+            {% else %}  
+            <h4 class="text-center">Create Tubing </h4>    
+            {% endif %} 
+            <hr>
+            <table class="table" >
+                {{form.as_table}}
+            </table>
+            <div class="container d-flex justify-content-center" style="width: 10%;">
+                <input type="submit" class="btn btn-primary btn-sm" value="Submit" style="margin-right: 30px; margin-top: 30px;">
+                <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'tubings:list_tubings' %}'; return false;" value="Cancel">
+            </div>    
+        </form>         
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script>
+            $("#id_tubingSize").change(function() {
+                const url = $("#tubingModelForm").attr("data-tubingWeight-url");
+                const tubingSize_id = $(this).val();                
+                $.ajax({
+                    url: url,
+                    data: {   
+                                     
+                        'tubingSize_id' :tubingSize_id
+                    },
+                    success: function (data) {   
+                        console.log(data),                                                
+                        $("#id_tubingWeight").html(data);
+                        
+                    }});
+                });
+
+            $("#id_tubingWeight").change(function() {
+                const url = $("#tubingModelForm").attr("data-tubingGrade-url");
+                const tubingWeight_id = $(this).val();                
+                $.ajax({
+                    url: url,
+                    data: {                        
+                        'tubingWeight_id' :tubingWeight_id
+                    },
+                    success: function (data) {                                             
+                        $("#id_tubingGrade").html(data);
+                       
+                    }});
+                });
+
+        </script>
+<!-- END BOOTSTRAP FORM -->
+
+{% endblock %}

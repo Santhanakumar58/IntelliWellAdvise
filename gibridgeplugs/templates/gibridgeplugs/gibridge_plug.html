@@ -43,8 +43,8 @@
                     <td class="text-center">{{plug.giPressure_rating}}</td>
                     <td class="text-center">{{plug.giTemperature_rating}}</td>
                     <td class="text-center">{{plug.gi}}</td>
-                    <td><a href="{% url 'gibridgeplugs:update_gibridgeplug' plug.id %} ">Edit</a></td>
-                    <td><a href="{% url 'gibridgeplugs:delete_gibridgeplug' plug.id %}">Delete</a></td>
+                    <td><a href="{% url 'bridgeplugs:update_bridgeplug' plug.id %} ">Edit</a></td>
+                    <td><a href="{% url 'bridgeplugs:delete_bridgeplug' plug.id %}">Delete</a></td>
                 </tr>
             {% endfor %}        
             </tbody>
@@ -52,7 +52,7 @@
         <br>
         <br> 
         <div class="d-flex justify-content-center">
-            <a href="{% url 'gibridgeplugs:create_gibridgeplug' %}" class="d-block btn btn-primary my-5">Add New</a>
+            <a href="{% url 'bridgeplugs:create_bridgeplug' %}" class="d-block btn btn-primary my-5">Add New</a>
         </div>
     </div>
     

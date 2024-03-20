@@ -1,0 +1,59 @@
+{% extends "Home/oillayout.html" %}
+
+{% block content %}
+
+<div class="container main d-flex" > 
+    <div class="col">   
+        <h4 class="text-center"> Bridge Plugs / Cement Retainers</h4>
+        <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.75em;">
+            {% csrf_token %}
+            <thead >        
+                <tr>
+                    {% comment %} <th>#</th> {% endcomment %}
+                    <th class="text-center" scope="col">Plug Date</th>     
+                    <th class="text-center" scope="col">Plug Type</th>                    
+                    <th class="text-center" scope="col">Plug Depth</th>
+                    <th class="text-center" scope="col">Casing Size(In)</th>
+                    <th class="text-center" scope="col">Plug OD(In)</th>
+                    <th class="text-center" scope="col">Setting Range(ppf)</th>
+                    <th class="text-center" scope="col">Setting Mechanism</th>
+                    <th class="text-center" scope="col">Make</th>
+                    <th class="text-center" scope="col">Model</th>
+                    <th class="text-center" scope="col">Pressure Rating(psi)</th>
+                    <th class="text-center" scope="col">Temp. Range(F)</th>
+                    <th class="text-center" scope="col">Problems</th> 
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>            
+                {% for plug in plugs %}
+                <tr>
+                    {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}                    
+                    <td class="text-center">{{plug.plug_Date}}</td>
+                    <td class="text-center">{{plug.plug_type}}</td>
+                    <td class="text-center">{{plug.plug_Depth}}</td>
+                    <td class="text-center">{{plug.casing_Size}}</td>
+                    <td class="text-center">{{plug.plug_OD}}</td>
+                    <td class="text-center">{{plug.setting_range_ppf}}</td>  
+                    <td class="text-center">{{plug.setting_mechanism}}</td>
+                    <td class="text-center">{{plug.plug_Make}}</td>
+                    <td class="text-center">{{plug.plug_Model}}</td>
+                    <td class="text-center">{{plug.Pressure_rating}}</td>
+                    <td class="text-center">{{plug.Temperature_rating}}</td>
+                    <td class="text-center">{{plug.plug_setting_Problems}}</td>
+                    <td><a href="{% url 'gibridgeplugs:update_gibridgeplug' plug.id %} ">Edit</a></td>
+                    <td><a href="{% url 'gibridgeplugs:delete_gibridgeplug' plug.id %}">Delete</a></td>
+                </tr>
+            {% endfor %}        
+            </tbody>
+        </table>   
+        <br>
+        <br> 
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'gibridgeplugs:create_gibridgeplug' %}" class="d-block btn btn-primary my-5">Add New</a>
+        </div>
+    </div>
+    
+</div>
+{% endblock content %}

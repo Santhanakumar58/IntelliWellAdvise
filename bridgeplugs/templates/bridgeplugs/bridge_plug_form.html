@@ -1,9 +1,9 @@
-{% extends "Home/gasinjectorlayout.html" %}
+{% extends "Home/oillayout.html" %}
 
 {% block content %}
 
 <!-- BOOTSTRAP FORM -->
-{% url 'gpbridgeplugs:list_gpbridgeplug' as list_all %}
+{% url 'bridgeplugs:list_bridgeplug' as list_all %}
 <div class="container d-flex justify-content-center" style="width: 25%;">
     <div class="col">
         <form action="" method="post" enctype="multipart/form-data">
