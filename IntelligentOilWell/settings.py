@@ -97,6 +97,7 @@ INSTALLED_APPS = [
     'drillingplanvsactual.apps.DrillingplanvsactualConfig', 
     'perforations.apps.PerforationsConfig', 
     'bridgeplugs.apps.BridgeplugsConfig', 
+    'tubings.apps.TubingsConfig', 
 
 
     # Reservoir

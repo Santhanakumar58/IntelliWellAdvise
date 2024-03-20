@@ -79,6 +79,7 @@ urlpatterns = [
     path("drillingplanvsactual", include ("drillingplanvsactual.urls")),
     path("perforations", include ("perforations.urls")),
     path("bridgeplugs", include ("bridgeplugs.urls")),
+    path("tubings", include ("tubings.urls")),
     
     
     # Reservoir models
