@@ -14,7 +14,7 @@ def list_tubings(request):
     selectedoilproducer = SelectedOilProducer.objects.first()  
     wellid1 = selectedoilproducer.wellid
     tubings = TubingModel.objects.filter(wellid=wellid1).filter(wellid=wellid1).all().order_by('depth_From')  
-    tubings.delete() 
+    
     tubingdf =pd.DataFrame()
     width=0.0
     widths=[]
