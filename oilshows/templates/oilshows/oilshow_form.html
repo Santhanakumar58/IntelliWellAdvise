@@ -1,14 +1,21 @@
-{% extends "home/oillayout.html" %}
-
+{% extends "Home/oillayout.html" %}
+<title>    
+    {% block title %}
+    {%if show %}
+        Update Oil Show
+    {% else %}
+        Create  Oil Show 
+    {% endif%}
+    {% endblock title %}        
+</title>
 {% block content %}
-
 <!-- BOOTSTRAP FORM -->
 {% url 'oilshows:list_oilshow' as list_all %}
 <div class="container d-flex justify-content-center mt-5" style="width: 70%;">
     <div class="col mt-0">
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {% if cutting %}
+            {% if show %}
                 <h4>Update Oil Show </h4> 
             {% else %}  
                 <h4>Create  Oil Show   </h4>    

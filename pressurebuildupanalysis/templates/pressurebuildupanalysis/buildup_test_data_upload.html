@@ -1,7 +1,11 @@
-{% extends "home/oillayout.html" %}
-
+{% extends "Home/oillayout.html" %}
+<title>
+{% block title %}
+Buildup Test Analysis
+{% endblock title %}
+    </title>
 {% block content %}
-{% include 'home/messages.html' %}  
+{% include 'Home/messages.html' %}  
 {% url 'pressurebuildupanalysis:list_buildup_test_data' as list_all %}
 <div class="container d-flex justify-content-center mt-5" style="width: 50%;">
     <div class="col mt-0">

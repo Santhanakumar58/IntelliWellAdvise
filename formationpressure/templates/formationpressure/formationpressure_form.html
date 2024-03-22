@@ -1,5 +1,13 @@
-{% extends "home/oillayout.html" %}
-
+{% extends "Home/oillayout.html" %}
+<title>    
+    {% block title %}
+    {%if formationtop %}
+        Edit Formation Pressure
+    {% else %}
+        Create Formation Pressure
+    {% endif %}
+    {% endblock title %}        
+</title>
 {% block content %}
 
 <!-- BOOTSTRAP FORM -->

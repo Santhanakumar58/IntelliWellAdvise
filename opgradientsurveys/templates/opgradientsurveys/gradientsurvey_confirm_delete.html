@@ -1,4 +1,9 @@
-{% extends "home/oillayout.html" %}
+{% extends "Home/oillayout.html" %}
+<title>
+    {% block title %}
+        Delete Gradient Surveys
+    {% endblock title %}
+    </title>
 {% block content %}
 
 {% url 'opgradientsurveys:gradientsurveys' as list_all %}

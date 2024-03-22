@@ -1,13 +1,23 @@
-{% extends "home/fieldlayout.html" %}
-
+{% extends "Home/fieldlayout.html" %}
+<title>
+{% block title %}
+    
+    {% if fcdata %}
+    Update Fluid Composition
+    {% else %}
+    Create Fluid Composition
+    {% endif %}
+        
+{% endblock title %}
+    </title>
 {% block content %}
 {% if fcdata %}
-<h5 class="text-center text-success">Update Fluid Composition</h5> 
+<h4 class="text-center ">Update Fluid Composition</h4> 
 {% else %}  
-<h5 class="text-center text-success">Create Fluid Composition</h5>    
+<h4 class="text-center ">Create Fluid Composition</h4>    
 {% endif %} 
  
-<div class="container d-flex justify-content-center mt-0" style="width: 100%;">
+<div class="container d-flex justify-content-center mt-0" >
     <div class="col">
         <form action="" method="post">
             {% csrf_token %}                       

@@ -1,10 +1,15 @@
-{% extends "home/oillayout.html" %}
+{% extends "Home/oillayout.html" %}
+<title>
+{% block title %}
+Delete Reservoir Pressure Estimation
+{% endblock title %}
+</title>
 {% block content %}
 
 {% url 'respresestimation:list_respres' as list_all %}
-<div class="container d-flex justify-content-center mt-2" style="width: 50%;">
+<div class="container d-flex justify-content-center mt-2" >
     <div class="col mt-2 text-center">
-        <h5 class="mb-2 text-success">Delete Reservoir Pressure Estimation</h5>
+        <h4 class="mb-2 text-success">Delete Reservoir Pressure Estimation</h4>
         <p class="h5 text-danger">Are you sure you want to delete the Reservoir Pressure Estimation dated :</p>
         <h5 class="my-2">{{respres_data.analysis_Date }}</h5>
         <form action="" method="POST">

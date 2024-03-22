@@ -1,6 +1,10 @@
 <html lang="en">
-{% extends "home/oillayout.html" %}
-
+{% extends "Home/oillayout.html" %}
+<title>
+{% block title %}
+Pressure Buildup Analysis
+{% endblock title %}
+    </title>
 {% block content %}
 
 <form action="" enctype="multipart/form-data" method="POST">
@@ -38,7 +42,7 @@
                 </tr>
             {% endfor %}   
         </table> 
-        <div class="d-flex text-center">
+        <div class="container d-flex text-center" style="width: 10%;">
             <a href="{% url 'pressurebuildupanalysis:create_buildup_test_data' %}" class="d-block btn btn-primary btn-sm my-5">Add New</a>
         </div>             
     </div> 

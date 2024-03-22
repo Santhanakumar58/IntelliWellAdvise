@@ -1,10 +1,18 @@
-{% extends "home/oillayout.html" %}
-
+{% extends "Home/oillayout.html" %}
+<title>    
+    {% block title %}        
+        {% if opreservoirpressure %}
+            Update Reservoir Pressure Data
+        {% else %}
+            Create Reservoir Pressure Data
+        {% endif %}            
+    {% endblock title %}        
+</title>
 {% block content %}
 
 <!-- BOOTSTRAP FORM -->
 
-<div class="container d-flex justify-content-center" style="width: 25%;">
+<div class="container main d-flex justify-content-center">
     <div class="col">
         <form action="" method="post">
             {% csrf_token %}
@@ -16,7 +24,7 @@
             <table class="table">                
                 {{form.as_table}}
             </table>
-            <div class="container d-flex justify-content-center" style="width: 10%;">
+            <div class="container" style="width: 20%;">
                 <input type="submit" class="btn btn-primary btn-sm" value="Submit" style="margin-right: 30px; margin-top: 30px;">
                 <input type="submit" class="btn btn-danger btn-sm" style="margin-top: 30px;" onclick="window.location='{% url 'opreservoirpressure:list_reservoirPressure' %}'; return false;" value="Cancel">
             </div> 

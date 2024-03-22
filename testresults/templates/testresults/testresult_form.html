@@ -1,17 +1,25 @@
-{% extends "home/oillayout.html" %}
-
+{% extends "Home/oillayout.html" %}
+<title>    
+    {% block title %}
+        {%if result %}
+            Update Test Results
+        {%else %}
+            Create Test Results
+        {% endif%}        
+    {% endblock title %}        
+</title>
 {% block content %}
 
 <!-- BOOTSTRAP FORM -->
 {% url 'testresults:list_testresult' as list_all %}
-<div class="container d-flex justify-content-center mt-5" style="width: 70%;">
+<div class="container main d-flex justify-content-center mt-0" >
     <div class="col mt-0">
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {% if result %}
-                <h4>Update Test Results </h4> 
+                <h4 class="text-center">Update Test Results </h4> 
             {% else %}  
-                <h4>Create  Test  Results   </h4>    
+                <h4 class="text-center">Create  Test  Results   </h4>    
             {% endif %}      
             <table class="table">
                 {{form.as_table}}

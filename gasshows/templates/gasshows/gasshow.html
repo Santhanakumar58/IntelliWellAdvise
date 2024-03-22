@@ -1,12 +1,12 @@
 <html lang="en">
-{% extends "home/oillayout.html" %}
-
+{% extends "Home/oillayout.html" %}
+<title>    
+    {% block title %}
+        Gas Shows
+    {% endblock title %}        
+</title>
 {% block content %}
-{% for data in shows %}
-    {% for colname in data.column_set.all  %}
-        <p>{{colname}}</p>
-    {% endfor %}
-{% endfor %}
+
 <form action="" enctype="multipart/form-data" method="POST">
     <div class="container text-center">  
         {% include 'home/messages.html' %}   
@@ -35,7 +35,7 @@
                 </tr>
             </thead>
             <tbody>            
-                {% for data in formationtops %}
+                {% for data in shows %}
                 <tr class=text-center>
                     {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %} 
                     <td>{{data.formation}}</td>

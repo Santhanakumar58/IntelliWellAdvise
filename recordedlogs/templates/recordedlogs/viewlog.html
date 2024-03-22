@@ -1,15 +1,21 @@
-{% extends "home/oillayout.html" %}
-
+{% extends "Home/oillayout.html" %}
+<title>
+    
+    {% block title %}
+        View Log from data
+    {% endblock title %}
+        
+</title>
 {% block content %}
 
 <!-- BOOTSTRAP FORM -->
 {% url 'recordedlogs:list_recorded_logs' as list_all %}
-<div class="container justify-content-center mt-1" style="width: 100%;">
+<div class="container justify-content-center mt-1" >
     <div class="col mt-0">
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="row" style="align-content: center;"> 
-                <h4 class="text-center text-success">Log from Data</h4>
+                <h4 class="text-center">Log from Data</h4>
             </div> 
             <hr>
             <div class="container mt-0">  

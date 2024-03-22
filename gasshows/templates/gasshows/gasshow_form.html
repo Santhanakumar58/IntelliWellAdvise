@@ -1,5 +1,13 @@
-{% extends "home/oillayout.html" %}
-
+{% extends "Home/oillayout.html" %}
+<title>    
+    {% block title %}
+    {%if show %}
+        Update Gas Show
+    {% else %}
+        Create  Gas Show 
+    {% endif%}
+    {% endblock title %}        
+</title>
 {% block content %}
 
 <!-- BOOTSTRAP FORM -->
@@ -8,7 +16,7 @@
     <div class="col mt-0">
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {% if cutting %}
+            {% if show %}
                 <h4>Update Gas Show </h4> 
             {% else %}  
                 <h4>Create  Gas Show   </h4>    

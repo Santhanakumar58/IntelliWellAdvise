@@ -1,10 +1,15 @@
 <html lang="en">
-{% extends "home/fieldlayout.html" %}
+{% extends "Home/fieldlayout.html" %}
+<title>
+    {% block title %}
+    Reservoir Fluid Composition Details  
+    {% endblock title %}
+    </title>
 {% block title%}
-    <h4>Costant Composition Expansion PVT </h4>
+    Costant Composition Expansion PVT
 {% endblock%}
 {% block content %}
-<div class="container main d-flex mt-0 justify-content-center" style="width: 100%;">  
+<div class="container main d-flex mt-0 justify-content-center">  
     <div class="row">        
         <h4 class="text-center">Fluid Composition Details</h4>        
         <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.75em;">

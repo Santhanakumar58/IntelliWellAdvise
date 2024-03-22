@@ -1,4 +1,9 @@
-{% extends "home/oillayout.html" %}
+{% extends "Home/oillayout.html" %}
+<title>
+{% block title %}
+Delete Perforation 
+{% endblock title %}
+    </title>
 {% block content %}
 
 {% url 'perforations:list_perforation' as list_all %}

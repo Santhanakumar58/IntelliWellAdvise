@@ -1,5 +1,15 @@
-{% extends "home/oillayout.html" %}
-
+{% extends "Home/oillayout.html" %}
+<title>
+{% block title %}
+    
+    {% if perf %}
+    Update  Perforation Details
+    {% else %}
+    Create  Perforation Details
+    {% endif %}
+        
+{% endblock title %}
+    </title>
 {% block content %}
 
 <!-- BOOTSTRAP FORM -->

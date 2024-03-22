@@ -1,11 +1,13 @@
 <html lang="en">
-{% extends "home/oillayout.html" %}
-
+{% extends "Home/oillayout.html" %}
+<title>
+    {% block title %}
+    Reservoir Pressure Estimations
+    {% endblock title %}
+    </title>
 {% block content %}
 {% url 'respresestimation:list_respres' as list_all %}
 <form action="" enctype="multipart/form-data" method="POST">
-
-
     <div class="container main mt-1">   
         <div class="row"> 
             <h4 class="text-center">Reservoir Pressure Estimation </h4>

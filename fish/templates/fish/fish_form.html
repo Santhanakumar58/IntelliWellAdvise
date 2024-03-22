@@ -1,5 +1,13 @@
 {% extends "home/oillayout.html" %}
-
+<title>    
+    {% block titlt %}
+        {%if fish %}
+            Update Details
+        {% else %}
+            Create fish
+        {% endif %}
+    {% endblock titlt %}        
+</title>
 {% block content %}
 
 <!-- BOOTSTRAP FORM -->
@@ -9,9 +17,9 @@
         <form action="" method="post">
             {% csrf_token %}
             {% if fish %}
-            <h5 class="text-center text-success">Update Fish Details </h5> 
+            <h4 class="text-center">Update Fish Details </h4> 
             {% else %}  
-            <h5 class="text-center text-success">Create Fish Details</h5>    
+            <h4 class="text-center ">Create Fish Details</h4>    
             {% endif %}             
             <table class="table">
                 {{form.as_table}}
