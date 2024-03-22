@@ -1,11 +1,13 @@
 from asyncio.windows_events import NULL
 from decimal import Decimal
 from django.shortcuts import render, redirect
-#from .utils import get_plot, get_plot2, get_dummyplot, get_plot21
+from .utils import get_plot, get_plot2, get_dummyplot
+from casings.models import CasingModel, CasingSizeModel
 from selectedOilProducer.models import SelectedOilProducer
 from .forms import TubingModelForm
 from .models import TubingModel, TubingGradeModel, TubingSizeModel, TubingWeightModel
 from deviationsurveydata.models import Deviationsurveydata
+from IntelligentOilWell.custom_context_processors import linear_interpolation, tvdCalculation, eastCalculation
 import pandas as pd
 
 
@@ -13,62 +15,78 @@ import pandas as pd
 def list_tubings(request):
     selectedoilproducer = SelectedOilProducer.objects.first()  
     wellid1 = selectedoilproducer.wellid
-    tubings = TubingModel.objects.filter(wellid=wellid1).filter(wellid=wellid1).all().order_by('depth_From')  
-    
+    tubings = TubingModel.objects.filter(wellid=wellid1).filter(wellid=wellid1).all().order_by('depth_To')     
+    casings = CasingModel.objects.filter(wellid=wellid1).all().order_by('shoedepth') 
     tubingdf =pd.DataFrame()
+  
     width=0.0
     widths=[]
     depths=[]
     hangers=[]
     cements=[]
-    tubingdefs=[]
+    casingdefs=[]
     #print(len(tubings))
-    if tubings :
-        for tubing in tubings:
+    if casings :
+        for casing in casings:
             #print(tubing.tubingSize)
-            csize = TubingSizeModel.objects.get(tubingSize = tubing.tubingSize)  
-            if csize.tubingSize =="20":
+            csize = CasingSizeModel.objects.get(casingSize = casing.casingSize)  
+            if csize.casingSize =="20":
                 width =20
-            elif csize.tubingSize == "18 5/8":
+            elif csize.casingSize == "18 5/8":
                 width =18.625
-            elif csize.tubingSize == "16":
+            elif csize.casingSize == "16":
                 width =16
-            elif csize.tubingSize == "13 3/8":
+            elif csize.casingSize == "13 3/8":
                 width =13.375
-            elif csize.tubingSize == "11 3/4":
+            elif csize.casingSize == "11 3/4":
                 width =11/75
-            elif csize.tubingSize == "10 3/4":
+            elif csize.casingSize == "10 3/4":
                 width =10.75
-            elif csize.tubingSize == "9 5/8":
+            elif csize.casingSize == "9 5/8":
                 width =9.625
-            elif csize.tubingSize == "8 5/8":
+            elif csize.casingSize == "8 5/8":
                 width =8.625
-            elif csize.tubingSize == "7 3/4":
+            elif csize.casingSize == "7 3/4":
                 width =7.75
-            elif csize.tubingSize == "7 5/8":
+            elif csize.casingSize == "7 5/8":
                 width =7.5
-            elif csize.tubingSize == "7":
+            elif csize.casingSize == "7":
                 width =7.0
-            elif tubing.Tubing_Size == "6 5/8":
+            elif csize.casingSize == "6 5/8":
                 width =6.625
-            elif csize.tubingSize == "5":
+            elif csize.casingSize == "5":
                 width =5
-            elif csize.tubingSize == "4 1/2":
+            elif csize.casingSize == "4 1/2":
                 width =4.5
-            elif csize.tubingSize == "4":
+            elif csize.casingSize == "4":
                 width =4            
-            #depth = tubing.shoedepth
-            #hanger = tubing.hangerDepth
-            #cement = tubing.cementTop
-            #widths.append(width)
-            #depths.append(depth)
-            #hangers.append(hanger)
-            #cements.append(cement)
-            #tubingdef = str(tubing.tubingSize)+ "  ,  " + str(tubing.tubingWeight) + " ppf, "
-            #tubingdefs.append(tubingdef)
+            depth = casing.shoedepth
+            hanger = casing.hangerDepth
+            cement = casing.cementTop
+            widths.append(width)
+            depths.append(depth)
+            hangers.append(hanger)
+            cements.append(cement)
+            casingdef= str(casing.casingSize)+ "  ,  " + str(casing.casingWeight) + " ppf, "
+            casingdefs.append(casingdef)
     deviationdata = Deviationsurveydata.objects.filter(wellid=wellid1).all()   
-    
-    return render (request, 'tubings/tubing.html', {'tubings': tubings})
+    equipmentDepth=[]
+    equipmentName=[]
+    equipmentx =[]
+    east=0
+    for equip in tubings:
+        east = eastCalculation(deviationdata, equip.depth_To)
+        east1 = eastCalculation(deviationdata, equip.depth_To)
+        equipmentx.append(east)
+        equipmentDepth.append(equip.depth_To)
+        equipmentN= str(equip.tubingSize) + " inch  " + equip.tubingType + " at " +str(equip.depth_To) + " ft"
+        equipmentName.append(equipmentN)    
+    if deviationdata:
+         chart2= get_plot2(widths, depths, hangers, cements, deviationdata, casingdefs, tubings, equipmentx,equipmentDepth,equipmentName ) 
+    else:
+        chart2 = get_dummyplot()
+    #chart2 = get_plot2(widths, depths, hangers, cements, deviationdata, casingdefs, completion_datas, equipmentx,equipmentDepth,equipmentName )    
+    return render (request, 'tubings/tubing.html', {'tubings': tubings, 'chart2':chart2})
 
 def create_tubing(request):
    selectedwell = SelectedOilProducer.objects.first()
@@ -79,14 +97,27 @@ def create_tubing(request):
    if request.method == "POST":                  
         tubing.tubingType =  request.POST.get("tubingType")  
         tubingSize =  request.POST.get("tubingSize") 
-        weightid = request.POST.get("tubingWeight")  
-        print(weightid)     
+        weightid = request.POST.get("tubingWeight")            
         tubingweight = TubingWeightModel.objects.filter(id=weightid).first()  
         tubing.tubingID = tubingweight.tubingID       
         gradeid = request.POST.get("tubingGrade")       
         tubinggrade = TubingGradeModel.objects.filter(id=gradeid).first()   
         tubing.collapsePressure =tubinggrade.collapsePressure  
         tubing.burstPressure =tubinggrade.burstPressure 
+        tubing.depth_From =   request.POST.get("depth_From")
+        tubing.depth_To =   request.POST.get("depth_To")
+        deviation = Deviationsurveydata.objects.filter(wellid=selectedwell.wellid).all()  
+        for dev in deviation:
+            if dev.measuredDepth <= float(tubing.depth_To):
+                x1 = dev.measuredDepth
+                y1 =dev.tvd
+            else :
+                x2 = dev.measuredDepth
+                y2 =dev.tvd
+                angle = dev.angle
+                break
+        tubing.tvd_To = linear_interpolation(float(tubing.depth_To), float(x1),float(y1), float(x2),float(y2))
+        tubing.angle_To = angle       
         form = TubingModelForm(request.POST, instance=tubing)            
         if form.is_valid():
             form.save() 
@@ -104,6 +135,20 @@ def update_tubing(request, id):
         tubinggrade = TubingGradeModel.objects.filter(id=gradeid).first() 
         tubing.collapsePressure =tubinggrade.collapsePressure  
         tubing.burstPressure =tubinggrade.burstPressure 
+        tubing.depth_From =   request.POST.get("depth_From")
+        tubing.depth_To =   request.POST.get("depth_To")
+        deviation = Deviationsurveydata.objects.filter(wellid=tubing.wellid).all()  
+        for dev in deviation:
+            if dev.measuredDepth <= float(tubing.depth_To):
+                x1 = dev.measuredDepth
+                y1 =dev.tvd
+            else :
+                x2 = dev.measuredDepth
+                y2 =dev.tvd
+                angle = dev.angle
+                break        
+        tubing.tvd_To = linear_interpolation(float(tubing.depth_To), float(x1),float(y1), float(x2),float(y2))
+        tubing.angle_To = angle        
     form = TubingModelForm(request.POST or None , instance=tubing)   
     if form.is_valid():
         form.save()

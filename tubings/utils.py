@@ -50,10 +50,9 @@ def get_plot(x,y,z,xa, ya, x1,y1,z1, x2,y2,z2,xb,yb, x3,y3,z3, x4,y4,z4, xc, yc,
     graph = get_graph()
     return graph
 
-
-def get_plot2(widths, depths, hangers, cements, deviationdata, casingdefs):
+def get_plot2(widths, depths, hangers, cements, deviationdata, casingdefs, tubings, equipmentx,equipmentDepth,equipmentName ):
     plt.switch_backend('AGG')
-    plt.figure(figsize=(6,10))  
+    plt.figure(figsize=(8,25))  
     ax=plt.axes()
     for axis in ['top', 'bottom', 'left', 'right']:
         ax.spines[axis].set_linewidth(1.0)  # change width
@@ -69,9 +68,7 @@ def get_plot2(widths, depths, hangers, cements, deviationdata, casingdefs):
         xx=[]
         yy=[]
         xx1=[]      
-        xxx=[]
-        depth1=0.0
-        east=0.0
+        xxx=[]       
         lasteast = deviationdata.last() 
         maxdepth = 1000*(round(lasteast.measuredDepth+500)/1000)
         if lasteast.northSouth >5000:
@@ -91,17 +88,16 @@ def get_plot2(widths, depths, hangers, cements, deviationdata, casingdefs):
         
         for deviation in deviationdata:
             if deviation.measuredDepth <= depths[i]  and deviation.measuredDepth >= hangers[i] :
-                x.append(float(deviation.northSouth + widths[i]*ratio/2))               
+                x.append(float( widths[i]*ratio/5))               
                 y.append(float(-deviation.measuredDepth))
-                x1.append(float(deviation.northSouth - widths[i]*ratio/2)) 
-                xa=deviation.northSouth + widths[i]*ratio/2
+                x1.append(float(- widths[i]*ratio/5)) 
+                xa=20+widths[i]*ratio/5
                        
             if deviation.measuredDepth <= depths[i] and deviation.measuredDepth >= cements[i] :
-                xx.append(float(deviation.northSouth + widths[i]*(ratio)/2+1) )              
+                xx.append(float( widths[i]*(ratio)/5+1) )              
                 yy.append(float(-deviation.measuredDepth))
-                xx1.append(float(deviation.northSouth - widths[i]*(ratio)/2-1))  
-                xxx.append(float(deviation.northSouth + widths[i]*(ratio)/2-1) )
-        
+                xx1.append(float( - widths[i]*(ratio)/5-1))  
+                xxx.append(float( + widths[i]*(ratio)/5-1) )  
         x.append(x[-1])    
         y.append(float(-depths[i]))
         x1.append(x1[-1]) 
@@ -109,96 +105,77 @@ def get_plot2(widths, depths, hangers, cements, deviationdata, casingdefs):
         yy.append(float(-depths[i]))
         xx1.append(xx1[-1])  
         xxx.append(xxx[-1])     
-        plt.plot(x,y, color='red') 
-        #print(max(x), max(y))
+        plt.plot(x,y, color='red', linewidth=3)         
         labela =f"{depths[i]}"
         plt.annotate(casingdefs[i] + "  casing at - " + labela, (xa,-depths[i]), textcoords='offset points', xytext=(0,-15), ha='center', color="blue")
-        plt.plot(x1,y, color='red')
+        plt.plot(x1,y, color='red', linewidth=3)
         plt.plot(xx,yy, color='cyan', linewidth=3, alpha=0.5)
-        plt.plot(xx1,yy, color='cyan', linewidth=3, alpha=0.5)  
-        #plt.fill_between(x, y3, y4, color='grey', alpha='0.5')       
-        #plt.fill_between(xx,xx1,yy ,color='grey', alpha=0.5)
-    plt.xlabel("North Displacement" , color="blue")    
-    plt.ylabel("Measured Depth in ft" , color="blue")    
+        plt.plot(xx1,yy, color='cyan', linewidth=3, alpha=0.5) 
+    # Tubing
+      
+    for i in range(len(tubings)):
+        tx = []
+        tx1=[]
+        ty=[] 
+        tx.append(2.5) 
+        tx.append(2.5)  
+        if tubings[i].tubingType == "Tubing":
+            col = "gray"  
+        elif tubings[i].tubingType == "FlowCoupling" :
+            col="green"   
+        elif tubings[i].tubingType == "SCSSSV" :
+            col="red"  
+        elif tubings[i].tubingType == "PupJoint" :
+            col="orange"  
+        elif tubings[i].tubingType == "Packer" :
+            col="blue"  
+        else:
+            col="brown"
+
+        ty.append(float(-tubings[i].depth_From))
+        ty.append(float(-tubings[i].depth_To))
+        label = tubings[i].tubingType + " top at - " + str(tubings[i].depth_From)
+        tx1.append(-2.5)
+        tx1.append(-2.5)        
+        #tx.append(tx[-1])    
+        #ty.append(float(-tubings[i].depth_To))
+        #tx1.append(tx1[-1]) 
+        plt.plot(tx,ty,color=col, label=label, linewidth=3) 
+        plt.plot(tx1,ty, color= col, linewidth=3)
+        if tubings[i].tubingType == "Packer" :
+            tx=[]
+            ty=[]
+            tx.append(2.5)
+            tx.append(8.5)
+            tx.append(8.5)
+            tx.append(2.5)
+            ty.append(float(-tubings[i].depth_From))
+            ty.append(float(-tubings[i].depth_From))
+            ty.append(float(-tubings[i].depth_To))
+            ty.append(float(-tubings[i].depth_To))
+            plt.plot(tx,ty,color=col, linewidth=3)  
+            plt.fill_betweenx (ty, tx[0], tx[1], color="blue")
+            tx1=[]
+            ty1=[]
+            tx1.append(-2.5)
+            tx1.append(-8.5)
+            tx1.append(-8.5)
+            tx1.append(-2.5)
+            ty1.append(float(-tubings[i].depth_From))
+            ty1.append(float(-tubings[i].depth_From))
+            ty1.append(float(-tubings[i].depth_To))
+            ty1.append(float(-tubings[i].depth_To))
+            plt.plot(tx1,ty1,color=col, linewidth=3)
+            plt.fill_betweenx (ty1, tx1[0], tx1[1], color="blue")   
+
+    plt.xlabel("" , color="cyan")    
+    plt.ylabel("Measured Depth in ft" , color="cyan")  
+    plt.legend() 
     plt.tight_layout()
     plt.ylim(-(maxdepth+500), 0)
-    plt.grid(color = 'gray', linestyle = '--', linewidth = 0.5)  
-    
-    graph = get_graph()
-    return graph
+    plt.xlim(-60,60)
+    #plt.xlim(-maxeast, maxeast)
 
-
-def get_plot21(widths, depths, hangers, cements, deviationdata, casingdefs):
-    plt.switch_backend('AGG')
-    plt.figure(figsize=(6,10))  
-    ax=plt.axes()
-    for axis in ['top', 'bottom', 'left', 'right']:
-        ax.spines[axis].set_linewidth(1.0)  # change width
-        ax.spines[axis].set_color('green')    # change color  
-    widthsnew =[]
-    for i in range(len(widths)):
-        widthsnew.append(len(widths)*5-(i*3))
-    widths = widthsnew
-    for i in range(len(widths)):
-        x = []
-        x1=[]
-        y=[]
-        xx=[]
-        yy=[]
-        xx1=[]      
-        xxx=[]
-        depth1=0.0
-        east=0.0
-        lasteast = deviationdata.last() 
-        maxdepth = 1000*(round(lasteast.measuredDepth+500)/1000)
-        if lasteast.northSouth >5000:
-            ratio = 50
-        elif lasteast.northSouth >4000:
-            ratio = 40
-        elif lasteast.northSouth >3000:
-            ratio = 30
-        elif lasteast.northSouth >2000:
-            ratio = 20
-        elif lasteast.northSouth >1000:
-            ratio = 10
-        elif lasteast.northSouth >500:
-            ratio = 5
-        else :
-            ratio = 3       
-        
-        for deviation in deviationdata:
-            if deviation.measuredDepth <= depths[i]  and deviation.measuredDepth >= hangers[i] :
-                x.append(float(200 + widths[i]*ratio/2))               
-                y.append(float(-deviation.measuredDepth))
-                x1.append(float(200 - widths[i]*ratio/2)) 
-                xa=200 + widths[i]*ratio/2
-                       
-            if deviation.measuredDepth <= depths[i] and deviation.measuredDepth >= cements[i] :
-                xx.append(float(200 + widths[i]*(ratio)/2+1) )              
-                yy.append(float(-deviation.measuredDepth))
-                xx1.append(float(200 - widths[i]*(ratio)/2-1))  
-                xxx.append(float(200 + widths[i]*(ratio)/2-1) )
-        
-        x.append(x[-1])    
-        y.append(float(-depths[i]))
-        x1.append(x1[-1]) 
-        xx.append(xx[-1] )   
-        yy.append(float(-depths[i]))
-        xx1.append(xx1[-1])  
-        xxx.append(xxx[-1])     
-        plt.plot(x,y, color='red') 
-        #print(max(x), max(y))
-        labela =f"{depths[i]}"
-        plt.annotate(casingdefs[i] + "  casing at - " + labela, (xa,-depths[i]), textcoords='offset points', xytext=(0,-15), ha='center', color="blue")
-        plt.plot(x1,y, color='red')
-        plt.plot(xx,yy, color='cyan', linewidth=3, alpha=0.5)
-        plt.plot(xx1,yy, color='cyan', linewidth=3, alpha=0.5)  
-        #plt.fill_between(x, y3, y4, color='grey', alpha='0.5')       
-        #plt.fill_between(xx,xx1,yy ,color='grey', alpha=0.5)
-    plt.xlabel("North Displacement" , color="blue")    
-    plt.ylabel("Measured Depth in ft" , color="blue")    
-    plt.tight_layout()
-    plt.ylim(-(maxdepth+500), 0)
     plt.grid(color = 'gray', linestyle = '--', linewidth = 0.5)  
     
     graph = get_graph()

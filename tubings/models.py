@@ -70,6 +70,8 @@ class TubingModel(models.Model):
     material=models.CharField(max_length = 20,choices = Materials,default = '1', blank=True, null=True)
     depth_From=models.FloatField(blank=True, null=True)
     depth_To=models.FloatField(blank=True, null=True)
+    tvd_To = models.FloatField(blank=True, null=True)
+    angle_To =models.FloatField(blank=True, null=True)
     
    
     def __str__(self):

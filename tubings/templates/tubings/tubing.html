@@ -8,7 +8,7 @@
 {% block content %}
 
 <div class="container main ">
-    <h4 class="text-center">Tubing Diagram </h4>
+    <h4 class="text-center">Completion Diagram </h4>
     <div class="row">
         <div class="col text-center">
             {%  if chart21 %}
@@ -20,25 +20,22 @@
 </div>
 <div class="container main">  
     <div class="col">      
-        <h4 class="text-center">Tubings</h4>       
+        <h4 class="text-center">Completion Equipments </h4>       
         <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.75em; ">
             <thead >
                 <tr>
                     {% comment %} <th>#</th> {% endcomment %} 
                     <th class='tubingType'>Id</th> 
-                    <th class='tubingType'>Tubing Type</th>                                    
-                    <th class='tubingSize'>Tubing Size</th>
-                    <th class='tubingWeight'>Tubing Weight</th>
-                    <th class='tubingGrade'>Tubing Grade</th>
-                    <th class='tubingID'>Tubing ID (inch)</th>
-                    <th class='shoeDepth'>Shoe Depth (ft)</th> 
-                    <th class='floatCollar'>Float Collar (ft)</th>
-                    <th class='hangerDepth'>Hanger Depth (ft)</th>  
-                    <th class='cementTop'>Cement Top (ft)</th>                     
+                    <th class='tubingType'>Equipment</th>                                    
+                    <th class='tubingSize'>OD (Inch)</th>
+                    <th class='tubingWeight'>Weight (ppf)</th>
+                    <th class='tubingGrade'>Grade</th>
+                    <th class='tubingID'>ID (Inch)</th>
+                    <th class='shoeDepth'>Top at (ft)</th> 
+                    <th class='floatCollar'>Bottom at (ft)</th>
+                    <th class='hangerDepth'>Angle (deg)</th>                                       
                     <th>Update</th>
-                    <th>Delete</th>
-                    <th>LOT</th>
-                    <th>CBL</th>
+                    <th>Delete</th>  
                 </tr>
             </thead>
             <tbody>            
@@ -51,14 +48,11 @@
                     <td class="text-center">{{tubing.tubingWeight}}</td>                    
                     <td class="text-center">{{tubing.tubingGrade }}</td> 
                     <td class="text-center">{{tubing.tubingID}}</td>
-                    <td class="text-center">{{tubing.shoedepth}}</td> 
-                    <td class="text-center">{{tubing.floatCollar}}</td>
-                    <td class="text-center">{{tubing.hangerDepth}}</td>
-                    <td class="text-center">{{tubing.cementTop}}</td>                      
+                    <td class="text-center">{{tubing.depth_From}}</td> 
+                    <td class="text-center">{{tubing.depth_To}}</td>
+                    <td class="text-center">{{tubing.angle_To}}</td>
                     <td><a href="{% url 'tubings:update_tubing' tubing.id %} ">Update</a></td>
-                    <td><a href="{% url 'tubings:delete_tubing' tubing.id %}">Delete</a></td>
-                    <td><a href="{% url 'leakoffTests:list_leakoffTest' tubing.id %}">LOT</a></td>                        
-                    <td><a href="{% url 'cementbondlogs:list_cementbondlog' tubing.id %}">CBL</a></td>                      
+                    <td><a href="{% url 'tubings:delete_tubing' tubing.id %}">Delete</a></td>                                         
                   
                 </tr>
             {% endfor %}        
@@ -71,7 +65,7 @@
     </div>        
 </div>
 <div class="container main ">
-    <h4 class="text-center">Tubing Diagram </h4>
+    <h4 class="text-center">Completion Diagram Diagram </h4>
     <div class="row">
         <div class="col text-center">
             {%  if chart2 %}

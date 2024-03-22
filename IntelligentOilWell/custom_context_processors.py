@@ -41,6 +41,42 @@ def  PVTwells(request):
     pvt_wells = BlackoilPVT.objects.filter(fgid = fgi.fgid).all()  
     return  {'pvt_wells': pvt_wells}
 
+def tvdCalculation(deviation_datas, md):   
+    depth, depth1=0.0, 0.0
+    tvd, tvd1=0.0, 0.0
+    angle, angle1=0.0, 0.0
+    computedtvd, computedangle =0.0, 0.0
+    for data in deviation_datas:
+        if data.measuredDepth > md:
+            depth1 = data.measuredDepth
+            angle1 = data.angle
+            tvd1 = data.tvd          
+            computedtvd = tvd + ((tvd1 - tvd) * (md - depth) / (depth1 - depth))
+            computedangle = angle + ((angle1 - angle) * (md - depth) / (depth1 - depth))                                     
+            break
+        else:
+            depth = data.measuredDepth
+            angle = data.angle
+            tvd = data.tvd           
+    return computedtvd, computedangle
+
+def eastCalculation(deviation_datas, md):   
+    depth, depth1=0.0, 0.0
+    east=0.0
+    computedeast=0 
+    for data in deviation_datas:
+        if data.measuredDepth > md:
+            depth1 = data.measuredDepth
+            east1 = data.eastWest                   
+            computedeast = east + ((east1 - east) * (md - depth) / (depth1 - depth))                                               
+            break
+        else:
+            depth = data.measuredDepth
+            east = data.eastWest                  
+    return computedeast
+
+
+
 def Hagedorn_brown_holdup(p, vsl, vsg, rho_l, mu_l, d, sigma):
     Nvl = round(1.938 * vsl * (rho_l / sigma)**0.25, 3)
     Nvg = round(1.938 * vsg * (rho_l / sigma)**0.25, 3)
@@ -480,7 +516,7 @@ def correct(Tsep, Psep, gas_grav, oil_grav):
 
     return  gas_grav * (1 + 5.912 * 10 ** -5 * oil_grav * Tsep * math.log10(Psep / 114.7) / math.log(10))
 
-def  sol_gor(T, P, Tsep, Psep, Pb, gas_grav, oil_grav):
+def sol_gor(T, P, Tsep, Psep, Pb, gas_grav, oil_grav):
     """Function to Calculate Solution Gas-Oil Ratio in scf/stb"""
     #T          temperature, °F
     #P          pressure, psia
@@ -536,7 +572,7 @@ def oil_fvf(T, P, Tsep, Psep, Pb, Rs, gas_grav, oil_grav):
     
     return  Bo
 
-def  oil_comp(T, P, Tsep, Psep, Rs, gas_grav, oil_grav):
+def oil_comp(T, P, Tsep, Psep, Rs, gas_grav, oil_grav):
     """Function to Calculate Oil Isothermal Compressibility in 1/psi"""
     #'T          temperature, °F
     #'P          pressure, psia
@@ -640,7 +676,7 @@ def zfact(Tr, Pr):
     zfact = a + (1 - a) * math.exp(-b) + c * Pr **d
     return zfact
 
-def  gvisc(P, T, Z, grav):
+def gvisc(P, T, Z, grav):
     """Function to Calculate Gas Viscosity in cp"""
     #P          pressure, psia
     #T          temperature, °R
@@ -656,7 +692,7 @@ def  gvisc(P, T, Z, grav):
  
     return K * math.exp(x * rho ** Y) / 10000
 
-def  gas_fvf(P, T, grav):
+def gas_fvf(P, T, grav):
     """Function to Calculate Gas Formation Volume Factor in ft_/scf"""
     #P          pressure, psia
     #T          temperature,°F
