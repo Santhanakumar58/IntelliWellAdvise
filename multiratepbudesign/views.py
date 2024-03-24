@@ -11,6 +11,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 import matplotlib.patches as mpl_patches 
+from IntelligentOilWell.custom_context_processors import time_finite_acting , simulate_multirate_test
+from .utils import multirate_constant_rate_design_plot
 
 from pathlib import Path
 import glob
@@ -54,81 +56,23 @@ def delete_multirate_test_pbu_design(request, id):
        return redirect ('multiratepbudesign:list_multirate_test_pbu_design')
    return render (request, 'multiratepbudesign/multirate_test_pbu_design_confirm_delete.html', {'pbu_design':pbu_design})
  
-def Calculate_MultiRate_Test(request, id):
-    pbu_design= MultiRatePBUdesign.objects.get(id=id) 
-    path =pbu_design.file_Name_csv  
-    #filename = path.name
-    #path1 = 'C:/SanthanaKumar/PythonWellAdvisorNew/WellAdvisorPython/media/'
-    #path1 =(r"C:/Intelliwell/intelligentwell/media/")
-    #pa = os.path.join(path1, filename)   
-    #q=pbu_design.liquid_Rate  
-    #your_guess = pbu_design.guess_Value    
-    df = pd.read_csv(path)   
-    df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
-    df1=df.drop(index=0)
-    t=df1['t'].values   
-    p=df1['p'].values  
+def mulitirate_test_pbu_design(request, id):
+    pbu_design= MultiRatePBUdesign.objects.get(id=id)  
     Bo = pbu_design.oil_FVF_Bo
     mu_oil = pbu_design.oil_Viscosity_cP
     h = pbu_design.layer_Thickness_ft
     poro = pbu_design.layer_Porosity_fraction
+    perm = pbu_design.layer_Permeability_md
     ct = pbu_design.total_Compressibility
     rw = pbu_design.wellbore_Radius_ft
+    re = pbu_design.drainage_radius_ft
     pi = pbu_design.initial_Res_Pres_psi  
+    t_step = 0.1
 
-    t_change = np.array([pbu_design.time1, pbu_design.time2, pbu_design.time3])
-    q_change = np.array([pbu_design.rate1, pbu_design.rate2, pbu_design.rate3])
-
-    def permeability(Bo, mu_oil, h, m):   
-        return (162.6 * Bo * mu_oil) / (m * h)
-
-    def skin_factor(k, poro, mu_oil, ct, rw, c, m):
-        """
-        Calculate skin factor from pbu_design plot
-        Note: k is the calculated permeability
-        """
-        return 1.1513 * ((c / m) - np.log10(k / (poro * mu_oil * ct * (rw**2))) + 3.2275)
-
-    def linear(x, a, b):
-        return a * x + b
-  
-    # calculate delta rate (Δq)
-    t_change = np.append(0, t_change)
-    delta_q = [j-i for i, j in zip(q_change[:-1], q_change[1:])]
-    delta_q = np.concatenate((np.array([0, q_change[0]]), delta_q))
-
-    # create rate step profile
-    time_arr = []
-    rate_arr = []
-    x = []
-    y = []
-
-    # " Calculate the x-axis and y-axis "
-
-    for i in range(len(t)):  
-      for j in range(0, len(t_change)-1):
-          if t[i] > t_change[j] and t[i] <= t_change[j+1]:
-              # produce t and q profile
-              time_arr.append(t[i])
-              rate_arr.append(q_change[j])
-
-              # calculate Fp as x-axis
-              tn = np.log10(t[i] - t_change[:j+1])
-              delta_qn = delta_q[1:j+2] / q_change[j]
-              tn_mult_delta_qn = tn * delta_qn
-              Fp = np.sum(tn_mult_delta_qn)
-              x.append(Fp)
-
-              # calculate ((pi - pwf) / qn) as y-axis
-              y_ = (pi-p[i]) / q_change[j]
-              y.append(y_)
-
-    # regression to the pbu_design plot
-    popt, pcov = curve_fit(linear, x, y)
-    m, c = popt[0], popt[1]
-    # calculate permeability
-    k = permeability(Bo, mu_oil, h, m)
-    # calculate skin factor
-    s = skin_factor(k, poro, mu_oil, ct, rw, c, m)
-    # chart =multiratetestplot(t,p, x,y, c, m, k,s, time_arr)
-    return 
+    t_change = np.array([pbu_design.time1, pbu_design.time2, pbu_design.time3,pbu_design.time4, pbu_design.time5, pbu_design.time6])
+    q_change = np.array([pbu_design.rate1, pbu_design.rate2, pbu_design.rate3, pbu_design.rate4, pbu_design.rate5, pbu_design.rate6])
+    #t_finite_acting = time_finite_acting(perm, poro, mu_oil, ct, rw, re)
+    t_finite_acting, t,q, t_end,pwf = simulate_multirate_test(pi, t_step, t_change, q_change,re, rw, perm, poro, mu_oil, ct, Bo, h)
+    chart1 = multirate_constant_rate_design_plot(t_finite_acting,t,q, t_end, pwf)  
+    
+    return render (request, 'multiratepbudesign/multirate_design.html', {'chart1': chart1, 'pbu_design':pbu_design}) 

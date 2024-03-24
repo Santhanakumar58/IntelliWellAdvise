@@ -1214,36 +1214,34 @@ def simulate_multirate_test(p_initial, t_step, t_change, q_change,
   t, q, pwf = np.append(0, t), np.append(q_change[0], q), np.append(p_initial, pwf)
 
   # plot well rate and flowing pressure profile
-  plt.figure(figsize=(17,5))
+  #plt.figure(figsize=(17,5))
 
   ## output the finite-acting time into the plot
-  labels = []
-  labels.append("Time @ Finite-acting = {} hours".format(np.round(t_finite_acting, 2)))
-
-  handles = [mpl_patches.Rectangle((0, 0), 1, 1, fc="white", ec="white", 
-                                  lw=0, alpha=0)] * 1
+  #labels = []
+  #labels.append("Time @ Finite-acting = {} hours".format(np.round(t_finite_acting, 2)))
+#
+  #handles = [mpl_patches.Rectangle((0, 0), 1, 1, fc="white", ec="white", lw=0, alpha=0)] * 1
 
   ## plot rate
-  plt.subplot(1,2,1)
-  plt.step(t, q, color='blue')
-  plt.title('Well Rate Profile', size=20, pad=15)
-  plt.xlim(0, t_end)
-  plt.ylim(ymax=max(q)+200)
-  plt.xlabel('Time (hours)'); plt.ylabel('Rate (STB/D)')
-
-  plt.legend(handles, labels, loc='upper right', fontsize=12, 
-              fancybox=True, framealpha=0.7, 
-              handlelength=0, handletextpad=0) 
+  #plt.subplot(1,2,1)
+  #plt.step(t, q, color='blue')
+  #plt.title('Well Rate Profile', size=20, pad=15)
+  #plt.xlim(0, t_end)
+  #plt.ylim(ymax=max(q)+200)
+  #plt.xlabel('Time (hours)'); plt.ylabel('Rate (STB/D)')
+#
+  #plt.legend(handles, labels, loc='upper right', fontsize=12, fancybox=True, framealpha=0.7, handlelength=0, handletextpad=0) 
 
   ## plot BHFP
-  plt.subplot(1,2,2)
+  #plt.subplot(1,2,2)
   # t = np.arange(len(pwf))
-  plt.plot(t, pwf, color='red')
-  plt.title('Well Flowing Pressure Profile', size=20, pad=15)
-  plt.xlim(0, t_end)
-  plt.xlabel('Time (hours)'); plt.ylabel('BHFP (psia)')
-
-  plt.show()
+  #plt.plot(t, pwf, color='red')
+  #plt.title('Well Flowing Pressure Profile', size=20, pad=15)
+  #plt.xlim(0, t_end)
+  #plt.xlabel('Time (hours)'); plt.ylabel('BHFP (psia)')
+#
+  #plt.show()
+  return t_finite_acting,t,q, t_end, pwf
   
 def simulate_multipressure_test(p_initial, t_step, t_change, p_change,
                                 re, rw, perm, poro, mu, ct, Bo, h):

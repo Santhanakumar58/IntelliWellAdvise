@@ -3,9 +3,9 @@
 {% block title %}
     
     {% if drawdown %}
-        Update Multi-Rate Drawdown Test  Data
+        Update Multi-Rate PBU Test Design
     {% else %}
-        Create Multi-Rate Drawdown Test  Data
+        Create Multi-Rate PBU Test Design
     {% endif %}  
 {% endblock title %}
 </title>
@@ -19,9 +19,9 @@
         <form action="" method="post" enctype="multipart/form-pbu_design">
             {% csrf_token %}
             {% if drawdown %}
-                <h4 class="text-center">Update Multi-Rate Drawdown Test Data</h4> 
+                <h4 class="text-center">Update Multi-Rate PBU Test Design</h4> 
             {% else %}  
-                <h4 class="text-center">Create Multi-Rate Drawdown Test Data</h4>    
+                <h4 class="text-center">Create Multi-Rate PBU Test Design</h4>    
             {% endif %}      
             <table class="table">
                 {{form.as_table}}

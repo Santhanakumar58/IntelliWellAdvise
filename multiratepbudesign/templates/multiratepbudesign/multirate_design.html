@@ -1,0 +1,26 @@
+{% extends "Home/oillayout.html" %}
+<title>
+    {% block title %}
+        Multi-Rate Constant Rate Design 
+    {% endblock title %}
+    </title>
+{% block content %}
+{% include 'home/messages.html' %}  
+{% url 'multiratepbudesign:list_multirate_test_pbu_design' as list_all %}
+<div class="container main d-flex justify-content-center mt-1">
+    <div class="col mt-0">
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h4 class="text-center">Multi-Rate Constant Rate Design  </h4> 
+            <div class="container text-center">  
+                {%  if chart1 %}
+                    <img src="data:image/png;base64, {{chart1|safe}}">
+                {% endif %}   
+            </div>  
+            <div class="container main d-flex justify-content-center" style="width: 30%;">
+                <a href="{% url 'multiratepbudesign:list_multirate_test_pbu_design' %}" class="d-block btn btn-primary btn-sm my-2">Back to Multi-Rate Test</a>
+            </div>          
+        </form> 
+    </div>
+</div>
+{% endblock  %}
