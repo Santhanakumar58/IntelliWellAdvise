@@ -112,6 +112,7 @@ INSTALLED_APPS = [
     'constantpressuredrawdowntestanalysis.apps.ConstantpressuredrawdowntestanalysisConfig', 
     'multiratedrawdowntestanalysis.apps.MultiratedrawdowntestanalysisConfig', 
     'builduptestdesign.apps.BuilduptestdesignConfig', 
+    'multiratepbudesign.apps.MultiratepbudesignConfig',
     'pressuredropcalculation.apps.PressuredropcalculationConfig', 
 
     # Production

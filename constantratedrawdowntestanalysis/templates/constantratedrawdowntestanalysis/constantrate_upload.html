@@ -1,15 +1,18 @@
-{% extends "home/oillayout.html" %}
-
+{% extends "Home/oillayout.html" %}
+<title>
+    {% block title %}
+        Constant Rate Drawdown Test Analysis
+    {% endblock title %}
+    </title>
 {% block content %}
 {% include 'home/messages.html' %}  
 {% url 'constantratedrawdowntestanalysis:list_const_rate_drawdown_test_data' as list_all %}
 
-<div class="container d-flex justify-content-center mt-1" style="width: 70%;">
+<div class="container main d-flex justify-content-center mt-1">
     <div class="col mt-0">
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            <h5 class="text-center text-success text-bold">Drawdown Test Analysis- Constant Rate </h5> 
-            <hr>
+            <h4 class="text-center">Constant Rate Drawdown Test Analysis </h4> 
             <div class="text-center">  
                 {%  if chart %}
                     <img src="data:image/png;base64, {{chart|safe}}">
@@ -18,13 +21,13 @@
             <table class="table">
                 {{form.as_table}}
             </table>  
-            <h6  class="text-center text-success">** Guess Value is the nth data point where the deviation from straight line occurs</h6>  
-            <h6  class="text-center text-success">** Change the Guess Value to match the data</h6>             
-            <div class="container d-flex justify-content-center" style="width: 30%;">
+            <h6  class="text-center">** Guess Value is the nth data point where the deviation from straight line occurs</h6>  
+            <h6  class="text-center ">** Change the Guess Value to match the data</h6>             
+            <div class="container d-flex justify-content-center" >
                 <input type="submit" class="btn btn-primary" value="Save" style="margin-right: 30px; margin-top: 30px;">
                 <input type="submit" class="btn btn-danger" style="margin-top: 30px;" onclick="window.location='{{list_all}}'; return false;" value="Cancel">               
             </div> 
-            <div class="container d-flex justify-content-center" style="width: 30%;">
+            <div class="container main d-flex justify-content-center" style="width: 70%;">
                 <a href="{% url 'constantratedrawdowntestanalysis:list_const_rate_drawdown_test_data' %}" class="d-block btn btn-primary btn-sm my-3">Back to Constant Rate Test </a>
             </div> 
         </form> 

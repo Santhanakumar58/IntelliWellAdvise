@@ -94,7 +94,7 @@ def get_totalplot1(p_data):
     plt.rcParams["figure.autolayout"] = True
     p_data= p_data.iloc[::20]
     x = p_data.index
-    y =p_data['gauge_Pressure']
+    y =p_data['p']
     click_count=0
     def onclick(event):
         click_count=+1

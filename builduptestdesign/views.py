@@ -19,9 +19,10 @@ def list_pbu_test_design(request):
         k=100
         h=50
         mu=0.45
-        ct = 0.000065
+        ct = 0.0065
+       
     t, p_true, p_measured = design_buildup_test(Q, k, h, mu, ct)
-    print(t,p_true, p_measured)
+    
     m, b = horner_method(p_measured, t)
     print ("m=", m , "b=", b )
     chart = get_plot(t, p_measured,m,b)

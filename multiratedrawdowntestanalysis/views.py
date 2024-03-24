@@ -77,28 +77,28 @@ def upload_Multi_Rate_test_data(request, id):
  
 def Calculate_MultiRate_Test(request, id):
     drawdown= MultiRateDrawdowntest.objects.get(id=id) 
-    path =drawdown.file_Name  
-    filename = path.name
+    path =drawdown.file_Name_csv  
+    #filename = path.name
     #path1 = 'C:/SanthanaKumar/PythonWellAdvisorNew/WellAdvisorPython/media/'
-    path1 =(r"C:/Intelliwell/intelligentwell/media/")
-    pa = os.path.join(path1, filename)   
+    #path1 =(r"C:/Intelliwell/intelligentwell/media/")
+    #pa = os.path.join(path1, filename)   
     #q=drawdown.liquid_Rate  
     #your_guess = drawdown.guess_Value    
-    df = pd.read_csv(pa)   
+    df = pd.read_csv(path)   
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
     df1=df.drop(index=0)
     t=df1['t'].values   
     p=df1['p'].values  
-    Bo = drawdown.oil_FVF
-    mu_oil = drawdown.oil_Viscosity
-    h = drawdown.layer_Thickness
-    poro = drawdown.layer_Porosity
+    Bo = drawdown.oil_FVF_Bo
+    mu_oil = drawdown.oil_Viscosity_cP
+    h = drawdown.layer_Thickness_ft
+    poro = drawdown.layer_Porosity_fraction
     ct = drawdown.total_Compressibility
-    rw = drawdown.wellbore_Radius
-    pi = drawdown.initial_Res_Pres  
+    rw = drawdown.wellbore_Radius_ft
+    pi = drawdown.initial_Res_Pres_psi  
 
-    t_change = np.array([10, 20, 30])
-    q_change = np.array([1000, 1500, 300])
+    t_change = np.array([drawdown.time1, drawdown.time2, drawdown.time3])
+    q_change = np.array([drawdown.rate1, drawdown.rate2, drawdown.rate3])
 
     def permeability(Bo, mu_oil, h, m):   
         return (162.6 * Bo * mu_oil) / (m * h)

@@ -94,6 +94,7 @@ urlpatterns = [
     path("multiratedrawdowntestanalysis", include ("multiratedrawdowntestanalysis.urls")),
     path("constantpressuredrawdowntestanalysis", include ("constantpressuredrawdowntestanalysis.urls")),
     path("builduptestdesign", include ("builduptestdesign.urls")),
+    path("multiratepbudesign", include ("multiratepbudesign.urls")),
     path("pressuredropcalculation", include ("pressuredropcalculation.urls")),
 
 

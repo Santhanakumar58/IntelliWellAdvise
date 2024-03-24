@@ -1,11 +1,18 @@
-{% extends "home/oillayout.html" %}
+{% extends "Home/oillayout.html" %}
+<title>
+    
+    {% block title %}
+        Delete Constant Rate Drawdown Test Analysis Data
+    {% endblock title %}
+        
+</title>
 {% block content %}
 
 {% url 'drawdowntestanalysis:list_drawdown_test_data' as list_all %}
 
 <div class="container d-flex justify-content-center mt-2" style="width: 50%;">
     <div class="col mt-2 text-center">
-        <h5 class="mb-2">Delete Drawdown Test Analysis</h5>
+        <h4 class="mb-2">Delete Drawdown Test Analysis</h4>
         <p class="h5 text-danger">Are you sure you want to delete the Drawdown test Dated :</p>
         <h5 class="my-2">{{drawdown.survey_Date }}</h5>
         <form action="" method="POST">

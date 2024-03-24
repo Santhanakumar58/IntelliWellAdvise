@@ -87,16 +87,17 @@ def upload_buildup_test_data(request, id):
         form = PressureBuildupDataUploadForm(request.POST or None, instance=buildup)  
         return render (request, 'pressurebuildupanalysis/buildup_test_data_upload.html', { 'chart':chart})
 
-def Calculate_Constant_Rate_Buildup_test(id): 
+def Calculate_Constant_Rate_Buildup_test(request,id): 
     buildup= PressureBuildupModel.objects.get(id=id) 
     path =buildup.dataFile  
-    filename = path.name
-    path1 = 'C:/SanthanaKumar/PythonWellAdvisorNew/WellAdvisorPython/media/'
-    pa = os.path.join(path1, filename)   
+   # filename = path.name
+    #path1 = 'C:/SanthanaKumar/PythonWellAdvisorNew/WellAdvisorPython/media/'
+    #pa = os.path.join(path1, filename)   
     q=buildup.oil_Prod_Rate  
     your_guess=0
     your_guess = buildup.guess_Value    
-    df = pd.read_csv(pa)   
+    df = pd.read_csv(path)
+    print(df.head)
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
     df1=df.drop(index=0)
     t=df1['t'].values
@@ -117,9 +118,9 @@ def Calculate_Constant_Rate_Buildup_test(id):
     def linear(x, a, b):
         return a * x + b 
     
-    delta_t = (t - t[0])
-    x = (t_since_shutin + delta_t) / delta_t
-
+    delta_t = ((t) -(t[0]))
+    print(delta_t)    
+    x = (float(t_since_shutin) + delta_t) / delta_t    
     x_crop1, y_crop1 = np.log10(x[-your_guess:]), p[-your_guess:]
     popt, pcov = curve_fit(linear, x_crop1, y_crop1)
     m1, c1 = popt[0], popt[1]
@@ -138,11 +139,11 @@ def Calculate_Constant_Rate_Buildup_test(id):
 def pbu_Analysis(request, id):
     buildup = PressureBuildupModel.objects.get(id=id) 
     path =buildup.dataFile  
-    filename = path.name
-    path1 = 'C:/SanthanaKumar/PythonWellAdvisorNew/WellAdvisorPython/media/'
-    pa = os.path.join(path1, filename)  
-    p_data = pd.read_csv(pa)    
-    p_data["DateTime"] = pd.to_datetime(p_data["survey_Date"] + " " + p_data["time"]) 
+    #filename = path.name
+    #path1 = 'C:/SanthanaKumar/PythonWellAdvisorNew/WellAdvisorPython/media/'
+    #pa = os.path.join(path1, filename)  
+    p_data = pd.read_csv(path)    
+    #["DateTime"] = pd.to_datetime(p_data["survey_Date"] + " " + p_data["time"]) 
     print(p_data.head())  
     params_dict = {"bo": buildup.oil_FVF, "muo": buildup.mu_oil, "qo": buildup.oil_Prod_Rate, "h": buildup.layer_Thickness, "PHIE": buildup.layer_Porosity, "Pi": 5410, "ct": buildup.total_Compressibility, "rw": buildup.wellbore_Radius} 
     xy= p_data.iloc[::20]

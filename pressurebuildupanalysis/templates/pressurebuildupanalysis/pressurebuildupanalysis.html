@@ -36,15 +36,15 @@ Pressure Buildup Analysis
                     <td class="text-center">{{data.total_Compressibility}}</td>  
                     <td class="text-center">{{data.wellbore_Radius}}</td> 
                     <td class="text-center">{{data.pvt_Well}}</td> 
-                    <td><a href="{% url 'pressurebuildupanalysis:pbu_Analysis' data.id %} ">{{data.dataFile}}</a></td>
+                    <td><a href="{% url 'pressurebuildupanalysis:Calculate_Constant_Rate_Buildup_test' data.id %} ">Analysis</a></td>
                     <td><a href="{% url 'pressurebuildupanalysis:update_buildup_test_data' data.id %} ">Edit</a></td>
                     <td><a href="{% url 'pressurebuildupanalysis:delete_buildup_test_data' data.id %}">Delete</a></td>
                 </tr>
             {% endfor %}   
         </table> 
-        <div class="container d-flex text-center" style="width: 10%;">
-            <a href="{% url 'pressurebuildupanalysis:create_buildup_test_data' %}" class="d-block btn btn-primary btn-sm my-5">Add New</a>
-        </div>             
+    <div class="container main" style="width: 15%;">
+        <a href="{% url 'pressurebuildupanalysis:create_buildup_test_data' %}" class="d-block btn btn-primary btn-sm my-5">Add New</a>
+    </div>             
     </div> 
 </form>
 {% endblock content %}

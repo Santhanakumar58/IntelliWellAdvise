@@ -63,7 +63,8 @@ def upload_Conatant_Rate_test_data(request, id):
     form = ConstantRateDrawdownTestUploadForm(request.POST or None, instance=drawdown)     
     if request.method =="POST": 
         drawdown.liquid_Rate = request.POST['liquid_Rate']
-        drawdown.guess_Value =  request.POST['guess_Value']       
+        drawdown.guess_Value =  request.POST['guess_Value']
+        
         form = ConstantRateDrawdownTestUploadForm(request.POST, request.FILES, instance=drawdown)        
         if form.is_valid():
             form.save()  
@@ -107,12 +108,12 @@ def Calculate_Constant_Rate_test_data(request, id):
     path =drawdown.file_Name  
     filename = path.name
     #path1 = 'C:/SanthanaKumar/PythonWellAdvisorNew/WellAdvisorPython/media/'
-    path1 =(r"C:/Intelliwell/intelligentwell/media/")
-    pa = os.path.join(path1, filename)   
+    #path1 =(r"C:/Intelliwell/intelligentwell/media/")
+    #pa = os.path.join(path1, filename)   
     q=drawdown.liquid_Rate  
     your_guess=0
     your_guess = drawdown.guess_Value    
-    df = pd.read_csv(pa)   
+    df = pd.read_csv(path)   
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]
     df1=df.drop(index=0)
     t=df1['t'].values

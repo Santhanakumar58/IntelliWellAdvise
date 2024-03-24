@@ -1,13 +1,16 @@
-{% extends "home/oillayout.html" %}
+{% extends "Home/oillayout.html" %}
+<title>
+{% block title %}
+    Delete PBU Test Design
+{% endblock title %}
+    </title>
 {% block content %}
 
 {% url 'builduptestdesign:list_pbu_test_design' as list_all %}
 
 <div class="container d-flex justify-content-center mt-5" style="width: 50%;">
     <div class="col text-center">
-        <hr>
-        <h5 class="text-center text-success">Delete PBU Test Design</h5>
-        <hr>
+        <h4 class="text-center">Delete PBU Test Design</h4>
         <p class="h5 text-danger">Are you sure you want to delete the design Dated:</p>
         <h5 class="text-center">{{ design.design_Date }}</h5>
         <form action="" method="post" enctype="multipart/form-data">

@@ -75,11 +75,11 @@ def upload_Constant_Pressure_test_data(request, id):
 def Calculate_Constant_Pressure_Test(request, id):
     drawdown= ConstantPressureDrawdowntest.objects.get(id=id) 
     path =drawdown.file_Name  
-    filename = path.name
-    path1 =(r"C:/Intelliwell/intelligentwell/media/")
+    #filename = path.name
+    #path1 =(r"C:/Intelliwell/intelligentwell/media/")
     #path1 = 'C:/SanthanaKumar/PythonWellAdvisorNew/WellAdvisorPython/media/'
-    pa = os.path.join(path1, filename) 
-    df = pd.read_csv(pa)   
+    #pa = os.path.join(path1, filename) 
+    df = pd.read_csv(path)   
     df = df.loc[:, ~df.columns.str.contains('^Unnamed')]   
     t=df['t'].values   
     q=df['q'].values  

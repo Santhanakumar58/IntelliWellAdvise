@@ -1,5 +1,9 @@
-{% extends "home/oillayout.html" %}
-
+{% extends "Home/oillayout.html" %}
+<title>
+{% block title %}
+PBU Test Design<
+{% endblock title %}
+    </title>
 {% block content %}
 
 <div class="container main d-flex" style="width: 100%;">  
@@ -35,10 +39,8 @@
             {% endfor %}        
             </tbody>
         </table>   
-        <br>
-        <br> 
-        <div class="d-flex justify-content-center">
-            <a href="{% url 'builduptestdesign:create_pbu_test_design' %}" class="d-block btn btn-primary my-5">Add New</a>
+        <div class="d-flex justify-content-center" style="width: 10%;">
+            <a href="{% url 'builduptestdesign:create_pbu_test_design' %}" class="d-block btn btn-primary my-2">Add New</a>
         </div>
     </div>        
 </div>

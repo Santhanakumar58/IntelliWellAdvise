@@ -1,13 +1,17 @@
 <html lang="en">
-{% extends "home/oillayout.html" %}
-
+{% extends "Home/oillayout.html" %}
+<title>
+{% block title %}
+    Multi-Rate Drawdown Test Data 
+{% endblock title %}
+</title>
 {% block content %}
 
 <form action="" enctype="multipart/form-data" method="POST">
 
     <div class="container main mt-1">   
         <div class="row"> 
-            <h4 class="text-center">Drawdown Test Analysis - Multi-Rate </h4>
+            <h4 class="text-center">Multi-Rate Drawdown Test Data </h4>
         </div>  
         <table class="table table-striped table-bordered" style="border: 2px; border-width:2px; font-size:0.75em;">
             <thead >
@@ -28,13 +32,13 @@
                 {% for data in drawdown_test_datas %}
                 <tr class=text-center>
                     {% comment %} <th scope="row">{{forloop.counter}}</th> {% endcomment %}                     
-                    <td>{{data.layer_Porosity}}</td>                    
-                    <td>{{data.layer_Thickness}}</td>
-                    <td>{{data.wellbore_Radius}}</td>
+                    <td>{{data.layer_Porosity_fraction}}</td>                    
+                    <td>{{data.layer_Thickness_ft}}</td>
+                    <td>{{data.wellbore_Radius_ft}}</td>
                     <td>{{data.total_Compressibility}}</td>
-                    <td>{{data.initial_Res_Pres}}</td>                    
-                    <td>{{data.oil_Viscosity}}</td> 
-                    <td>{{data.oil_FVF}}</td> 
+                    <td>{{data.initial_Res_Pres_psi}}</td>                    
+                    <td>{{data.oil_Viscosity_cP}}</td> 
+                    <td>{{data.oil_FVF_Bo}}</td> 
                     <td><a href="{% url 'multiratedrawdowntestanalysis:upload_Multi_Rate_test_data' data.id %}" >Analysis</a></td>                                                 
                     <td><a href="{% url 'multiratedrawdowntestanalysis:update_multirate_test_data' data.id %}" >Edit</a></td>
                     <td><a href="{% url 'multiratedrawdowntestanalysis:delete_multirate_test_data' data.id %}">Delete</a></td>
